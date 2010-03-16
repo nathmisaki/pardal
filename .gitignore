@@ -6,3 +6,4 @@ doc/**/*
 *~
 *.sw?
 db/schema.rb
+rerun.txt

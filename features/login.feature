@@ -1,4 +1,4 @@
-# language pt
+# language: pt
 Funcionalidade: Usuário deve poder se increver no site
 
   Cenario: Acessar tela de registro de usuário
