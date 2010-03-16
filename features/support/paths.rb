@@ -10,6 +10,8 @@ module NavigationHelpers
     
     when /the home\s?page/
       '/'
+    when /p(?:á|a)gina de ([^\s]+)/
+      send("#{$1}_path")
     
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
