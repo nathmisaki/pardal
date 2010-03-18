@@ -136,7 +136,7 @@ Então /^o checkbox "([^\"]*)" não deve estar marcado$/ do |label|
   Then %{the "#{label}" checkbox should not be checked}
 end
 
-Então /^(?:eu )?devo estar na (.+)$/ do |page_name|
+Então /^(?:eu )?dev(?:o|eria) estar na (.+)$/ do |page_name|
   Then %{I should be on #{page_name}}
 end
 
