@@ -28,15 +28,15 @@ Quando /^(?:eu )?clic(?:o|ar em) "([^\"]*)" dentro de "([^\"]*)"$/ do |link, par
   When %{I follow "#{link}" within "#{parent}"}
 end
 
-Quando /^(?:eu )?preencho "([^\"]*)" com "([^\"]*)"$/ do |field, value|
+Quando /^(?:eu )?preench(?:o|er) "([^\"]*)" com "([^\"]*)"$/ do |field, value|
   When %{I fill in "#{field}" with "#{value}"}
 end
 
-Quando /^(?:eu )?preencho "([^\"]*)" para "([^\"]*)"$/ do |value, field|
+Quando /^(?:eu )?preench(?:o|er) "([^\"]*)" para "([^\"]*)"$/ do |value, field|
   When %{I fill in "#{value}" for "#{field}"}
 end
 
-Quando /^(?:eu )?preencho o seguinte:$/ do |fields|
+Quando /^(?:eu )?preench(?:o|er) o seguinte:$/ do |fields|
   When %{I fill in the following:}, fields
 end
 
