@@ -12,6 +12,8 @@ module NavigationHelpers
       '/'
     when /p(?:á|a)gina de ([^\s]+)/
       send("#{$1}_path")
+    when /login/
+      new_usuario_session_path
     
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
