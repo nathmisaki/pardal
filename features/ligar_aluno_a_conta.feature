@@ -11,7 +11,7 @@ Funcionalidade: Ligar aluno a conta de usuário
        | identidade                 | 1111111111           |
        | nome_da_mae                | MARIA DA SILVA SAURO |
        | identidade_data_de_emissao | 2009-10-20           |
-    E que eu esteja na página de usuario_link_aluno
+    E que eu esteja na página de link_aluno_usuarios
     Quando eu preencher o seguinte:
       | Número de Matrícula           | 10100019   |
       | Identidade                    | 1111111111 |
