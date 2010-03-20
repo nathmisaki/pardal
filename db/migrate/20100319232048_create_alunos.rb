@@ -4,7 +4,7 @@ class CreateAlunos < ActiveRecord::Migration
       t.string     :matricula,                                    :limit => 10
       t.string     :nome,                                         :limit => 100
       t.string     :identidade,                                   :limit => 20
-      t.date       :identidade_data_emissao
+      t.date       :identidade_data_de_emissao
       t.string     :titulo_de_eleitor,                            :limit => 15
       t.string     :zona_eleitorar,                               :limit => 5
       t.date       :nascimento
