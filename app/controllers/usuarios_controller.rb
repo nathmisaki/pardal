@@ -1,5 +1,5 @@
-class UsuariosController < ApplicationController
-  before_filter :authenticate_usuario!
+class UsersController < ApplicationController
+  before_filter :authenticate_user!
 
   def link_aluno
   end

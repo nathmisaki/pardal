@@ -1,12 +1,6 @@
 require 'spec_helper'
 
-describe UsuariosController do
-
-  #Delete these examples and add some real ones
-  it "should use UsuariosController" do
-    controller.should be_an_instance_of(UsuariosController)
-  end
-
+describe UsersController do
 
   describe "GET 'link_aluno'" do
     it "should be successful" do
