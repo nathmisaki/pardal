@@ -1,4 +1,4 @@
-class CreateAlunos < ActiveRecord::Migration
+class CreateStudents < ActiveRecord::Migration
   def self.up
     create_table :students do |t|
       t.string     :registration,                :limit => 10

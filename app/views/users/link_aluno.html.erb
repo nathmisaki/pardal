@@ -1,3 +1,6 @@
-<% form_for current_user do |f| -%>
-  
+<% form_tag current_user do -%>
+<p>
+  <%= label_tag "user[link_students][registration]", "Numero de Matrícula" %>
+  <%= text_field_tag "user[link_students][registration]" %>
+</p>
 <% end -%>

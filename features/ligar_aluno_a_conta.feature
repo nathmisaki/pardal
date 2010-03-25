@@ -6,7 +6,7 @@ Funcionalidade: Ligar aluno a conta de usuário
 
   Cenário: Preencher dados corretos para linkagem do registro
     Dado que eu seja um usuário logado
-    E que eu tenha um registro de aluno com os campos:
+    E que eu tenha um registro de student com os campos:
        | matricula                  | H10100019            |
        | identidade                 | 1111111111           |
        | nome_da_mae                | MARIA DA SILVA SAURO |
