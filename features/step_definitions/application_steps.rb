@@ -3,7 +3,7 @@ Dado /^que eu não estou autenticado$/ do
 end
 
 Dado /^que eu tenha um usuário "([^\"]*)" com senha "([^\"]*)"$/ do |email, password|
-  Usuario.new(:email => email,
+  User.new(:email => email,
            :password => password,
            :password_confirmation => password).save!
 end
@@ -14,9 +14,9 @@ Dado /^que eu seja um usuário logado$/ do
 
   Dado %{que eu tenha um usuário "#{email}" com senha "#{password}"}
   E %{eu vou para login}
-  E %{eu preencho "usuario_email" com "#{email}"}
-  E %{eu preencho "usuario_password" com "#{password}"}
-  E %{eu aperto "usuario_submit"}
+  E %{eu preencho "user_email" com "#{email}"}
+  E %{eu preencho "user_password" com "#{password}"}
+  E %{eu aperto "user_submit"}
 end
 
 Dado /^que eu tenha um registro de ([^\s]+) com os campos:$/ do |modelo, table|

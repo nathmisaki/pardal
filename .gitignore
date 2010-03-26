@@ -8,3 +8,5 @@ doc/**/*
 db/schema.rb
 rerun.txt
 tags
+spec/fixtures
+public/stylesheets/compiled/*

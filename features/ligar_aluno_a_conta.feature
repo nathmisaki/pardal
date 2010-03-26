@@ -6,12 +6,12 @@ Funcionalidade: Ligar aluno a conta de usuário
 
   Cenário: Preencher dados corretos para linkagem do registro
     Dado que eu seja um usuário logado
-    E que eu tenha um registro de aluno com os campos:
-      | matricula          | H10100019            |
-      | identidade         | 1111111111           |
-      | nome_da_mae        | MARIA DA SILVA SAURO |
-      | identidade_emissao | 2009-10-20           |
-    E que eu esteja na página de usuario_link_aluno
+    E que eu tenha um registro de student com os campos:
+      | registration           | H10100019            | 
+      | identity               | 1111111111           | 
+      | mother_name            | MARIA DA SILVA SAURO | 
+      | identity_emission_date | 2009-10-20           | 
+    E que eu esteja na página de link_aluno_users
     Quando eu preencher o seguinte:
       | Número de Matrícula           | 10100019   |
       | Identidade                    | 1111111111 |

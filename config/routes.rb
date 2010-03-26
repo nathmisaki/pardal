@@ -1,5 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
-  map.devise_for :usuarios, :path_names => { :sign_in => 'login', :sign_out => 'logout' }
+  map.devise_for :users, :path_names => { :sign_in => 'login', :sign_out => 'logout' }
+
+  map.resources :users, :only => [:update], :collection => { :link_aluno => :get }
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
@@ -33,12 +35,6 @@ ActionController::Routing::Routes.draw do |map|
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   map.root :controller => "home"
+  map.connect "/v3", :controller => "home"
 
-  # See how all your routes lay out with "rake routes"
-
-  # Install the default routes as the lowest priority.
-  # Note: These default routes make all actions in every controller accessible via GET requests. You should
-  # consider removing or commenting them out if you're using named routes and resources.
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
 end
