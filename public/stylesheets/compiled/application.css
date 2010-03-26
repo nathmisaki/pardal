@@ -1,0 +1,77 @@
+/* line 3, ../../../app/stylesheets/application.sass */
+body {
+  background-color: #4b7399;
+  font-family: Verdana, Helvetica, Arial;
+  font-size: 14px; }
+
+/* line 9, ../../../app/stylesheets/application.sass */
+a {
+  color: #0000FF; }
+  /* line 11, ../../../app/stylesheets/application.sass */
+  a img {
+    border: none; }
+
+/* line 14, ../../../app/stylesheets/application.sass */
+.clear {
+  clear: both;
+  height: 0;
+  overflow: hidden; }
+
+/* line 19, ../../../app/stylesheets/application.sass */
+#container {
+  width: 75%;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px 40px;
+  border: solid 1px black;
+  margin-top: 20px; }
+
+/* line 27, ../../../app/stylesheets/application.sass */
+#flash_notice,
+#flash_error {
+  padding: 5px 8px;
+  margin: 10px 0; }
+
+/* line 32, ../../../app/stylesheets/application.sass */
+#flash_notice {
+  background-color: #CFC;
+  border: solid 1px #6C6; }
+
+/* line 36, ../../../app/stylesheets/application.sass */
+#flash_error {
+  background-color: #FCC;
+  border: solid 1px #C66; }
+
+/* line 40, ../../../app/stylesheets/application.sass */
+.fieldWithErrors {
+  display: inline; }
+
+/* line 43, ../../../app/stylesheets/application.sass */
+#errorExplanation {
+  width: 400px;
+  border: 2px solid #CF0000;
+  padding: 0;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0; }
+  /* line 50, ../../../app/stylesheets/application.sass */
+  #errorExplanation h2 {
+    text-align: left;
+    padding: 5px 5px 5px 15px;
+    margin: 0;
+    font-weight: bold;
+    font-size: 12px;
+    background-color: #c00;
+    color: #fff; }
+  /* line 59, ../../../app/stylesheets/application.sass */
+  #errorExplanation p {
+    color: #333;
+    margin-bottom: 0;
+    padding: 8px; }
+  /* line 63, ../../../app/stylesheets/application.sass */
+  #errorExplanation ul {
+    margin: 2px 24px; }
+    /* line 65, ../../../app/stylesheets/application.sass */
+    #errorExplanation ul li {
+      font-size: 12px;
+      list-style: disc; }
