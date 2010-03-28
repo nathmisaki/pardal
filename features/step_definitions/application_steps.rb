@@ -3,18 +3,19 @@ Dado /^que eu não estou autenticado$/ do
 end
 
 Dado /^que eu tenha um usuário "([^\"]*)" com senha "([^\"]*)"$/ do |email, password|
-  u = User.new(:email => email,
+  u = User.make(:email => email,
            :password => password,
            :password_confirmation => password)
-  u.confirm! if u.save!
+  u.save!
 end
 
 Dado /^que eu seja um usuário logado$/ do
-  email = 'testing@man.net'
   password = 'secretpass'
+  user = User.make(:password => password, :password_confirmation => password)
+  user.confirm!
+  email = user.email
 
-  Dado %{que eu tenha um usuário "#{email}" com senha "#{password}"}
-  E %{eu vou para login}
+  Dado %{que eu esteja na página de new_user_session}
   E %{eu preencho "user_email" com "#{email}"}
   E %{eu preencho "user_password" com "#{password}"}
   E %{eu aperto "user_submit"}
@@ -22,6 +23,6 @@ Dado /^que eu seja um usuário logado$/ do
 end
 
 Dado /^que eu tenha um registro de ([^\s]+) com os campos:$/ do |modelo, table|
-  eval(modelo.to_s.classify).new(table.rows_hash).save!
+  Object.const_get(modelo.to_s.classify).make(table.rows_hash)
 end
 

@@ -4,6 +4,7 @@ require 'faker'
 
 Sham.name  { Faker::Name.name }
 Sham.email { Faker::Internet.email }
+Sham.registration { }
 
 User.blueprint do
   email
@@ -12,7 +13,7 @@ User.blueprint do
 end
 
 Student.blueprint do
-  registration
+  registration ""
   name
   mother_name name
 end

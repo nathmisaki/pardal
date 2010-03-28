@@ -6,8 +6,6 @@ class Student < ActiveRecord::Base
     first :conditions => { :registration => registration_with_initial_letter(registration_or_number) }
   end
 
-  private
-
   def self.registration_with_initial_letter(registration_or_number)
     unless registration_or_number[0,1] =~ /[[:alpha:]]/
       letter = case registration_or_number[0,3].to_i
@@ -18,6 +16,18 @@ class Student < ActiveRecord::Base
       registration_or_number = letter + registration_or_number
     end
     registration_or_number
+  end
+
+  def self.registration_check_number(registration_number)
+    mult = (1..7).to_a.reverse
+    sum = registration_number.chars.to_a.inject(0) do |s,char|
+      s += char.to_i * mult.shift
+    end
+
+    digit = sum % 11
+    digit = 11 - digit if digit > 1
+
+    digit
   end
 
 end

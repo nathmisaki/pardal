@@ -11,15 +11,16 @@ Funcionalidade: Ligar aluno a conta de usuário
       | identity               | 1111111111           |
       | mother_name            | MARIA DA SILVA SAURO |
       | identity_emission_date | 2009-10-20           |
-    Quando eu vou para página de link_student_users
-    Então eu deveria estar na "/users/link_student"
-    Então eu deveria ver "Número de Matrícula"
+    Quando eu vou para página de current_user
+    Então eu deveria estar na "/me"
+    Quando eu clico "Atribuir Aluno a minha Conta"
+    Então eu deveria ver "Digite os dados para Adicionar a sua inscrição de aluno na sua conta"
     Quando eu preencher o seguinte:
       | Número de Matrícula           | 10100019   |
       | Identidade                    | 1111111111 |
       | Data de Emissão da Identidade | 20/10/2009 |
       | Iniciais do Nome da Mãe       | MSS        |
     E aperto "Atribuir Aluno a minha Conta"
-    Então eu deveria ver "Aluno atribuído com sucesso!"
-    E deveria estar na /painel
+    Então eu deveria ver "Aluno atribuído com sucesso"
+    E deveria estar na "/me"
     E deveria ver "Matrícula atribuída: H1010019"
