@@ -4,9 +4,7 @@
   - f.inputs :for => :link_student do |ls|
     = ls.input :registration, :label => "Número de Matrícula"
     = ls.input :identity, :label => "Identidade"
-    = ls.input(:identity_emission_date, |
-      :label => "Data de Emissão da Identidade", |
-      :as => :date, :start_year => (Time.now.year - 80), :end_year => Time.now.year) |
-    = ls.input :mothers_name_initials, :label => "Iniciais do Nome da Mãe"
+    = ls.input :identity_emission_date, :label => "Data de Emissão da Identidade", :hint => "dd/mm/yyyy"
+    = ls.input :mothers_name_initials, :label => "Iniciais do Nome da Mãe", :hint => "Ex.: Maria da Silva Gomes, digite MSG"
   - f.buttons do
     = f.commit_button "Atribuir Aluno a minha Conta"

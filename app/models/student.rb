@@ -1,4 +1,5 @@
 class Student < ActiveRecord::Base
+  acts_as_authorization_object
 
   validates_uniqueness_of :registration
 

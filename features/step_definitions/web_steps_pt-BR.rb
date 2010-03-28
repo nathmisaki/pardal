@@ -40,35 +40,35 @@ Quando /^(?:eu )?preench(?:o|er) o seguinte:$/ do |fields|
   When %{I fill in the following:}, fields
 end
 
-Quando /^(?:eu )?seleciono "([^\"]*)" de "([^\"]*)"$/ do |value, field|
+Quando /^(?:eu )?selecion(?:o|ar) "([^\"]*)" de "([^\"]*)"$/ do |value, field|
   When %{I select "#{value}" from "#{field}"}
 end
 
-Quando /^(?:eu )?seleciono "([^\"]*)" como a data e a hora$/ do |time|
+Quando /^(?:eu )?selecion(?:o|ar) "([^\"]*)" como a data e a hora$/ do |time|
   When %{I select "#{time}" as the date and time}
 end
 
-Quando /^(?:eu )?seleciono "([^\"]*)" como a data e a hora "([^\"]*)"$/ do |datetime, datetime_label|
+Quando /^(?:eu )?selecion(?:o|ar) "([^\"]*)" como a data e a hora "([^\"]*)"$/ do |datetime, datetime_label|
   When %{I select "#{datetime}" as the "#{datetime_label}" date and time}
 end
 
-Quando /^(?:eu )?seleciono "([^\"]*)" como a hora$/ do |time|
+Quando /^(?:eu )?selecion(?:o|ar) "([^\"]*)" como a hora$/ do |time|
   When %{I select "#{time}" as the time}
 end
 
-Quando /^(?:eu )?seleciono "([^\"]*)" como a hora "([^\"]*)"$/ do |time, time_label|
+Quando /^(?:eu )?selecion(?:o|ar) "([^\"]*)" como a hora "([^\"]*)"$/ do |time, time_label|
   When %{I select "#{time}" as the "#{time_label}" time}
 end
 
-Quando /^(?:eu )?seleciono "([^\"]*)" como a data$/ do |date|
+Quando /^(?:eu )?selecion(?:o|ar) "([^\"]*)" como a data$/ do |date|
   When %{I select "#{date}" as the date}
 end
 
-Quando /^(?:eu )?seleciono "([^\"]*)" como a data "([^\"]*)"$/ do |date, date_label|
+Quando /^(?:eu )?selecion(?:o|ar) "([^\"]*)" como a data "([^\"]*)"$/ do |date, date_label|
   When %{I select "#{date}" as the "#{date_label}" date}
 end
 
-Quando /^(?:eu )?seleciono "([^\"]*)" como "([^\"]*)"$/ do |date, date_label|
+Quando /^(?:eu )?selecion(?:o|ar) "([^\"]*)" como "([^\"]*)"$/ do |date, date_label|
   When %{I select "#{date}" as the "#{date_label}" date}
 end
 
