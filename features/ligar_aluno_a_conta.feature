@@ -9,7 +9,7 @@ Funcionalidade: Ligar aluno a conta de usuário
     E que eu tenha um registro de student com os campos:
       | registration           | H10100019            |
       | identity               | 1111111111           |
-      | mother_name            | MARIA DA SILVA SAURO |
+      | mothers_name           | MARIA DA SILVA SAURO |
       | identity_emission_date | 2009-10-20           |
     Quando eu vou para página de current_user
     Então eu deveria estar na "/me"

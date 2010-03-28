@@ -4,7 +4,8 @@ require 'faker'
 
 Sham.name  { Faker::Name.name }
 Sham.email { Faker::Internet.email }
-Sham.registration { }
+Sham.registration {
+}
 
 User.blueprint do
   email
@@ -13,7 +14,13 @@ User.blueprint do
 end
 
 Student.blueprint do
-  registration ""
+  registration {
+    Student.registration_with_initial_letter(
+      Student.registration_check_number(
+      "#{rand(99)}#{(rand(10) % 2) + 1}".rjust(3, '0') + rand(999).to_s.rjust(4, '0')
+      )
+    )
+  }
   name
-  mother_name name
+  mothers_name name
 end
