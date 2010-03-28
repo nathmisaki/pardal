@@ -15,7 +15,7 @@ require 'cucumber/web/tableish'
 require 'webrat'
 require 'webrat/core/matchers'
 
-require File.expand_path(File.dirname(__FILE__) + '/../../spec/spec_helper')
+#require File.expand_path(File.dirname(__FILE__) + '/../../spec/spec_helper')
 
 Webrat.configure do |config|
   config.mode = :rails

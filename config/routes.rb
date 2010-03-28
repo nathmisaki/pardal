@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.devise_for :users, :path_names => { :sign_in => 'login', :sign_out => 'logout' }
 
-  map.resources :users, :only => [:update], :collection => { :link_aluno => :get }
+  map.resources :users, :only => [:update], :collection => { :link_student => :get }
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

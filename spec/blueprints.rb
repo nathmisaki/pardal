@@ -10,3 +10,9 @@ User.blueprint do
   password "123456"
   password_confirmation "123456"
 end
+
+Student.blueprint do
+  registration
+  name
+  mother_name name
+end

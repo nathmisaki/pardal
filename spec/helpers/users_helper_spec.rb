@@ -1,4 +1,5 @@
 require 'spec_helper'
 
-describe HomeController do
+describe UsersHelper do
+
 end

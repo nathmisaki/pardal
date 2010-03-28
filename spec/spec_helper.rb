@@ -23,6 +23,15 @@ Spec::Runner.configure do |config|
   config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
   config.before(:all)     { Sham.reset(:before_all)   }
   config.before(:each)    { Sham.reset(:before_each)  }
+  config.before(:suite)   do
+    if defined?(ActiveRecord::Base)
+      begin
+        require 'database_cleaner'
+        DatabaseCleaner.strategy = :truncation
+      rescue LoadError => ignore_if_database_cleaner_not_present
+      end
+    end
+  end
 
   # == Fixtures
   #
@@ -55,4 +64,8 @@ Spec::Runner.configure do |config|
   # == Notes
   #
   # For more information take a look at Spec::Runner::Configuration and Spec::Runner
+end
+
+class ActionController::TestCase
+  include Devise::TestHelpers
 end
