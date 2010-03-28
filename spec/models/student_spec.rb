@@ -65,8 +65,31 @@ describe Student do
       @student = Student.make(:mothers_name => "Maria Da Silva Sauro Sant'Anna")
     end
 
+    it 'should return true for MDSSSA' do
+      @student.valid_mothers_name_initials?('MDSSSA').should be_true
+    end
+
+    it 'should return true for MSSSA' do
+      @student.valid_mothers_name_initials?('MSSSA').should be_true
+    end
+
+    it 'should return true for MDSSS' do
+      @student.valid_mothers_name_initials?('MDSSS').should be_true
+    end
+
     it 'should return true for MSSS' do
-      student.valid_mothers_name_initials?('MSSS').should be_true
+      @student.valid_mothers_name_initials?('MSSS').should be_true
+    end
+
+  end
+
+  context "mother_name_initials" do
+    before(:all) do
+      @student = Student.make(:mothers_name => "Maria Da Silva Sauro Sant'Anna")
+    end
+
+    it 'should return [MDSSSA, MDSSS, MSSS, MSSSA]' do
+      @student.mothers_name_initials.should == ['MDSSS', 'MDSSSA', 'MSSS', 'MSSSA']
     end
 
   end

@@ -31,7 +31,20 @@ class Student < ActiveRecord::Base
   end
 
   def valid_mothers_name_initials?(initials)
-    
+    initials.strip!
+    initials.upcase!
+    mothers_name_initials.include?(initials)
+  end
+
+  def mothers_name_initials
+    prepos_reg = /^e|d(o|a|e)s?$/i
+    names = mothers_name.upcase
+    [
+      (names.split(/[\s']+/).map { |n| n[0,1] }.join ),
+      (names.split(/[\s']+/).map { |n| n[0,1] unless n =~ prepos_reg }.compact.join),
+      (names.split(/[\s]+/).map { |n| n[0,1] }.join),
+      (names.split(/[\s]+/).map { |n| n[0,1] unless n=~ prepos_reg }.compact.join)
+    ].sort
   end
 
 end
