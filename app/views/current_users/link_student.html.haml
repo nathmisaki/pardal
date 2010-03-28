@@ -1,5 +1,6 @@
 %p{ :style => "margin-bottom:2em" } Digite os dados para Adicionar a sua inscrição de aluno na sua conta
 - semantic_form_for @user, :url => '/me', :method => :put do |f|
+  = f.error_messages
   - f.inputs :for => :link_student do |ls|
     = ls.input :registration, :label => "Número de Matrícula"
     = ls.input :identity, :label => "Identidade"

@@ -104,10 +104,11 @@ pt:
   # Active Record
   activerecord:
     models:
-      usuario: "Usuário"
+      user: "Usuário"
 
     attributes:
-      usuario:
+      user:
+        link_student: "Ligar Aluno:"
         password: "Senha"
         password_confirmation: "Confirmação de Senha"
     errors:

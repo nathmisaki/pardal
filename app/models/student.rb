@@ -30,4 +30,8 @@ class Student < ActiveRecord::Base
     digit
   end
 
+  def valid_mothers_name_initials?(initials)
+    
+  end
+
 end

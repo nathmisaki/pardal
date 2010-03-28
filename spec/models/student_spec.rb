@@ -60,4 +60,14 @@ describe Student do
     end
   end
 
+  context "valid mothers name initials" do
+    before(:all) do
+      @student = Student.make(:mothers_name => "Maria Da Silva Sauro Sant'Anna")
+    end
+
+    it 'should return true for MSSS' do
+      student.valid_mothers_name_initials?('MSSS').should be_true
+    end
+
+  end
 end
