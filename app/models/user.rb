@@ -52,6 +52,7 @@ class User < ActiveRecord::Base
   def new_link_student
     if @link_student
       self.has_role!(:owner, @link_student)
+      self.has_role!(:student, @link_student)
     end
   end
 

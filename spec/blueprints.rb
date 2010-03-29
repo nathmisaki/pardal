@@ -4,7 +4,19 @@ require 'faker'
 
 Sham.name  { Faker::Name.name }
 Sham.email { Faker::Internet.email }
-Sham.registration {
+Sham.rg { rand(999999999).to_s.ljust(9, rand(9).to_s) }
+Sham.date {
+  year = rand(99)
+  year = year >= 60 ? 1900+year : 2000+year
+  month = rand(12)
+  month += 1 if month == 0
+  day = rand(28)
+  day += 1 if day == 0
+  begin
+  Date.new(year, month, day)
+  rescue ArgumentError
+    raise ArgumentError, "#{year}-#{month}-#{day}"
+  end
 }
 
 User.blueprint do
@@ -20,5 +32,7 @@ Student.blueprint do
     Student.registration_with_initial_letter(number)
   }
   name
-  mothers_name name
+  identity { Sham.rg }
+  identity_emission_date Sham.date
+  mothers_name Sham.name
 end
