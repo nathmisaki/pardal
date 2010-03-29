@@ -3,7 +3,7 @@ require 'sham'
 require 'faker'
 
 Sham.name  { Faker::Name.name }
-Sham.email { Faker::Internet.email }
+Sham.email{ Faker::Internet.email }
 Sham.rg { rand(999999999).to_s.ljust(9, rand(9).to_s) }
 Sham.date {
   year = rand(99)

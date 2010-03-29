@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
 
         begin
           errors.add(:link_student, "Data de Emissão da Identidade não confere") unless \
-            student.identity_emission_date == Date.new(*@link_student['identity_emission_date'].split('/').reverse.map(&:to_i))
+            student.identity_emission_date == Date.new(*@link_student[:identity_emission_date].split('/').reverse.map(&:to_i))
         rescue ArgumentError
           errors.add(:link_student, "Data de Emissão da Identidade inválida")
         end

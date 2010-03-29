@@ -118,7 +118,7 @@ pt:
           other: "Não pôde ser salvo: {{count}} erros."
         body: "Por favor, cheque os seguintes campos:"
       messages:
-        record_invalid: "registro inválido"
+        record_invalid: "registro inválido: {{errors}}"
         inclusion: "não está incluso na lista"
         exclusion: "não está disponível"
         invalid: "não é válido"

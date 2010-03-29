@@ -28,6 +28,7 @@ Spec::Runner.configure do |config|
       begin
         require 'database_cleaner'
         DatabaseCleaner.strategy = :truncation
+        DatabaseCleaner.clean
       rescue LoadError => ignore_if_database_cleaner_not_present
       end
     end
