@@ -1,3 +1,4 @@
 %h1 Olá #{ @user.email }
 %ul
+  = students_owned(@user)
   %li= link_to "Atribuir Aluno a minha Conta", link_student_current_user_path
