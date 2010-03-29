@@ -19,7 +19,9 @@ class Student < ActiveRecord::Base
     registration_or_number
   end
 
-  def self.registration_check_number(registration_number)
+  # Receive registration number without the letter and returns 
+  # the verification digit
+  def self.registration_verification_digit(registration_number)
     mult = (1..7).to_a.reverse
     sum = registration_number.chars.to_a.inject(0) do |s,char|
       s += char.to_i * mult.shift

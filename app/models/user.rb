@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   devise :authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable, :validatable
+  acts_as_authorization_subject
+
   attr_accessor :link_student
 
   after_save :new_link_student

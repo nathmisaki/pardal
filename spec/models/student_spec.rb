@@ -46,17 +46,17 @@ describe Student do
     end
   end
 
-  context 'registration_check_number' do
+  context 'registration_verification_digit' do
     it 'should 5 for 062680' do
-      Student.registration_check_number('062680').should == 5
+      Student.registration_verification_digit('062680').should == 5
     end
 
     it 'should 8 for 071658' do
-      Student.registration_check_number('071658').should == 8
+      Student.registration_verification_digit('071658').should == 8
     end
 
     it 'should 2 for 1010989' do
-      Student.registration_check_number('1010989').should == 2
+      Student.registration_verification_digit('1010989').should == 2
     end
   end
 
