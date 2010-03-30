@@ -101,7 +101,7 @@ pt:
       sentence_connector: "e"
       skip_last_comma: true
 
-  # Active Record
+  # Active Record 
   activerecord:
     models:
       user: "Usuário"
@@ -111,6 +111,7 @@ pt:
         link_student: "Ligar Aluno:"
         password: "Senha"
         password_confirmation: "Confirmação de Senha"
+        remember_me: "Continuar Logado ao fechar"
     errors:
       template:
         header:

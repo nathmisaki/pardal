@@ -1,0 +1,12 @@
+%h2 Re-enviar Instruções de Confirmação
+
+- semantic_form_for resource_name, resource, :url => confirmation_path(resource_name) do |f|
+  = f.error_messages
+
+  - f.inputs do
+    = f.input :email
+
+  - f.buttons do
+    = f.commit_button "Re-enviar Instruções de Confirmação"
+
+= render :partial => "shared/devise_links"
