@@ -1,3 +1,4 @@
+# encoding: utf-8
 class User < ActiveRecord::Base
   devise :authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable, :validatable
   acts_as_authorization_subject
