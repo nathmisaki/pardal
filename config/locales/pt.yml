@@ -120,6 +120,7 @@ pt:
         body: "Por favor, cheque os seguintes campos:"
       messages:
         record_invalid: "registro inválido: {{errors}}"
+        not_find: "não encontrado"
         inclusion: "não está incluso na lista"
         exclusion: "não está disponível"
         invalid: "não é válido"

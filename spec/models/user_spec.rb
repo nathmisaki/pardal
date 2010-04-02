@@ -24,14 +24,14 @@ describe User do
     it 'should have errors when no registration is provided' do
       @user.link_student = @link_student.merge(:registration => '')
 
-      @user.save.should be_false
-      @user.errors.size.should > 0
+      @user.valid?
+      @user.errors.on(:link_student_registration).should include(I18n.t(:invalid, :scope => 'activerecord.errors.messages'))
     end
 
     it 'should have errors when registration is not find' do
       @user.link_student = @link_student.merge(:registration => 'G0000000')
 
-      @user.save.should be_false
+      @user.valid?
       @user.errors.size.should > 0
     end
   end

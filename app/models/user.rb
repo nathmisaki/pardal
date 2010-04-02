@@ -24,24 +24,24 @@ class User < ActiveRecord::Base
   def validate_link_student
     student = Student.find_by_registration(@link_student[:registration])
     unless student.nil?
-      if student.accepted_roles.all(:conditions => { :name => :onwer }).empty?
-        errors.add(:link_student, "Identidade não confere") unless \
-          student.identity.gsub(/\D/,'') == @link_student[:identity].gsub(/\D/,'')
+      #if student.accepted_roles.all(:conditions => { :name => :onwer }).empty?
+        #errors.add(:link_student, "Identidade não confere") unless \
+          #student.identity.gsub(/\D/,'') == @link_student[:identity].gsub(/\D/,'')
 
-        begin
-          errors.add(:link_student, "Data de Emissão da Identidade não confere") unless \
-            student.identity_emission_date == Date.new(*@link_student[:identity_emission_date].split('/').reverse.map(&:to_i))
-        rescue ArgumentError
-          errors.add(:link_student, "Data de Emissão da Identidade inválida")
-        end
+        #begin
+          #errors.add(:link_student, "Data de Emissão da Identidade não confere") unless \
+            #student.identity_emission_date == Date.new(*@link_student[:identity_emission_date].split('/').reverse.map(&:to_i))
+        #rescue ArgumentError
+          #errors.add(:link_student, "Data de Emissão da Identidade inválida")
+        #end
 
-        errors.add(:link_student, "Iniciais do Nome da Mãe não conferem") unless \
-          student.valid_mothers_name_initials?(@link_student[:mothers_name_initials])
-      else
-        errors.add(:link_student, "Aluno já está atribuído a um usuário")
-      end
+        #errors.add(:link_student, "Iniciais do Nome da Mãe não conferem") unless \
+          #student.valid_mothers_name_initials?(@link_student[:mothers_name_initials])
+      #else
+        #errors.add(:link_student, "Aluno já está atribuído a um usuário")
+      #end
     else
-      errors.add(:link_student, "Aluno não encontrado")
+      errors.add(:link_student_registration, :not_find)
     end
 
 
