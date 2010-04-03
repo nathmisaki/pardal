@@ -11,3 +11,5 @@ rerun.txt
 tags
 spec/fixtures
 public/stylesheets/compiled/*
+.fuzzyignore
+.rvmrc
