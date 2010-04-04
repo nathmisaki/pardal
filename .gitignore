@@ -13,3 +13,4 @@ spec/fixtures
 public/stylesheets/compiled/*
 .fuzzyignore
 .rvmrc
+*.sass-cache*
