@@ -11,12 +11,17 @@
     /[if lt IE 8]
       = stylesheet_link_tag 'compiled/ie.css', :media => 'screen, projection'
     = stylesheet_link_tag 'formtastic', 'formtastic_changes'
+    = stylesheet_link_tag 'layout_san'
     = yield(:head)
 
   %body
     #container
       #head
-        %h1#title FATEC-SP - Faculdade de Tecnologia de São Paulo
+        #back_top
+        #back_logo
+        #content_top
+          #text_top
+            %h1#title FATEC-SP - Faculdade de Tecnologia de São Paulo
 
       #middle
         #content

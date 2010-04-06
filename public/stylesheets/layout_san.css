@@ -26,6 +26,13 @@ body {
 #content_top {
   background:url(../images/layout_san/fundo_meio_flat.png) center repeat-y;
 }
+#content_top #text_top {
+  display: none;
+}
+#content_top h1 {
+  font-size: 20px;
+  font-weight: bold;
+}
 
 #text_top {
   width:820px;

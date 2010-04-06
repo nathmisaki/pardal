@@ -1,4 +1,4 @@
 %p Olá #{ @user.email } - #{ link_to "Sair", destroy_user_session_path }
-%ul
+%ul#current_user_menu
   %li= link_to "Atribuir Aluno a minha Conta", link_student_current_user_path
   = students_owned(@user)
