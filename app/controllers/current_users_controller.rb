@@ -1,6 +1,8 @@
 # encoding: utf-8
 class CurrentUsersController < ApplicationController
 
+  before_filter :authenticate_user!
+
   before_filter :find_current_user
 
   def show
