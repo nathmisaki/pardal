@@ -1,7 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
   map.devise_for :users, :path_names => { :sign_in => 'login', :sign_out => 'logout' }
 
+  map.user_root "/me", :controller => :current_users, :action => :show
+
   map.resource :current_user, :only => [:show, :edit, :update], :as => "me", :member => { :link_student => :get }
+
 
   map.resources :users, :only => [:update], :collection => { :link_student => :get }
   # The priority is based upon order of creation: first created -> highest priority.
