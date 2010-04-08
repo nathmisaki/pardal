@@ -23,7 +23,7 @@ class CurrentUsersController < ApplicationController
       end
       redirect_to :action => :show
     else
-      unless params[:user][:link_student].nil?
+      unless @user.link_student.blank?
         render :action => :link_student
       else
         render :action => :edit

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe User do
 
   context "linking student" do
-    before(:all) do
+    before(:each) do
       @user = User.make :email => "teste@teste.com"
       @user.confirm!
       @student = Student.make(:mothers_name => "Gloria Maria Fantasico")
@@ -21,18 +21,57 @@ describe User do
       @user.has_role?(:student, @student).should be_true
     end
 
-    it 'should have errors when no registration is provided' do
+    it 'should have invalid error on :link_student_registration when no registration is provided' do
       @user.link_student = @link_student.merge(:registration => '')
 
       @user.valid?
       @user.errors.on(:link_student_registration).should include(I18n.t(:invalid, :scope => 'activerecord.errors.messages'))
     end
 
-    it 'should have errors when registration is not find' do
+    it 'should have not_find error on :link_student_registration when no registration is find' do
       @user.link_student = @link_student.merge(:registration => 'G0000000')
 
       @user.valid?
-      @user.errors.size.should > 0
+      @user.errors.on(:link_student_registration).should include(I18n.t(:not_find, :scope => 'activerecord.errors.messages'))
+    end
+
+    it 'should have taken error on :link_student_registration when student already has an owner' do
+      user2 = User.make :email => "teste2@teste.com"
+      user2.confirm!
+      user2.link_student = @link_student
+      user2.save
+
+      @user.link_student = @link_student
+      @user.valid?
+      @user.errors.on(:link_student_registration).should include(I18n.t(:taken, :scope => 'activerecord.errors.messages'))
+    end
+
+    it 'should have not_match error on :link_student_identity when identity is wrong' do
+      @user.link_student = @link_student.merge(:identity => "0X000000X")
+
+      @user.valid?
+      @user.errors.on(:link_student_identity).should include(I18n.t(:not_match, :scope => 'activerecord.errors.messages'))
+    end
+
+    it 'should have not_match error on :link_student_identity_emission_date when it is wrong' do
+      @user.link_student = @link_student.merge(:identity_emission_date => "01/01/2001")
+
+      @user.valid?
+      @user.errors.on(:link_student_identity_emission_date).should include(I18n.t(:not_match, :scope => 'activerecord.errors.messages'))
+    end
+
+    it 'should have invalid error on :link_student_identity_emission_date when it not exist' do
+      @user.link_student = @link_student.merge(:identity_emission_date => "30/02/2001")
+
+      @user.valid?
+      @user.errors.on(:link_student_identity_emission_date).should include(I18n.t(:invalid, :scope => 'activerecord.errors.messages'))
+    end
+
+    it 'should have not_match error on :link_student_mothers_name_initials when is wrong' do
+      @user.link_student = @link_student.merge(:mothers_name_initials => "AAAYOUWIN")
+
+      @user.valid?
+      @user.errors.on(:link_student_mothers_name_initials).should include(I18n.t(:not_match, :scope => 'activerecord.errors.messages'))
     end
   end
 end
