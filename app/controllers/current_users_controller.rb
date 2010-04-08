@@ -16,7 +16,7 @@ class CurrentUsersController < ApplicationController
 
   def update
     if @user.update_attributes(params[:user])
-      unless params[:user][:link_student].nil?
+      unless @user.link_student.blank?
         flash[:notice] = "Aluno atribuído com sucesso"
       else
         flash[:notice] = "Usuário atualizado com sucesso"

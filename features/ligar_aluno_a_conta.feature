@@ -21,6 +21,7 @@ Funcionalidade: Ligar aluno a conta de usuário
       | Data de Emissão da Identidade | 20/10/2009 |
       | Iniciais do Nome da Mãe       | MSS        |
     E aperto "Atribuir Aluno a minha Conta"
+    Então mostre-me a página
     Então eu deveria ver "Aluno atribuído com sucesso"
     E deveria estar na "/me"
     E deveria ver "H10100019"
