@@ -104,35 +104,35 @@ Então /^(?:eu )?dev(?:o|eria) ver \/([^\/]*)\/ dentro de "([^\"]*)"$/ do |regex
   Then %{I should see /#{regexp}/ within "#{selector}"}
 end
 
-Então /^(?:eu )?não devo ver "([^\"]*)"$/ do |text|
+Então /^(?:eu )?não dev(?:o|eria) ver "([^\"]*)"$/ do |text|
   Then %{I should not see "#{text}"}
 end
 
-Então /^(?:eu )?não devo ver "([^\"]*)" dentro de "([^\"]*)"$/ do |text, selector|
+Então /^(?:eu )?não dev(?:o|eria) ver "([^\"]*)" dentro de "([^\"]*)"$/ do |text, selector|
   Then %{I should not see "#{text}" within "#{selector}"}
 end
 
-Então /^(?:eu )?não devo ver \/([^\/]*)\/$/ do |regexp|
+Então /^(?:eu )?não dev(?:o|eria) ver \/([^\/]*)\/$/ do |regexp|
   Then %{I should not see /#{regexp}/}
 end
 
-Então /^(?:eu )?não devo ver \/([^\/]*)\/ dentro de "([^\"]*)"$/ do |regexp, selector|
+Então /^(?:eu )?não dev(?:o|eria) ver \/([^\/]*)\/ dentro de "([^\"]*)"$/ do |regexp, selector|
   Then %{I should not see /#{regexp}/ within "#{selector}"}
 end
 
-Então /^o campo "([^\"]*)" deve conter "([^\"]*)"$/ do |field, value|
+Então /^o campo "([^\"]*)" dev(?:e|eria) conter "([^\"]*)"$/ do |field, value|
   Then %{the "#{field}" field should contain "#{value}"}
 end
 
-Então /^o campo "([^\"]*)" não deve conter "([^\"]*)"$/ do |field, value|
+Então /^o campo "([^\"]*)" não dev(?:e|eria) conter "([^\"]*)"$/ do |field, value|
   Then %{the "#{field}" field should not contain "#{value}"}
 end
 
-Então /^o checkbox "([^\"]*)" deve estar marcado$/ do |label|
+Então /^o checkbox "([^\"]*)" dev(?:e|eria) estar marcado$/ do |label|
   Then %{the "#{label}" checkbox should be checked}
 end
 
-Então /^o checkbox "([^\"]*)" não deve estar marcado$/ do |label|
+Então /^o checkbox "([^\"]*)" não dev(?:e|eria) estar marcado$/ do |label|
   Then %{the "#{label}" checkbox should not be checked}
 end
 
@@ -142,4 +142,8 @@ end
 
 Então /^mostre-me a página$/ do
   Then %{show me the page}
+end
+
+Então /^eu dev(?:e|eria) ver uma tabela com:$/ do |table|
+  table.diff!(tableish('table tr', 'td,th'))
 end

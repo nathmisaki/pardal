@@ -6,19 +6,19 @@ Funcionalidade: Visualizar Historico Escolar
   E constatar a quantidade de disciplinas cursadas.
 
   Cenário: Mostrar todas as Disciplinas Matriculadas
-    Dado que eu seja um usuário logado que tenha um aluno com as disciplinas:
-       | course_id | grade |
-       | 1         | B     |
-       | 2         | B     |
-       | 3         | B     |
-       | 4         | B     |
-       | 5         | A     |
-       | 6         | F     |
-       | 7         | A     |
-       | 8         | F     |
-       | 9         | F     |
-       | 10        | C     |
-       | 11        | C     |
+    Dado que eu seja um usuário logado que tenha um aluno com o histórico:
+       | discipline_id | discipline_name                                                 | grade | semester | school_semester |
+       | 1244          | INTRODUCAO A LOGICA                                             | B     | 20062    | 1               |
+       | 1242          | MATEMATICA I                                                    | F     | 20062    | 1               |
+       | 6262          | LINGUAGEM E TECNICA DE PROGRAMACAO I                            | B     | 20062    | 1               |
+       | 6270          | MICROINFORMATICA                                                | A     | 20062    | 1               |
+       | 6361          | SISTEMAS DE COMPUTACAO                                          | A     | 20062    | 1               |
+       | 6882          | LINGUAGEM E TECNICAS DE PROGRAMAÇÃO ORIENTADAS A OBJETOS(OPTAT) | F     | 20071    | 2               |
+       | 1171          | HUMANIDADES                                                     | A     | 20071    | 2               |
+       | 1260          | MATEMATICA II                                                   | F     | 20071    | 2               |
+       | 1619          | INGLES PARA INFORMATICA                                         | F     | 20071    | 2               |
+       | 6378          | SISTEMAS OPERACIONAIS I                                         | C     | 20071    | 2               |
+       | 1260          | MATEMATICA II                                                   | C     | 20072    | 2               |
      E que eu esteja em "/me"
      Quando eu clicar em "Historico Escolar"
      Então eu deveria ver uma tabela com:
