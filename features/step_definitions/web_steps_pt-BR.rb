@@ -84,7 +84,7 @@ Quando /^(?:eu )?escolho "([^\"]*)"$/ do |field|
   When %{I choose "#{field}"}
 end
 
-Quando /^(?:eu )?anexo o arquivo em "([^\"]*)" a "([^\"]*)"$/ do |path, field|
+Quando /^(?:eu )?(?:anex|envi)(?:o|ar) o arquivo (:?|em )"([^\"]*)" (?:em|a) "([^\"]*)"$/ do |path, field|
   When %{I attach the file "#{path}" to "#{field}"}
 end
 
@@ -136,7 +136,7 @@ Então /^o checkbox "([^\"]*)" não dev(?:e|eria) estar marcado$/ do |label|
   Then %{the "#{label}" checkbox should not be checked}
 end
 
-Então /^(?:eu )?dev(?:o|eria) estar na (.+)$/ do |page_name|
+Então /^(?:eu )?dev(?:o|eria) estar (?:em|na) (.+)$/ do |page_name|
   Then %{I should be on #{page_name}}
 end
 
