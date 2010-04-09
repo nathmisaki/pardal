@@ -3,6 +3,7 @@ require 'sham'
 require 'faker'
 
 Sham.name  { Faker::Name.name }
+Sham.object_name { Faker::Lorem.sentence.gsub(/[\.-]/, '') }
 Sham.email{ Faker::Internet.email }
 Sham.rg { rand(999999999).to_s.ljust(9, rand(9).to_s) }
 Sham.date {
@@ -35,4 +36,12 @@ Student.blueprint do
   identity { Sham.rg }
   identity_emission_date Sham.date
   mothers_name Sham.name
+end
+
+Discipline.blueprint do
+  code { rand(9999) }
+  name { Sham.object_name }
+  department { Department.make }
+  acronym { name.split(' ').map { |word| word[0].chr.upcase }.join }
+  credit_hours { rand(180) }
 end
