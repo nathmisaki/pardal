@@ -45,3 +45,7 @@ Discipline.blueprint do
   acronym { name.split(' ').map { |word| word[0].chr.upcase }.join }
   credit_hours { rand(180) }
 end
+
+Department.blueprint do
+  name { Sham.object_name }
+end
