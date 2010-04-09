@@ -7,5 +7,5 @@
     = link_to "Anexar arquivos", new_user_attachment_path(current_user)
     %ul
       - current_user.attachments.each do |attach|
-        = content_tag :li, link_to(attach.file_name, [current_user,attach])
+        %li= link_to(attach.file_name, [current_user,attach])
 
