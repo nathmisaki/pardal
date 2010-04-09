@@ -1,5 +1,6 @@
 Autotest.add_hook :initialize do |at|
   # Ignore files in tmp/
     at.add_exception %r%^\./tmp%
+    at.add_exception %r%^\./\.*%
     at.add_exception %r%^\./rerun\.txt%
 end
