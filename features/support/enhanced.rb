@@ -1,6 +1,5 @@
 Webrat.configure do |config|
   config.mode = :selenium
-  config.open_error_files = false # Set to true if you want error pages to pop up in the browser
   # Selenium defaults to using the selenium environment. Use the following to override this.
   # config.application_environment = :cucumber
 end

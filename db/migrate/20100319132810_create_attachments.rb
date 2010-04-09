@@ -6,7 +6,7 @@ class CreateAttachments < ActiveRecord::Migration
       t.string :file_name, :limit => 100
       t.string :content_type, :limit => 50
       t.integer :file_size
-      t.binary :data
+      t.binary :data, :limit => 1024
 
       t.timestamps
     end

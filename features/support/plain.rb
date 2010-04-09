@@ -1,6 +1,6 @@
 Webrat.configure do |config|
   config.mode = :rails
-  config.open_error_files = false # Set to true if you want error pages to pop up in the browser
+  config.open_error_files = true # Set to true if you want error pages to pop up in the browser
 end
 
 # If you set this to false, any error raised from within your app will bubble

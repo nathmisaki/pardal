@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.user_root '/me', :controller => :current_users, :action => :show, :conditions => { :method => :get }
   map.resource :current_user, :only => [:show, :edit, :update], :as => "me", :member => { :link_student => :get }
 
-  map.resources :user, :only => :show do |user|
+  map.resources :users, :only => :show do |user|
     user.resources :attachments
   end
 
