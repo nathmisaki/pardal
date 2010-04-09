@@ -45,3 +45,9 @@ Dado /^que eu seja um usuário logado que tenha um aluno com o histórico:$/ do 
   end
 
 end
+
+Então /^eu deveria ter um arquivo "([^\"]*)" no modelo Attachment e ele deveria pertencer ao usuário logado$/ do |file_name|
+  attach = Attachment.find_all_by_file_name(file_name).last
+  attach.should_not be_blank
+  attach.attachable.should == User.last
+end

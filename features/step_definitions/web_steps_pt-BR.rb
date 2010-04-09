@@ -16,7 +16,7 @@ Quando /^(?:eu )?vou para (.+)$/ do |page_name|
   When %{I go to #{page_name}}
 end
 
-Quando /^(?:eu )?aperto "([^\"]*)"$/ do |button|
+Quando /^(?:eu )?apert(?:o|ar em) "([^\"]*)"$/ do |button|
   When %{I press "#{button}"}
 end
 
@@ -84,7 +84,7 @@ Quando /^(?:eu )?escolho "([^\"]*)"$/ do |field|
   When %{I choose "#{field}"}
 end
 
-Quando /^(?:eu )?(?:anex|envi)(?:o|ar) o arquivo (:?|em )"([^\"]*)" (?:em|a) "([^\"]*)"$/ do |path, field|
+Quando /^(?:eu )?(?:anex|envi)(?:o|ar) o arquivo (?:|em )"([^\"]*)" (?:em|a) "([^\"]*)"$/ do |path, field|
   When %{I attach the file "#{path}" to "#{field}"}
 end
 

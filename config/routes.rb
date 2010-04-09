@@ -4,6 +4,10 @@ ActionController::Routing::Routes.draw do |map|
   map.user_root '/me', :controller => :current_users, :action => :show, :conditions => { :method => :get }
   map.resource :current_user, :only => [:show, :edit, :update], :as => "me", :member => { :link_student => :get }
 
+  map.resources :user, :only => :show do |user|
+    user.resources :attachments
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

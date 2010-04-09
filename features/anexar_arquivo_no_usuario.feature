@@ -8,7 +8,8 @@ Funcionalidade: Anexar arquivo no usuário
     Dado que eu seja um usuário logado
     E que eu esteja em "/me"
     Quando eu clicar em "Anexar Arquivo"
-    E enviar o arquivo "public/images/rails.png" em "user_attachment_upload_file"
-    E clicar em "Enviar Anexo"
+    E enviar o arquivo "public/images/rails.png" em "attachment_uploaded_file"
+    E apertar em "Enviar Anexo"
+    Então eu deveria ter um arquivo "rails.png" no modelo Attachment e ele deveria pertencer ao usuário logado
     Então eu deveria estar em "/me"
     E deveria ver "rails.png"

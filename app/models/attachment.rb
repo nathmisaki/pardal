@@ -1,8 +1,10 @@
 class Attachment < ActiveRecord::Base
   belongs_to :attachable, :polymorphic => true
 
+  attr_accessor :uploaded_file
+
   def uploaded_file=(incoming_file)
-    self.filename = incoming_file.original_filename
+    self.file_name = incoming_file.original_filename
     self.content_type = incoming_file.content_type
     self.data = incoming_file.read
   end
