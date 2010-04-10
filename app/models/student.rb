@@ -1,6 +1,7 @@
 class Student < ActiveRecord::Base
   acts_as_authorization_object
   has_many :attachment, :as => :attachable
+  belongs_to :curriculum
 
   validates_uniqueness_of :registration
 

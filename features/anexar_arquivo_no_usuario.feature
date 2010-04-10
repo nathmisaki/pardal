@@ -10,6 +10,5 @@ Funcionalidade: Anexar arquivo no usuário
     Quando eu clicar em "Anexar Arquivo"
     E enviar o arquivo "public/images/rails.png" em "attachment_uploaded_file"
     E apertar em "Enviar Anexo"
-    Então mostre-me a página
     E deveria estar em "/me"
     E deveria ver "rails.png"
