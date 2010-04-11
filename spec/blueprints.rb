@@ -71,3 +71,14 @@ end
 Period.blueprint do
   name { ['MANHÃ', 'TARDE', 'NOITE', 'INTEGRAL'].shuffle.shift }
 end
+
+Implementation.blueprint do
+  curriculum { Curriculum.make }
+  discipline { Disciplina.make }
+  discipline_type { DisciplineType.make }
+  school_semester { (1..6).to_a.shuffle.shift }
+end
+
+DisciplineType.blueprint do
+  name { ['OBRIGATÓRIA', 'OPTATIVA', 'COMPLEMENTAR', 'SUPLEMENTAR', 'ELETIVA'].shuffle.shift }
+end
