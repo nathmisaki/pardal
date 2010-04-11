@@ -1,4 +1,4 @@
 require 'spec_helper'
 
-describe SchoolArea do
+describe Period do
 end
