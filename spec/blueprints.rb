@@ -36,6 +36,7 @@ Student.blueprint do
   identity { Sham.rg }
   identity_emission_date Sham.date
   mothers_name Sham.name
+  curriculum { Curriculum.make }
 end
 
 Discipline.blueprint do
@@ -48,4 +49,17 @@ end
 
 Department.blueprint do
   name { Sham.object_name }
+end
+
+Curriculum.blueprint do
+  school { School.make }
+  period { Period.make }
+  curriculum_type { [1,2].shuffle.shift }
+  implementation_semester { (1970..2010).to_a.shuffle.shift }
+end
+
+School.blueprint do
+  name { Sham.object_name }
+  acronym { name.split(' ').map { |word| word[0].chr.upcase }.join }
+  school_area { SchoolArea.make }
 end
