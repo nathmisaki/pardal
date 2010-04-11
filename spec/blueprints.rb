@@ -63,3 +63,7 @@ School.blueprint do
   acronym { name.split(' ').map { |word| word[0].chr.upcase }.join }
   school_area { SchoolArea.make }
 end
+
+SchoolArea.blueprint do
+  name { Sham.object_name }
+end
