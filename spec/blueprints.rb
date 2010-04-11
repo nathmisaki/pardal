@@ -67,3 +67,7 @@ end
 SchoolArea.blueprint do
   name { Sham.object_name }
 end
+
+Period.blueprint do
+  name { ['MANHÃ', 'TARDE', 'NOITE', 'INTEGRAL'].shuffle.shift }
+end
