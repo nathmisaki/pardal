@@ -84,7 +84,6 @@ DisciplineType.blueprint do
 end
 
 CourseSchool.blueprint do
-  course { Course.make }
   period { Period.make }
   code { (1..300).to_a.shuffle.shift }
   symbol { (65..90).to_a.map(&:chr).shuffle.shift }
