@@ -6,6 +6,8 @@ class CreateCourses < ActiveRecord::Migration
       t.integer :grade_list_qty
       t.boolean :has_grade_list
       t.boolean :divide_class
+      t.datetime :start_dt
+      t.datetime :end_dt
 
       t.timestamps
     end
