@@ -4,7 +4,7 @@ class CreateCourses < ActiveRecord::Migration
       t.belongs_to :discipline
       t.belongs_to :course_school
       t.integer :grade_list_qty
-      t.boolean :grade_list_emissioner
+      t.boolean :has_grade_list
       t.boolean :divide_class
 
       t.timestamps

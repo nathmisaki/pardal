@@ -89,3 +89,11 @@ CourseSchool.blueprint do
   code { (1..300).to_a.shuffle.shift }
   symbol { (65..90).to_a.map(&:chr).shuffle.shift }
 end
+
+Course.blueprint do
+  discipline { Discipline.make }
+  course_school { CourseSchool.make }
+  grade_list_qty { (1..5).to_a.shuffle.shift }
+  has_grade_list { [true,false].shuffle.shift }
+  divide_class { [true,false].shuffle.shift }
+end
