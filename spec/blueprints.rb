@@ -3,6 +3,7 @@ require 'sham'
 require 'faker'
 
 Sham.name  { Faker::Name.name }
+Sham.sentence { Faker::Lorem.sentence }
 Sham.object_name { Faker::Lorem.sentence.gsub(/[\.-]/, '') }
 Sham.email{ Faker::Internet.email }
 Sham.rg { rand(999999999).to_s.ljust(9, rand(9).to_s) }
@@ -95,4 +96,15 @@ Course.blueprint do
   grade_list_qty { (1..5).to_a.shuffle.shift }
   has_grade_list { [true,false].shuffle.shift }
   divide_class { [true,false].shuffle.shift }
+end
+
+Enrollment.blueprint do
+  student { Student.make }
+  course { Course.make }
+  situation { EnrollmentSituation.make }
+end
+
+EnrollmentSituation.blueprint do
+  description { Sham.sentence }
+  valid { [true,false].shuffle.shift }
 end
