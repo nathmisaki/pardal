@@ -40,8 +40,8 @@ Dado /^que eu seja um usuário logado que tenha um aluno com o histórico:$/ do 
     student.curriculum.implementations.make(:discipline => disc, :school_semester => hash[:school_semester]) if
       student.curriculum.implementations.all(:conditions => { :discipline_id => disc.id }).blank?
     course_school = CourseSchool.make(:school => student.curriculum.school)
-    course = Course.make(:discipline => disc, :course_school => course_school)
-    student.enrollments.make(:course => course, :semester => hash[:semester], :grade => hash[:grade])
+    course = Course.make(:discipline => disc, :course_school => course_school, :semester => hash[:semester])
+    student.enrollments.make(:course => course, :grade => hash[:grade])
   end
 
 end

@@ -106,5 +106,5 @@ end
 
 EnrollmentSituation.blueprint do
   description { Sham.sentence }
-  valid { [true,false].shuffle.shift }
+  active { [true,false].shuffle.shift }
 end

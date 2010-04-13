@@ -2,7 +2,7 @@ class CreateEnrollmentSituations < ActiveRecord::Migration
   def self.up
     create_table :enrollment_situations do |t|
       t.string :description
-      t.boolean :valid
+      t.boolean :active
 
       t.timestamps
     end
