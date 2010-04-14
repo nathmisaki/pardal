@@ -1,0 +1,11 @@
+%p Olá #{ @user.email } - #{ link_to "Sair", destroy_user_session_path }
+%ul#current_user_menu
+  %li
+    = link_to "Atribuir Aluno a minha Conta", link_student_current_user_path
+    = students_owned(@user)
+  %li
+    = link_to "Anexar arquivos", new_user_attachment_path(current_user)
+    %ul
+      - current_user.attachments.each do |attach|
+        %li= link_to(attach.file_name, [current_user,attach])
+

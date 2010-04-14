@@ -101,15 +101,21 @@ pt:
       sentence_connector: "e"
       skip_last_comma: true
 
-  # Active Record
+  # Active Record 
   activerecord:
     models:
-      usuario: "Usuário"
+      user: "Usuário"
 
     attributes:
-      usuario:
+      user:
+        link_student: "Aluno"
+        link_student_registration: "Número de Matrícula"
+        link_student_identity: "Identidade"
+        link_student_identity_emission_date: "Data de Emissão da Identidade"
+        link_student_mothers_name_initials: "Iniciais do Nome da Mãe"
         password: "Senha"
         password_confirmation: "Confirmação de Senha"
+        remember_me: "Continuar Logado ao fechar"
     errors:
       template:
         header:
@@ -117,7 +123,9 @@ pt:
           other: "Não pôde ser salvo: {{count}} erros."
         body: "Por favor, cheque os seguintes campos:"
       messages:
-        record_invalid: "registro inválido"
+        record_invalid: "registro inválido: {{errors}}"
+        not_find: "não encontrado"
+        not_match: "não confere"
         inclusion: "não está incluso na lista"
         exclusion: "não está disponível"
         invalid: "não é válido"

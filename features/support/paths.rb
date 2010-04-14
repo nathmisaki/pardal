@@ -7,7 +7,9 @@ module NavigationHelpers
   #
   def path_to(page_name)
     case page_name
-    
+
+    when /"([^"]+)"/
+      $1.to_s
     when /the home\s?page/
       '/'
     when /p(?:á|a)gina de ([^\s]+)/

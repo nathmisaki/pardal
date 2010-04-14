@@ -1,0 +1,10 @@
+%p{ :style => "margin-bottom:2em" } Digite os dados para Adicionar a sua inscrição de aluno na sua conta
+- semantic_form_for @user, :url => { :action => :update } do |f|
+  = f.error_messages
+  - f.inputs do
+    = f.input :link_student_registration, :label => "Número de Matrícula"
+    = f.input :link_student_identity, :label => "Identidade"
+    = f.input :link_student_identity_emission_date, :label => "Data de Emissão da Identidade", :hint => "dd/mm/yyyy"
+    = f.input :link_student_mothers_name_initials, :label => "Iniciais do Nome da Mãe", :hint => "Ex.: Maria da Silva Gomes, digite MSG"
+  - f.buttons do
+    = f.commit_button "Atribuir Aluno a minha Conta"

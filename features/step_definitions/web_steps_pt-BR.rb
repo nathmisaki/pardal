@@ -8,7 +8,7 @@
 
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
 
-Dado /^que eu esteja na (.+)$/ do |page_name|
+Dado /^que eu esteja (?:na|em) (.+)$/ do |page_name|
   Given %{I am on #{page_name}}
 end
 
@@ -16,7 +16,7 @@ Quando /^(?:eu )?vou para (.+)$/ do |page_name|
   When %{I go to #{page_name}}
 end
 
-Quando /^(?:eu )?aperto "([^\"]*)"$/ do |button|
+Quando /^(?:eu )?apert(?:o|ar em) "([^\"]*)"$/ do |button|
   When %{I press "#{button}"}
 end
 
@@ -40,35 +40,35 @@ Quando /^(?:eu )?preench(?:o|er) o seguinte:$/ do |fields|
   When %{I fill in the following:}, fields
 end
 
-Quando /^(?:eu )?seleciono "([^\"]*)" de "([^\"]*)"$/ do |value, field|
+Quando /^(?:eu )?selecion(?:o|ar) "([^\"]*)" de "([^\"]*)"$/ do |value, field|
   When %{I select "#{value}" from "#{field}"}
 end
 
-Quando /^(?:eu )?seleciono "([^\"]*)" como a data e a hora$/ do |time|
+Quando /^(?:eu )?selecion(?:o|ar) "([^\"]*)" como a data e a hora$/ do |time|
   When %{I select "#{time}" as the date and time}
 end
 
-Quando /^(?:eu )?seleciono "([^\"]*)" como a data e a hora "([^\"]*)"$/ do |datetime, datetime_label|
+Quando /^(?:eu )?selecion(?:o|ar) "([^\"]*)" como a data e a hora "([^\"]*)"$/ do |datetime, datetime_label|
   When %{I select "#{datetime}" as the "#{datetime_label}" date and time}
 end
 
-Quando /^(?:eu )?seleciono "([^\"]*)" como a hora$/ do |time|
+Quando /^(?:eu )?selecion(?:o|ar) "([^\"]*)" como a hora$/ do |time|
   When %{I select "#{time}" as the time}
 end
 
-Quando /^(?:eu )?seleciono "([^\"]*)" como a hora "([^\"]*)"$/ do |time, time_label|
+Quando /^(?:eu )?selecion(?:o|ar) "([^\"]*)" como a hora "([^\"]*)"$/ do |time, time_label|
   When %{I select "#{time}" as the "#{time_label}" time}
 end
 
-Quando /^(?:eu )?seleciono "([^\"]*)" como a data$/ do |date|
+Quando /^(?:eu )?selecion(?:o|ar) "([^\"]*)" como a data$/ do |date|
   When %{I select "#{date}" as the date}
 end
 
-Quando /^(?:eu )?seleciono "([^\"]*)" como a data "([^\"]*)"$/ do |date, date_label|
+Quando /^(?:eu )?selecion(?:o|ar) "([^\"]*)" como a data "([^\"]*)"$/ do |date, date_label|
   When %{I select "#{date}" as the "#{date_label}" date}
 end
 
-Quando /^(?:eu )?seleciono "([^\"]*)" como "([^\"]*)"$/ do |date, date_label|
+Quando /^(?:eu )?selecion(?:o|ar) "([^\"]*)" como "([^\"]*)"$/ do |date, date_label|
   When %{I select "#{date}" as the "#{date_label}" date}
 end
 
@@ -84,7 +84,7 @@ Quando /^(?:eu )?escolho "([^\"]*)"$/ do |field|
   When %{I choose "#{field}"}
 end
 
-Quando /^(?:eu )?anexo o arquivo em "([^\"]*)" a "([^\"]*)"$/ do |path, field|
+Quando /^(?:eu )?(?:anex|envi)(?:o|ar) o arquivo (?:|em )"([^\"]*)" (?:em|a) "([^\"]*)"$/ do |path, field|
   When %{I attach the file "#{path}" to "#{field}"}
 end
 
@@ -104,42 +104,46 @@ Então /^(?:eu )?dev(?:o|eria) ver \/([^\/]*)\/ dentro de "([^\"]*)"$/ do |regex
   Then %{I should see /#{regexp}/ within "#{selector}"}
 end
 
-Então /^(?:eu )?não devo ver "([^\"]*)"$/ do |text|
+Então /^(?:eu )?não dev(?:o|eria) ver "([^\"]*)"$/ do |text|
   Then %{I should not see "#{text}"}
 end
 
-Então /^(?:eu )?não devo ver "([^\"]*)" dentro de "([^\"]*)"$/ do |text, selector|
+Então /^(?:eu )?não dev(?:o|eria) ver "([^\"]*)" dentro de "([^\"]*)"$/ do |text, selector|
   Then %{I should not see "#{text}" within "#{selector}"}
 end
 
-Então /^(?:eu )?não devo ver \/([^\/]*)\/$/ do |regexp|
+Então /^(?:eu )?não dev(?:o|eria) ver \/([^\/]*)\/$/ do |regexp|
   Then %{I should not see /#{regexp}/}
 end
 
-Então /^(?:eu )?não devo ver \/([^\/]*)\/ dentro de "([^\"]*)"$/ do |regexp, selector|
+Então /^(?:eu )?não dev(?:o|eria) ver \/([^\/]*)\/ dentro de "([^\"]*)"$/ do |regexp, selector|
   Then %{I should not see /#{regexp}/ within "#{selector}"}
 end
 
-Então /^o campo "([^\"]*)" deve conter "([^\"]*)"$/ do |field, value|
+Então /^o campo "([^\"]*)" dev(?:e|eria) conter "([^\"]*)"$/ do |field, value|
   Then %{the "#{field}" field should contain "#{value}"}
 end
 
-Então /^o campo "([^\"]*)" não deve conter "([^\"]*)"$/ do |field, value|
+Então /^o campo "([^\"]*)" não dev(?:e|eria) conter "([^\"]*)"$/ do |field, value|
   Then %{the "#{field}" field should not contain "#{value}"}
 end
 
-Então /^o checkbox "([^\"]*)" deve estar marcado$/ do |label|
+Então /^o checkbox "([^\"]*)" dev(?:e|eria) estar marcado$/ do |label|
   Then %{the "#{label}" checkbox should be checked}
 end
 
-Então /^o checkbox "([^\"]*)" não deve estar marcado$/ do |label|
+Então /^o checkbox "([^\"]*)" não dev(?:e|eria) estar marcado$/ do |label|
   Then %{the "#{label}" checkbox should not be checked}
 end
 
-Então /^(?:eu )?dev(?:o|eria) estar na (.+)$/ do |page_name|
+Então /^(?:eu )?dev(?:o|eria) estar (?:em|na) (.+)$/ do |page_name|
   Then %{I should be on #{page_name}}
 end
 
 Então /^mostre-me a página$/ do
   Then %{show me the page}
+end
+
+Então /^eu dev(?:e|eria) ver uma tabela com:$/ do |table|
+  table.diff!(tableish('table tr', 'td,th'))
 end

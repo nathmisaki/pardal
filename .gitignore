@@ -1,5 +1,6 @@
 log/*.log
 tmp/**/*
+tmp/*
 config/database.yml
 db/*.sqlite3
 doc/**/*
@@ -10,3 +11,6 @@ rerun.txt
 tags
 spec/fixtures
 public/stylesheets/compiled/*
+.fuzzyignore
+.rvmrc
+*.sass-cache*

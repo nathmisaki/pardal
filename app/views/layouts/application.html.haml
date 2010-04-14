@@ -6,19 +6,33 @@
       FATEC-SP#{h(yield(:title) || " - Faculdade de Tecnologia de São Paulo")}
 
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
-    = stylesheet_link_tag 'compiled/application.css', :media => 'screen'
     = stylesheet_link_tag 'compiled/screen.css', :media => 'screen, projection'
     = stylesheet_link_tag 'compiled/print.css', :media => 'print'
     /[if lt IE 8]
       = stylesheet_link_tag 'compiled/ie.css', :media => 'screen, projection'
+    = stylesheet_link_tag 'formtastic', 'formtastic_changes'
+    = stylesheet_link_tag 'layout_san'
     = yield(:head)
 
   %body
     #container
-      - flash.each do |name, msg|
-        = content_tag :div, msg, :id => "flash_#{name}"
+      #head
+        #back_top
+        #back_logo
+        #content_top
+          #text_top
+            %h1#title FATEC-SP - Faculdade de Tecnologia de São Paulo
 
-      - if show_title?
-        %h1=h yield(:title)
+      #middle
+        #content
 
-      = yield
+          - flash.each do |name, msg|
+            = content_tag(:div, msg, :id => "flash_#{name}", :class => "flash_#{name}") if [:error,:alert,:notice,:success].include?(name)
+
+          - if show_title?
+            %h1=h yield(:title)
+
+          = yield
+
+      #footer
+        #back_footer
