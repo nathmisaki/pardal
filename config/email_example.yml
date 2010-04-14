@@ -1,0 +1,12 @@
+production:
+  :address: smtp.gmail.com
+  :port: 465
+  :authentication: login
+  :user_name: email
+  :password: pass
+staging:
+  :address: smtp.gmail.com
+  :port: 465
+  :authentication: login
+  :user_name: email
+  :password: pass
