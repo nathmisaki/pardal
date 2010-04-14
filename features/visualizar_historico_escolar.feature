@@ -20,7 +20,6 @@ Funcionalidade: Visualizar Historico Escolar
        | 6378          | SISTEMAS OPERACIONAIS I                                         | C     | 20071    | 2               |
        | 1260          | MATEMATICA II                                                   | C     | 20072    | 2               |
      E que eu esteja em "/me"
-     Entao mostre-me a página
      Quando eu clicar em "Historico Escolar"
      Então eu deveria ver uma tabela com:
        | Disciplina | Nome da Disciplina                                              | Ano e Semestre | Conceito | Periodo |

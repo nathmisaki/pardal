@@ -30,11 +30,7 @@ Dado /^que eu seja um usuário logado que tenha um aluno com o histórico:$/ do 
   Dado %{que eu seja um usuário logado}
   user = User.last
   student = Student.make
-  user.link_student = { :registration => student.registration,
-    :identity => student.identity,
-    :identity_emission_date => student.identity_emission_date,
-    :mothers_name_initials => student.mothers_name_initials.first
-  }
+  user.attach_student!(student)
   table.hashes.each do |hash|
     disc = Discipline.make(:code => hash[:discipline_code], :name => hash[:discipline_name])
     student.curriculum.implementations.make(:discipline => disc, :school_semester => hash[:school_semester]) if
