@@ -80,3 +80,10 @@ Então /^eu deveria ter um arquivo "([^\"]*)" no modelo Attachment e ele deveria
   attach.should_not be_blank
   attach.attachable.should == User.last
 end
+
+Dado /^que eu tenha anexado o arquivo "([^\"]*)"$/ do |file_name|
+  Dado %{que eu esteja em "/me"}
+  Quando %{eu clicar em "Anexar Arquivo"}
+  E %{enviar o arquivo "#{file_name}" em "attachment_uploaded_file"}
+  E %{apertar em "Enviar Anexo"}
+end
