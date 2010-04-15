@@ -8,6 +8,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :users, :only => :show do |user|
     user.resources :attachments
+    user.resource :profile
   end
 
   map.resources :students, :has_many => :enrollments
