@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   acts_as_authorization_subject
 
   has_many :attachments, :as => :attachable
+  has_one :profile
+
   attr_accessor :link_student
 
   after_save :new_link_student
