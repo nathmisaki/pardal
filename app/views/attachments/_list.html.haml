@@ -1,0 +1,3 @@
+%ul
+  - attachments.each do |attach|
+    %li= link_to(attach.file_name, [attach.attachable,attach])
