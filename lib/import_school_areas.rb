@@ -1,7 +1,7 @@
-class ImportSchoolAreas < ImportClass
+class ImportSchoolArea < ImportClass
   
   def initialize
-    @old_table_class = LegacyArea
+    @old_table_class = LegacySchoolArea
     @new_table_class = SchoolArea
     super
   end
@@ -13,7 +13,6 @@ class ImportSchoolAreas < ImportClass
       hash[:id] = reg[:CodigoDaArea]
       hash[:name] = reg[:AreaPorExtenso]
       @rows << hash
-      p hash
     end
     @legacy_rows = nil
   end
