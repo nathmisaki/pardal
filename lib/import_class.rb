@@ -1,12 +1,17 @@
 class ImportClass
 
+  def initialize
+    @step = 50
+    @offset = 0
+  end
+
   def parse
     raise "shouldn't called into this class"
   end
 
   def fetch
     @legacy_rows = @old_table_class.all(:limit => @step, :offset => @offset)
-    @offset += @legacy_rows.size
+    @offset += @legacy_rows.size if @legacy_rows
   end
 
   def put
@@ -18,8 +23,6 @@ class ImportClass
   end
 
   def execute!
-    @step = 50
-    @offset = 0
     rows_count = @old_table_class.count
     while rows_count > @offset
       fetch
