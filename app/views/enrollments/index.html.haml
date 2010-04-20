@@ -1,0 +1,14 @@
+%table
+  %tr
+    %th Disciplina
+    %th Nome da Disciplina
+    %th Ano e Semestre
+    %th Conceito
+    %th Periodo
+  - @enrollments.each do |enrollment|
+    %tr
+      %td= enrollment.course.discipline.code
+      %td= enrollment.course.discipline.name
+      %td= enrollment.course.semester
+      %td= enrollment.grade
+      %td= enrollment.school_semester

@@ -1,0 +1,6 @@
+- content_tag_for :ul, student_menu do
+  Número de Matrícula:
+  = student_menu.registration
+  %li= link_to "Historico Escolar", student_enrollments_path(student_menu)
+
+
