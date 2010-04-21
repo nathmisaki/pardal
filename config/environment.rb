@@ -23,7 +23,6 @@ Rails::Initializer.run do |config|
   config.gem "devise", :version => '1.0.4'
   config.gem "formtastic"
   config.gem "inherited_resources", :version => '1.0.3'
-  config.gem "responders", :version => '0.4.2'
   config.gem "acl9", :lib => "acl9"
 
   # Only load the plugins named here, in the order given (default is alphabetical).

@@ -1,5 +1,5 @@
-class ImportSchoolArea < ImportClass
-  
+class ImportSchoolAreas < ImportClass
+
   def initialize
     @old_table_class = LegacySchoolArea
     @new_table_class = SchoolArea
