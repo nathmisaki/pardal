@@ -16,7 +16,7 @@ Quando /^(?:eu )?vou para (.+)$/ do |page_name|
   When %{I go to #{page_name}}
 end
 
-Quando /^(?:eu )?apert(?:o|ar em) "([^\"]*)"$/ do |button|
+Quando /^(?:eu )?apert(?:o|ar(?:| em)) "([^\"]*)"$/ do |button|
   When %{I press "#{button}"}
 end
 
