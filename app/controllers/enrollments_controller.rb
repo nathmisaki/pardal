@@ -1,3 +1,4 @@
 class EnrollmentsController < InheritedResources::Base
-  actions :index, :new
+  belongs_to :student
+  actions :index, :new, :create
 end

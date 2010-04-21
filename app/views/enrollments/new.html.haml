@@ -1,4 +1,4 @@
-- semantic_form_for @enrollment do |f|
-  = f.inputs
+- semantic_form_for [@student, @enrollment] do |f|
+  = f.error_messages
   - f.buttons do
-    = f.commit_button "Rematrícula"
+    = f.commit_button "Matricular-se nesta disciplina e turma"
