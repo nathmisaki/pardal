@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :helps
+
   map.devise_for :users, :path_names => { :sign_in => 'login', :sign_out => 'logout' }
 
   map.user_root '/me', :controller => :current_users, :action => :show, :conditions => { :method => :get }
