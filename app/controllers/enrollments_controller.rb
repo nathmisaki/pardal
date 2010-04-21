@@ -1,3 +1,3 @@
 class EnrollmentsController < InheritedResources::Base
-  actions :index
+  actions :index, :new
 end
