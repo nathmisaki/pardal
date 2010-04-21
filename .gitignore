@@ -14,3 +14,4 @@ public/stylesheets/compiled/*
 .fuzzyignore
 .rvmrc
 *.sass-cache*
+config/email.yml

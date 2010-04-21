@@ -8,6 +8,8 @@ ActionController::Routing::Routes.draw do |map|
     user.resources :attachments
   end
 
+  map.resources :students, :has_many => :enrollments
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

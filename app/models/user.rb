@@ -8,10 +8,12 @@ class User < ActiveRecord::Base
 
   after_save :new_link_student
 
-  def objects_with_role(role_name, type=nil)
+  def objects_with_role(role_name, type=nil, models=false)
     conditions = { :name => role_name.to_s }
     conditions.merge(:authorizable_type => type.to_s.classify) if type
-    role_objects.all(:conditions => conditions)
+    ret = role_objects.all(:conditions => conditions)
+    ret.map! { |ro| ro.authorizable } if models
+    ret
   end
 
   def link_student
@@ -44,6 +46,11 @@ class User < ActiveRecord::Base
   end
   def link_student_mothers_name_initials=(value)
     link_student[:mothers_name_initials] = value
+  end
+
+  def attach_student!(student)
+    self.has_role!(:owner, student)
+    self.has_role!(:student, student)
   end
 
   private
@@ -88,8 +95,7 @@ class User < ActiveRecord::Base
 
   def new_link_student
     if @link_student.is_a?(Student)
-      self.has_role!(:owner, @link_student)
-      self.has_role!(:student, @link_student)
+      attach_student!(@link_student)
     end
   end
 
