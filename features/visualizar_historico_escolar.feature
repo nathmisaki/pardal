@@ -7,18 +7,18 @@ Funcionalidade: Visualizar Historico Escolar
 
   Cenário: Mostrar todas as Disciplinas Matriculadas
     Dado que eu seja um usuário logado que tenha um aluno com o histórico:
-       | discipline_code | discipline_name                                                 | grade | semester | school_semester | 
-       | 1244            | INTRODUCAO A LOGICA                                             | B     | 20062    | 1               | 
-       | 1242            | MATEMATICA I                                                    | F     | 20062    | 1               | 
-       | 6262            | LINGUAGEM E TECNICA DE PROGRAMACAO I                            | B     | 20062    | 1               | 
-       | 6270            | MICROINFORMATICA                                                | A     | 20062    | 1               | 
-       | 6361            | SISTEMAS DE COMPUTACAO                                          | A     | 20062    | 1               | 
-       | 6882            | LINGUAGEM E TECNICAS DE PROGRAMAÇÃO ORIENTADAS A OBJETOS(OPTAT) | F     | 20071    | 1               | 
-       | 1171            | HUMANIDADES                                                     | A     | 20071    | 2               | 
-       | 1260            | MATEMATICA II                                                   | F     | 20071    | 2               | 
-       | 1619            | INGLES PARA INFORMATICA                                         | F     | 20071    | 2               | 
-       | 6378            | SISTEMAS OPERACIONAIS I                                         | C     | 20071    | 2               | 
-       | 1260            | MATEMATICA II                                                   | C     | 20072    | 2               | 
+       | discipline_code | discipline_name                                                 | grade | semester | school_semester |
+       | 1244            | INTRODUCAO A LOGICA                                             | B     | 20062    | 1               |
+       | 1242            | MATEMATICA I                                                    | F     | 20062    | 1               |
+       | 6262            | LINGUAGEM E TECNICA DE PROGRAMACAO I                            | B     | 20062    | 1               |
+       | 6270            | MICROINFORMATICA                                                | A     | 20062    | 1               |
+       | 6361            | SISTEMAS DE COMPUTACAO                                          | A     | 20062    | 1               |
+       | 6882            | LINGUAGEM E TECNICAS DE PROGRAMAÇÃO ORIENTADAS A OBJETOS(OPTAT) | F     | 20071    | 1               |
+       | 1171            | HUMANIDADES                                                     | A     | 20071    | 2               |
+       | 1260            | MATEMATICA II                                                   | F     | 20071    | 2               |
+       | 1619            | INGLES PARA INFORMATICA                                         | F     | 20071    | 2               |
+       | 6378            | SISTEMAS OPERACIONAIS I                                         | C     | 20071    | 2               |
+       | 1260            | MATEMATICA II                                                   | C     | 20072    | 2               |
      E que eu esteja em "/me"
      Quando eu clicar em "Historico Escolar"
      Então eu deveria ver uma tabela com:
