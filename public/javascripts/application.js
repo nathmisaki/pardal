@@ -3,7 +3,7 @@
 
 $(function() {
     $("#help_link a[rel]").overlay({
-      expose: 'darkblue',
+      expose: '#152c56',
       effect: 'apple',
 
       onBeforeLoad: function() {
