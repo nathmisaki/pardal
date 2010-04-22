@@ -1,7 +1,7 @@
 class ImportClass
 
   def initialize
-    @step = 50
+    @step = 500
     @offset = 0
   end
 
