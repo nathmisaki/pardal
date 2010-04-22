@@ -2,6 +2,30 @@ require 'spec_helper'
 
 describe User do
 
+  context "with attach_student!" do
+    before(:each) do
+      @user = User.make
+      @student = Student.make
+      @user.attach_student!(@student)
+    end
+    
+    subject { @user }
+
+    it { should be_has_role(:student) }
+
+    it { should be_has_role(:owner) }
+
+    it { @user.objects_with_role(:student, Student, true).should == [ @student ] }
+    it { @user.objects_with_role(:owner, Student, true).should == [ @student ] }
+  end
+
+  context "objects_with_role" do
+    before(:each) do
+      @user = User.make
+      @user.attach_student!(Student.make)
+    end    
+  
+  end
   context "linking student" do
     before(:each) do
       @user = User.make :email => "teste@teste.com"

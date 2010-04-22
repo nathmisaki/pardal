@@ -1,0 +1,34 @@
+# Outgoing email settings
+
+production:
+  delivery_method: :smtp
+  smtp_settings:
+    address: smtp.gmail.com
+    port: 587
+    domain: example.com
+    authentication: :plain
+    user_name: "example@example.com"
+    password: "example"
+    enable_starttls_auto: true
+
+staging:
+  delivery_method: :smtp
+  smtp_settings:
+    address: smtp.gmail.com
+    port: 587
+    domain: example.com
+    authentication: :plain
+    user_name: "example@example.com"
+    password: "example"
+    enable_starttls_auto: true
+  
+development:
+  delivery_method: :smtp
+  smtp_settings:
+    address: 127.0.0.1
+    port: 25
+    domain: example.net
+    authentication: :login
+    user_name: "example@example.net"
+    password: "example"
+    enable_starttls_auto: true
