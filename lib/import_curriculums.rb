@@ -12,6 +12,7 @@ class ImportCurriculums < ImportClass
       hash = Hash.new
       hash[:school_id] = reg[:CodigoDoCurso]
       hash[:period_id] = reg[:CodigoDoTurno]
+      hash[:structure_code] = reg[:CodigoDaEstrutura]
       hash[:curriculum_type] = reg[:TipoDeEstrutura]
       hash[:implementation_semester] = reg[:AnoESemestreDeImplantacao]
       hash[:credit_hours] = reg[:CargaHorariaDoCurso]

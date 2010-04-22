@@ -32,8 +32,13 @@ namespace :import do
     ImportCurriculums.new.execute!
   end
 
+  desc "Import Student from Legacy Student"
+  task :students => [:environment, :curriculums] do
+    ImportStudents.new.execute!
+  end
+
   desc "Import all tables from Legacy"
-  task :all => [:curriculums, :departments]
+  task :all => [:curriculums, :departments, :students]
 
   desc "Rename tables before execute import tasks"
   task :rename_tables => :environment do
@@ -62,6 +67,15 @@ namespace :import do
       create view curriculum as
       select * from compl_estruturas_curriculares 
         natural join estruturas_curriculares;
+    SQL
+    Academnew.connection.execute("drop view if exists todos_alunos")
+    Academnew.connection.execute(<<-SQL)
+      create view todos_alunos as
+      select *, 1 as Ativo
+        from alunos
+        union
+          select *, 0 as Ativo
+            from ex_alunos
     SQL
   end
 

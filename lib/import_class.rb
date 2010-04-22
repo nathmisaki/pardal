@@ -1,7 +1,7 @@
 class ImportClass
 
   def initialize
-    @step = 50
+    @step = 500
     @offset = 0
   end
 
@@ -17,6 +17,7 @@ class ImportClass
   def put
     @rows.each do |row|
       sa = @new_table_class.new(row)
+      sa.id = row[:id] if row[:id]
       sa.save
     end
     @rows = nil
