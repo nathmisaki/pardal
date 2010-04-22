@@ -27,6 +27,12 @@ namespace :import do
     ImportPeriods.new.execute!
   end
 
+  desc "Import CourseSchool from Legacy Turmas"
+  task :course_schools => [:schools, :periods] do
+    ImportCourseSchools.new.execute!    
+  end  
+
+
   desc "Import Curriculums from Legacy Curriculum"
   task :curriculums => [:create_views, :schools, :periods] do
     ImportCurriculums.new.execute!
