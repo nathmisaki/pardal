@@ -17,6 +17,7 @@ class ImportClass
   def put
     @rows.each do |row|
       sa = @new_table_class.new(row)
+      sa.id = row[:id] if row[:id]
       sa.save
     end
     @rows = nil
