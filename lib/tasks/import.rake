@@ -7,6 +7,16 @@ namespace :import do
     ImportSchoolAreas.new.execute!
   end
 
+  desc "Import Departments from Legacy Departments"
+  task :departments => :rename_tables do
+    ImportDepartments.new.execute!
+  end
+
+  desc "Import Disciplines from Legacy Disciplines"
+  task :disciplines => :departments do
+    ImportDisciplines.new.execute!
+  end
+
   desc "Import School from Legacy Cursos"
   task :schools => :school_areas do
     ImportSchools.new.execute!
@@ -18,12 +28,12 @@ namespace :import do
   end
 
   desc "Import Curriculums from Legacy Curriculum"
-  task :curriculum => [:create_views, :schools, :periods] do
+  task :curriculums => [:create_views, :schools, :periods] do
     ImportCurriculums.new.execute!
   end
 
   desc "Import all tables from Legacy"
-  task :all => [:curriculum]
+  task :all => [:curriculums, :departments]
 
   desc "Rename tables before execute import tasks"
   task :rename_tables => :environment do
