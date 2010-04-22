@@ -116,6 +116,8 @@ pt:
         password: "Senha"
         password_confirmation: "Confirmação de Senha"
         remember_me: "Continuar Logado ao fechar"
+      enrollment:
+        course_id: "Turma"
     errors:
       template:
         header:

@@ -14,7 +14,7 @@ Funcionalidade: Requerer Matrícula
     E que eu esteja em "/me"
     Quando eu clicar em "Rematrícula" dentro de "#student_9990"
 
-  Cenário: Não selecionar nada
-    Quando eu apertar "Rematrícula"
-    Então eu deveria ver "Você deve selecionar alguma disciplina"
+  Cenário: Não selecionar turma
+    Quando eu apertar "Matricular-se nesta disciplina e turma"
+    Então eu deveria ver "Turma não pode ser vazio"
 
