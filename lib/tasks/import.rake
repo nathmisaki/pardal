@@ -17,6 +17,12 @@ namespace :import do
     ImportSchoolAreas.new.execute!
   end
 
+  desc "Impot Disciplines from Legacy Disciplines"
+  task :disciplines => :departments do
+    ImportDisciplines.new.execute!
+  end
+
+
   desc "Import School from Legacy Cursos"
   task :schools => :school_areas do
     ImportSchools.new.execute!
@@ -44,7 +50,7 @@ namespace :import do
   end
 
   desc "Import all tables from Legacy"
-  task :all => [:curriculums, :departments, :students]
+  task :all => [:curriculums, :disciplines, :students]
 
   desc "Rename tables before execute import tasks"
   task :rename_tables => :environment do
