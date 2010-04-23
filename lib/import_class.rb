@@ -1,4 +1,6 @@
 class ImportClass
+  LOGGER_FILE = RAILS_ROOT + '/log/import.log'
+  class ImportLogger < Logger; end
 
   def initialize
     @step = 500
@@ -18,7 +20,11 @@ class ImportClass
     @rows.each do |row|
       sa = @new_table_class.new(row)
       sa.id = row[:id] if row[:id]
-      sa.save
+      begin
+        sa.save
+      rescue Exception => e
+        logger.error("#{e.class}: #{e} -- on #{sa.inspect}")
+      end
     end
     @rows = nil
   end
@@ -30,6 +36,12 @@ class ImportClass
       parse
       put
     end
+  end
+
+  protected
+
+  def logger
+    @logger ||= ImportLogger.new(File.open(LOGGER_FILE, 'a'))
   end
 
 end
