@@ -44,7 +44,7 @@ staging:
   database: pardal_staging
   pool: 5
   username: root
-  password: 
+  password:
   socket: /var/run/mysqld/mysqld.sock
 
 production:
@@ -54,8 +54,18 @@ production:
   database: pardal_production
   pool: 5
   username: root
-  password: 
+  password:
   socket: /var/run/mysqld/mysqld.sock
 
 cucumber:
   <<: *TEST
+
+academnew:
+  adapter: mysql
+  encoding: utf8
+  reconnect: false
+  database: academnew
+  pool: 5
+  username: root
+  password:
+  socket: /var/run/mysqld/mysqld.sock

@@ -35,8 +35,8 @@ namespace :import do
 
   desc "Import CourseSchool from Legacy Turmas"
   task :course_schools => [:schools, :periods] do
-    ImportCourseSchools.new.execute!    
-  end  
+    ImportCourseSchools.new.execute!
+  end
 
 
   desc "Import Curriculums from Legacy Curriculum"
@@ -77,7 +77,7 @@ namespace :import do
     Academnew.connection.execute("drop view if exists curriculum")
     Academnew.connection.execute(<<-SQL)
       create view curriculum as
-      select * from compl_estruturas_curriculares 
+      select * from compl_estruturas_curriculares
         natural join estruturas_curriculares;
     SQL
     Academnew.connection.execute("drop view if exists todos_alunos")
