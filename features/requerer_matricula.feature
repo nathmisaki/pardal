@@ -11,6 +11,11 @@ Funcionalidade: Requerer Matrícula
       | name         | Nelson Minor Haraguchi Junior |
       | id           | 9990                          |
     E que o usuário "nelson@fatecsp.br" seja o aluno "F0626805"
+    E que eu tenha registros de "Discipline":
+      | code|id|name|acronym|
+      
+    E que o aluno "F0626805" tenha as turmas:
+      | discipline | disciplina_
     E que eu esteja em "/me"
     Quando eu clicar em "Rematrícula" dentro de "#student_9990"
 
