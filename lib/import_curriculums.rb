@@ -10,12 +10,12 @@ class ImportCurriculums < ImportClass
     @rows = Array.new
     @legacy_rows.each do |reg|
       hash = Hash.new
-      hash[:school_id] = reg[:CodigoDoCurso]
-      hash[:period_id] = reg[:CodigoDoTurno]
       hash[:structure_code] = reg[:CodigoDaEstrutura]
+      hash[:credit_hours] = reg[:CargaHorariaDoCurso]
+      hash[:school_id] = reg[:CodigoDoCurso].to_i
+      hash[:period_id] = reg[:CodigoDoTurno].to_i
       hash[:curriculum_type] = reg[:TipoDeEstrutura]
       hash[:implementation_semester] = reg[:AnoESemestreDeImplantacao]
-      hash[:credit_hours] = reg[:CargaHorariaDoCurso]
       hash[:avg_school_time] = reg[:NumeroDeSemestres]
       hash[:max_school_time] = reg[:NumeroMaximoDeSemestres]
       @rows << hash
