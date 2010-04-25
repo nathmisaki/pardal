@@ -1,8 +1,8 @@
-ENV["RAILS_ENV"] ||= 'test'
 require 'rubygems'
 require 'spork'
 
 Spork.prefork do
+  ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path(File.join(File.dirname(__FILE__),'..','config','environment'))
   require 'spec/autorun'
   require 'spec/rails'
