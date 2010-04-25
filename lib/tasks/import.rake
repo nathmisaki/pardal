@@ -1,5 +1,3 @@
-require File.join(File.dirname(__FILE__), 'rake_helper')
-
 namespace :import do
 
   desc "Import Departments from Legacy Departments"
