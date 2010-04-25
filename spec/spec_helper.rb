@@ -12,9 +12,6 @@ Spork.prefork do
   # in ./support/ and its subdirectories.
   Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each {|f| require f}
 
-  # Requires support classes to custom rake tasks
-  Dir[File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib','*.rb'))].each{|f| require f}
-
   Spec::Runner.configure do |config|
     # If you're not using ActiveRecord you should remove these
     # lines, delete config/database.yml and disable :active_record
