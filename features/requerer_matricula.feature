@@ -15,7 +15,7 @@ Funcionalidade: Requerer Matrícula
 
   Cenário: Não selecionar turma
     Quando eu clicar em "Rematrícula" dentro de "#student_9990"
-    Quando eu apertar "Matricular-se nesta disciplina e turma"
+    Quando eu apertar "Confirmar Matrícula"
     Então eu deveria ver "Turma não pode ser vazio"
 
   Cenário: Mostrar turmas de um aluno novo
