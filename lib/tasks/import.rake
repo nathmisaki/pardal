@@ -1,20 +1,18 @@
-require File.join(File.dirname(__FILE__), 'rake_helper')
-
 namespace :import do
-
-  desc "Import School Areas from Legacy Areas"
-  task :school_areas => :rename_tables do
-    ImportSchoolAreas.new.execute!
-  end
 
   desc "Import Departments from Legacy Departments"
   task :departments => :rename_tables do
     ImportDepartments.new.execute!
   end
 
-  desc "Import Disciplines from Legacy Disciplines"
-  task :disciplines => :departments do
-    ImportDisciplines.new.execute!
+  desc "Import Periods from Legacy Turnos"
+  task :periods => :rename_tables do
+    ImportPeriods.new.execute!
+  end
+
+  desc "Import School Areas from Legacy Areas"
+  task :school_areas => :rename_tables do
+    ImportSchoolAreas.new.execute!
   end
 
   desc "Impot Disciplines from Legacy Disciplines"
@@ -28,9 +26,9 @@ namespace :import do
     ImportSchools.new.execute!
   end
 
-  desc "Import Periods from Legacy Turnos"
-  task :periods => :rename_tables do
-    ImportPeriods.new.execute!
+  desc "Import Disciplines from Legacy Disciplines"
+  task :disciplines => :departments do
+    ImportDisciplines.new.execute!
   end
 
   desc "Import CourseSchool from Legacy Turmas"
@@ -45,7 +43,7 @@ namespace :import do
   end
 
   desc "Import Student from Legacy Student"
-  task :students => [:environment, :curriculums] do
+  task :students => :curriculums do
     ImportStudents.new.execute!
   end
 

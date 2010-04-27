@@ -1,4 +1,4 @@
 require 'spec_helper'
 
-describe DisciplineType do
+describe CurriculumType do
 end

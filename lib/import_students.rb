@@ -45,15 +45,16 @@ class ImportStudents < ImportClass
       hash[:university] = reg[:Universitario]
       hash[:ingress_exam_date] = reg[:DataDoVestibular]
       hash[:ingress_exam_classification] = reg[:ClassificacaoNoVestibular]
-      hash[:ingress_exam_points] = reg[:TotalDePontosNoVestibular]
+      hash[:ingress_exam_points] = reg[:TotalDePontosNoVestibular].tr(",",".").to_f
       hash[:active] = reg[:Ativo]
       hash[:curriculum_id] = Curriculum.all( :conditions =>
                                             [ "school_id = ?
                                               and period_id = ?
                                               and structure_code = ?",
-                                              reg[:CodigoDoCurso],
-                                              reg[:CodigoDoTurno],
-                                              reg[:CodigoDaEstruturaCurricular]]).first
+                                              reg[:CodigoDoCurso].to_i,
+                                              reg[:CodigoDoTurno].to_i,
+                                              reg[:CodigoDaEstruturaCurricular].to_i]).first
+      hash[:curriculum_id] = hash[:curriculum_id].id unless hash[:curriculum_id].nil?
       @rows << hash
     end
     @legacy_rows = nil
