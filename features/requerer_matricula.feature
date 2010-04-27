@@ -10,13 +10,20 @@ Funcionalidade: Requerer Matrícula
       | registration  | F0626805                      |
       | name          | Nelson Minor Haraguchi Junior |
       | id            | 9990                          |
-      | curriculum_id | 89                            |
     E que o usuário "nelson@fatecsp.br" seja o aluno "F0626805"
-    E que o curriculo "89" tem a estrutura de "PD-89" com aulas de "20101"
     E que eu esteja em "/me"
-    Quando eu clicar em "Rematrícula" dentro de "#student_9990"
 
   Cenário: Não selecionar turma
+    Quando eu clicar em "Rematrícula" dentro de "#student_9990"
     Quando eu apertar "Matricular-se nesta disciplina e turma"
     Então eu deveria ver "Turma não pode ser vazio"
+
+  Cenário: Mostrar turmas de um aluno novo
+    Dado que o aluno "F0626805" tenha as disciplinas, com turmas de seu curso:
+      | name                                  | acronym |
+      | Matemática I                          | MAT I   |
+      | Linguagem e Técnicas de Programação I | LTP I   |
+    Quando eu clicar em "Rematrícula" dentro de "#student_9990"
+    Então eu deveria ver "MAT I"
+    E deveria ver "LTP I"
 

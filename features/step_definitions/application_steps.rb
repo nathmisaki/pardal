@@ -1,5 +1,3 @@
-Dir[File.expand_path(File.join(File.dirname(__FILE__),'..', '..', 'spec', 'support','curriculums','*.rb'))].each {|f| require f}
-World(LoadCurriculums)
 Dado /^que eu não estou autenticado$/ do
   visit(destroy_usuario_session_path)
 end
@@ -62,8 +60,17 @@ Dado /^que o usuário "([^\"]*)" seja o aluno "([^\"]*)"$/ do |user, student_reg
   user.attach_student!(Student.find_by_registration(student_registration))
 end
 
-Dado /^que o curriculo "([^\"]*)" tem a estrutura de "(pd_89)" com aulas de "(20101)"$/ do |curriculum_id, nome_da_estrutura, ano_e_semestre_das_aulas|
-  send("#{nome_da_estrutura}_#{ano_e_semestre_das_aulas}", curriculum_id)
+Dado /^que o aluno "([^\"]*)" tenha as disciplinas, com turmas de seu curso:$/ do |student_registration, disciplines|
+  student = Student.find_by_registration student_registration
+  disciplines.hashes do |discipline|
+    student.curriculum.implementations.make( :discipline => Discipline.make(discipline).courses.make(
+        :course => Course.make(:course_school => CourseSchool.make(
+          :school_id => student.curriculum.school.id,
+          :period_id => student.curriculum.period.id
+        ))
+      )
+    )
+  end
 end
 
 Então /^eu deveria ter um arquivo "([^\"]*)" no modelo Attachment e ele deveria pertencer ao usuário logado$/ do |file_name|
