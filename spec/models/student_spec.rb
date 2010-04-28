@@ -91,6 +91,6 @@ describe Student do
     it 'should return [MDSSSA, MDSSS, MSSS, MSSSA]' do
       @student.mothers_name_initials.should == ['MDSSS', 'MDSSSA', 'MSSS', 'MSSSA']
     end
-
   end
+
 end

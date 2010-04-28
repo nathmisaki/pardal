@@ -13,11 +13,6 @@ Funcionalidade: Requerer Matrícula
     E que o usuário "nelson@fatecsp.br" seja o aluno "F0626805"
     E que eu esteja em "/me"
 
-  Cenário: Não selecionar turma
-    Quando eu clicar em "Rematrícula" dentro de "#student_9990"
-    Quando eu apertar "Confirmar Matrícula"
-    Então eu deveria ver "Turma não pode ser vazio"
-
   Cenário: Mostrar turmas de um aluno novo
     Dado que o aluno "F0626805" tenha as disciplinas, com turmas de seu curso:
       | name                                  | acronym |

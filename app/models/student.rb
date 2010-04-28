@@ -52,5 +52,4 @@ class Student < ActiveRecord::Base
       (names.split(/[\s]+/).map { |n| n[0,1] unless n=~ prepos_reg }.compact.join)
     ].sort
   end
-
 end

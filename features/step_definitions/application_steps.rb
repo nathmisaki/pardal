@@ -62,12 +62,14 @@ end
 
 Dado /^que o aluno "([^\"]*)" tenha as disciplinas, com turmas de seu curso:$/ do |student_registration, disciplines|
   student = Student.find_by_registration student_registration
-  disciplines.hashes do |discipline|
-    student.curriculum.implementations.make( :discipline => Discipline.make(discipline).courses.make(
-        :course => Course.make(:course_school => CourseSchool.make(
-          :school_id => student.curriculum.school.id,
-          :period_id => student.curriculum.period.id
-        ))
+  disciplines.hashes.each do |discipline|
+    student.curriculum.implementations.make(:discipline => Discipline.make(discipline))
+  end
+  student.curriculum.disciplines.each do |discipline|
+    discipline.courses.make(
+      :course_school => CourseSchool.make(
+        :school => student.curriculum.school,
+        :period => student.curriculum.period
       )
     )
   end
