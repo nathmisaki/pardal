@@ -20,8 +20,8 @@ namespace :import do
     ImportDisciplines.new.execute!
   end
 
-  desc "Import Implementation from Legacy Implementatios"
-  task :implementation => [:curriculum, :period, :discipline] do
+  desc "Import Implementation from Legacy Implementations"
+  task :implementations => [:curriculums, :periods, :disciplines] do
     ImportImplementations.new.execute!
   end
 
@@ -52,7 +52,7 @@ namespace :import do
   end
 
   desc "Import all tables from Legacy"
-  task :all => [:curriculums, :disciplines, :students]
+  task :all => [:disciplines, :implementations, :students]
 
   desc "Rename tables before execute import tasks"
   task :rename_tables => :environment do
@@ -87,9 +87,6 @@ namespace :import do
       create view todos_alunos as
       select *, 1 as Ativo
         from alunos
-        union
-          select *, 0 as Ativo
-            from ex_alunos
     SQL
   end
 
