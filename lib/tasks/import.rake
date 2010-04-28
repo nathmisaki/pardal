@@ -20,6 +20,10 @@ namespace :import do
     ImportDisciplines.new.execute!
   end
 
+  desc "Import Implementation from Legacy Implementatios"
+  task :implementation => [:curriculum, :period, :discipline] do
+    ImportImplementations.new.execute!
+  end
 
   desc "Import School from Legacy Cursos"
   task :schools => :school_areas do
