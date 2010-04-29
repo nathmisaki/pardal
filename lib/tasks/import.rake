@@ -90,4 +90,18 @@ namespace :import do
     SQL
   end
 
+  desc "Cleanup Development database"
+  task :clean_database => :environment do
+    rset = ActiveRecord::Base.connection.execute("show tables")
+    tables = Array.new
+    rset.each {|reg| tables << reg}
+    tables.flatten!
+    tables.reject!{|table| table =~ /user/ ||
+                           table == 'helps' ||
+                           table == 'schema_migrations'}
+    tables.each do |table|
+      ActiveRecord::Base.connection.execute "TRUNCATE #{table}"
+    end
+  end
+
 end
