@@ -52,7 +52,7 @@ namespace :import do
   end
 
   desc "Import all tables from Legacy"
-  task :all => [:disciplines, :implementations, :students]
+  task :all => [:disciplines, :implementations, :students, :course_schools]
 
   desc "Rename tables before execute import tasks"
   task :rename_tables => :environment do
