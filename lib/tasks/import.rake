@@ -52,7 +52,7 @@ namespace :import do
   end
 
   desc "Import all tables from Legacy"
-  task :all => [:disciplines, :implementations, :students]
+  task :all => [:disciplines, :implementations, :students, :course_schools]
 
   desc "Rename tables before execute import tasks"
   task :rename_tables => :environment do
@@ -88,6 +88,20 @@ namespace :import do
       select *, 1 as Ativo
         from alunos
     SQL
+  end
+
+  desc "Cleanup Development database"
+  task :clean_database => :environment do
+    rset = ActiveRecord::Base.connection.execute("show tables")
+    tables = Array.new
+    rset.each {|reg| tables << reg}
+    tables.flatten!
+    tables.reject!{|table| table =~ /user/ ||
+                           table == 'helps' ||
+                           table == 'schema_migrations'}
+    tables.each do |table|
+      ActiveRecord::Base.connection.execute "TRUNCATE #{table}"
+    end
   end
 
 end
