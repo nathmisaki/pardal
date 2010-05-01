@@ -109,4 +109,63 @@ namespace :import do
     end
   end
 
+  desc "Create table to merge history tables"
+  task :create_history => :environment do
+    Academnew.connection.execute(<<-SQL)
+      drop table if exists historico_importacao;
+    SQL
+
+    Academnew.connection.execute(<<-SQL)
+      create table historico_importacao(
+        NumeroDeMatricula varchar(9),
+        CodigoDaDisciplina varchar(5),
+        Conceito varchar(1),
+        SemestreEAno varchar(5),
+        CodigoDaTurma varchar(3),
+        SituacaoDaMatricula varchar(2)
+      );
+    SQL
+
+    Academnew.connection.execute(<<-SQL)
+      insert into historico_importacao(
+        NumeroDeMatricula
+        , CodigoDaDisciplina
+        , CodigoDaTurma
+        , SituacaoDaMatricula
+        , Conceito
+        , SemestreEAno
+      )
+      select a.* , #{Time.now.year * 10 + ((Time.now.month - 1) / 6) + 1} from matriculas_no_semestre a ;
+    SQL
+
+    Academnew.connection.execute(<<-SQL)
+      insert into historico_importacao(
+        NumeroDeMatricula
+        , CodigoDaDisciplina
+        , SemestreEAno
+        , Conceito
+        , SituacaoDaMatricula
+      )
+      select a.*, 99 from historicos_escolares a ;
+    SQL
+
+    Academnew.connection.execute(<<-SQL)
+      insert into historico_importacao(
+        NumeroDeMatricula
+        , CodigoDaDisciplina
+        , SemestreEAno
+        , Conceito
+        , SituacaoDaMatricula
+      )
+      select a.*, 99 from historicos_escolares_de_ex_alunos a;
+    SQL
+
+    Academnew.connection.execute(<<-SQL)
+      alter table historico_importacao
+        add index idx_matricula(NumeroDeMatricula)
+        , add index idx_disciplina(CodigoDaDisciplina)
+        , add index idx_semestre(SemestreEAno);
+    SQL
+  end
+
 end
