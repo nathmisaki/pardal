@@ -1,17 +1,18 @@
 require 'spec_helper'
 
 describe Discipline do
-  before(:each) do
-    @valid_attributes = {
-      :code => 1,
-      :name => "value for name",
-      :department_id => 1,
-      :acronym => "value for acronym",
-      :credit_hours => 1
-    }
-  end
+  it 'should return only courses from the curriculum' do
+    cur = Curriculum.make
+    discipline = Discipline.make
+    discipline.courses.make
+    cur.implementations.make :discipline => discipline
+    courses_from_curriculum = (1..10).to_a.map do 
+      discipline.courses.make :course_school => CourseSchool.make(:school => cur.school, :period => cur.period)
+    end
+    
+    discipline.courses_from_curriculum(cur).each do |course|
+      courses_from_curriculum.should include(course)
+    end
 
-  it "should create a new instance given valid attributes" do
-    Discipline.create!(@valid_attributes)
   end
 end
