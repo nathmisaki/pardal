@@ -15,7 +15,7 @@ namespace :import do
     ImportSchoolAreas.new.execute!
   end
 
-  desc "Impot Disciplines from Legacy Disciplines"
+  desc "Import Disciplines from Legacy Disciplines"
   task :disciplines => :departments do
     ImportDisciplines.new.execute!
   end
@@ -30,9 +30,9 @@ namespace :import do
     ImportSchools.new.execute!
   end
 
-  desc "Import Disciplines from Legacy Disciplines"
-  task :disciplines => :departments do
-    ImportDisciplines.new.execute!
+  desc "Import EnrollmentSituations from Legacy EnrollmentSituations"
+  task :enrollment_situations => :environment do
+    ImportEnrollmentSituations.new.execute!
   end
 
   desc "Import CourseSchool from Legacy Turmas"
@@ -56,8 +56,13 @@ namespace :import do
     ImportCourses.new.execute!
   end
 
+  desc "Import History to Enrollment"
+  task :enrollments => :environment do
+    ImportEnrollments.new.execute!
+  end
+
   desc "Import all tables from Legacy"
-  task :all => [:implementations, :students, :courses]
+  task :all => [:implementations, :enrollments]
 
   desc "Rename tables before execute import tasks"
   task :rename_tables => :environment do
@@ -107,6 +112,65 @@ namespace :import do
     tables.each do |table|
       ActiveRecord::Base.connection.execute "TRUNCATE #{table}"
     end
+  end
+
+  desc "Create table to merge history tables"
+  task :create_history => :environment do
+    Academnew.connection.execute(<<-SQL)
+      drop table if exists historico_importacao;
+    SQL
+
+    Academnew.connection.execute(<<-SQL)
+      create table historico_importacao(
+        NumeroDeMatricula varchar(9),
+        CodigoDaDisciplina varchar(5),
+        Conceito varchar(1),
+        SemestreEAno varchar(5),
+        CodigoDaTurma varchar(3),
+        SituacaoDaMatricula varchar(2)
+      );
+    SQL
+
+    Academnew.connection.execute(<<-SQL)
+      insert into historico_importacao(
+        NumeroDeMatricula
+        , CodigoDaDisciplina
+        , CodigoDaTurma
+        , SituacaoDaMatricula
+        , Conceito
+        , SemestreEAno
+      )
+      select a.* , #{Time.now.year * 10 + ((Time.now.month - 1) / 6) + 1} from matriculas_no_semestre a ;
+    SQL
+
+    Academnew.connection.execute(<<-SQL)
+      insert into historico_importacao(
+        NumeroDeMatricula
+        , CodigoDaDisciplina
+        , SemestreEAno
+        , Conceito
+        , SituacaoDaMatricula
+      )
+      select a.*, 99 from historicos_escolares a ;
+    SQL
+
+    Academnew.connection.execute(<<-SQL)
+      insert into historico_importacao(
+        NumeroDeMatricula
+        , CodigoDaDisciplina
+        , SemestreEAno
+        , Conceito
+        , SituacaoDaMatricula
+      )
+      select a.*, 99 from historicos_escolares_de_ex_alunos a;
+    SQL
+
+    Academnew.connection.execute(<<-SQL)
+      alter table historico_importacao
+        add index idx_matricula(NumeroDeMatricula)
+        , add index idx_disciplina(CodigoDaDisciplina)
+        , add index idx_semestre(SemestreEAno);
+    SQL
   end
 
 end
