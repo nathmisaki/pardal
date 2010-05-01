@@ -16,13 +16,18 @@ class ImportEnrollments < ImportClass
         logger.error("Nao foi encontrado o aluno => #{reg.NumeroDeMatricula}")
       when 1
         student = student.first
-        courses = Discipline.find(reg.CodigoDaDisciplina).courses.find_all_by_course_school_id(reg[:CodigoDaTurma]) if reg.CodigoDaTurma
-        courses ||= Discipline.find(reg.CodigoDaDisciplina).courses_from_curriculum(student.curriculum)
-        if courses.size == 0
+        discipline = Discipline.find(reg.CodigoDaDisciplina)
+        courses = discipline.courses.find_all_by_course_school_id(reg[:CodigoDaTurma]) if reg.CodigoDaTurma
+        courses ||= discipline.courses_from_curriculum(student.curriculum)
+        if courses.empty?
           logger.error("Nao foram encontradas turmas para o aluno #{reg.inspect}")
-        else
-          course_semester = courses.first.course_semesters.find_or_create_by_semester(reg.SemestreEAno)
+          courses = discipline.courses
+          if courses.empty?
+            course_school = student.curriculum.course_schools.first
+            courses << discipline.courses.create(:course_school_id => course_school.id)
+          end
         end
+        course_semester = courses.first.course_semesters.find_or_create_by_semester(reg.SemestreEAno)
       else
         logger.error("Foi encotrado mais de um aluno #{student.inspect}")
       end
