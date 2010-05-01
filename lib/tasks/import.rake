@@ -15,7 +15,7 @@ namespace :import do
     ImportSchoolAreas.new.execute!
   end
 
-  desc "Impot Disciplines from Legacy Disciplines"
+  desc "Import Disciplines from Legacy Disciplines"
   task :disciplines => :departments do
     ImportDisciplines.new.execute!
   end
@@ -30,9 +30,9 @@ namespace :import do
     ImportSchools.new.execute!
   end
 
-  desc "Import Disciplines from Legacy Disciplines"
-  task :disciplines => :departments do
-    ImportDisciplines.new.execute!
+  desc "Import EnrollmentSituations from Legacy EnrollmentSituations"
+  task :enrollment_situations => :environment do
+    ImportEnrollmentSituations.new.execute!
   end
 
   desc "Import CourseSchool from Legacy Turmas"
