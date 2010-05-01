@@ -16,7 +16,7 @@ class ImportEnrollments < ImportClass
         logger.error("Nao foi encontrado o aluno => #{reg.NumeroDeMatricula}")
       when 1
         student = student.first
-        courses = Discipline.find(reg.CodigoDaDisciplina).courses.find(reg[:CodigoDaTurma]) if reg.CodigoDaTurma
+        courses = Discipline.find(reg.CodigoDaDisciplina).courses.find_all_by_course_school_id(reg[:CodigoDaTurma]) if reg.CodigoDaTurma
         courses ||= Discipline.find(reg.CodigoDaDisciplina).courses_from_curriculum(student.curriculum)
         if courses.size == 0
           logger.error("Nao foram encontradas turmas para o aluno #{reg.inspect}")
