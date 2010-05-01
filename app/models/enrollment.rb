@@ -3,7 +3,7 @@ class Enrollment < ActiveRecord::Base
   belongs_to :course_semester
   belongs_to :situation, :class_name => "EnrollmentSituation"
 
-  validates_presence_of :course_id
+  validates_presence_of :course_semester_id
 
   def school_semester
     implementation = course.discipline.implementations.select { |implementation| implementation.curriculum == student.curriculum }
