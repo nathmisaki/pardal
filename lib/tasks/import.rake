@@ -57,8 +57,8 @@ namespace :import do
   end
 
   desc "Import History to Enrollment"
-  task :enrollments => :environment do #[:students, :courses] do
-    ImportHistory.new.execute!
+  task :enrollments => :environment do
+    ImportEnrollments.new.execute!
   end
 
   desc "Import all tables from Legacy"
