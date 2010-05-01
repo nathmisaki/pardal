@@ -1,2 +1,2 @@
-class CurriculumType < ActiveRecord::Base
+class DisciplineType < ActiveRecord::Base
 end
