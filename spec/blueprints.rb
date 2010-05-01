@@ -76,7 +76,7 @@ end
 Implementation.blueprint do
   curriculum { Curriculum.make }
   discipline { Disciplina.make }
-  DisciplineType { DisciplineType.make }
+  discipline_type { DisciplineType.make }
   school_semester { (1..6).to_a.shuffle.shift }
 end
 
