@@ -1,6 +1,6 @@
 class Enrollment < ActiveRecord::Base
   belongs_to :student
-  belongs_to :course
+  belongs_to :course_semester
   belongs_to :situation, :class_name => "EnrollmentSituation"
 
   validates_presence_of :course_id
@@ -17,7 +17,9 @@ class Enrollment < ActiveRecord::Base
   def self.proposal_for_student(student)
     student.curriculum.disciplines.map do |discipline|
       discipline.courses.map do |course|
-        Enrollment.new(:course_id => course.id)
+        course.course_semesters do |course_semester|
+          Enrollment.new(:course_semester_id => course_semester.id)
+        end
       end
     end.flatten
   end

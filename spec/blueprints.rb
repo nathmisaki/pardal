@@ -108,3 +108,8 @@ EnrollmentSituation.blueprint do
   description { Sham.sentence }
   active { [true,false].shuffle.shift }
 end
+
+CourseSemester.blueprint do
+  course { Course.make }
+  semester { (1980..2010).to_a.shuffle.shift*10+([1,2].to_a.shuffle.shift) }
+end
