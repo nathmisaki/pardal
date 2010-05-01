@@ -76,11 +76,11 @@ end
 Implementation.blueprint do
   curriculum { Curriculum.make }
   discipline { Disciplina.make }
-  curriculum_type { CurriculumType.make }
+  DisciplineType { DisciplineType.make }
   school_semester { (1..6).to_a.shuffle.shift }
 end
 
-CurriculumType.blueprint do
+DisciplineType.blueprint do
   name { ['OBRIGATÓRIA', 'OPTATIVA', 'COMPLEMENTAR', 'SUPLEMENTAR', 'ELETIVA'].shuffle.shift }
 end
 

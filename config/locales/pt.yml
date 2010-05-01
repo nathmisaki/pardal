@@ -147,3 +147,6 @@ pt:
         less_than_or_equal_to: "precisa ser menor ou igual a {{count}}"
         odd: "precisa ser ímpar"
         even: "precisa ser par"
+
+  formtastic:
+    create: "Criar {{model}}"
