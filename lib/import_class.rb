@@ -8,7 +8,7 @@ class ImportClass
   end
 
   def parse
-    raise "shouldn't called into this class"
+    raise "shouldn't called into this class (ImportClass) but in child object"
   end
 
   def fetch
