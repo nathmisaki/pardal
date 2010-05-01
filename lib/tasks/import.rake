@@ -51,8 +51,13 @@ namespace :import do
     ImportStudents.new.execute!
   end
 
+  desc "Import Courses from Legacy Courses"
+  task :courses => [:course_schools, :disciplines] do
+    ImportCourses.new.execute!
+  end
+
   desc "Import all tables from Legacy"
-  task :all => [:disciplines, :implementations, :students, :course_schools]
+  task :all => [:implementations, :students, :courses]
 
   desc "Rename tables before execute import tasks"
   task :rename_tables => :environment do
