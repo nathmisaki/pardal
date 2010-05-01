@@ -1,4 +1,4 @@
-class ImportHistory < ImportClass
+class ImportEnrollments < ImportClass
 
   def initialize
     @old_table_class = LegacyHistory
@@ -6,7 +6,7 @@ class ImportHistory < ImportClass
     super
   end
 
-  def parser
+  def parse
     @rows = Array.new
     @legacy_rows.each do |reg|
       hash = Hash.new
