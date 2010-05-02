@@ -3,7 +3,7 @@ class ImportClass
   class ImportLogger < Logger; end
 
   def initialize
-    @step = ENV['RAILS_IMPORT_STEP'].to_i || 500
+    @step = ENV['RAILS_IMPORT_STEP'] || 500
     @offset = 0
   end
 
