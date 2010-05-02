@@ -6,8 +6,8 @@ class Enrollment < ActiveRecord::Base
   validates_presence_of :course_semester_id
 
   def school_semester
-    implementation = course.discipline.implementations.select { |implementation| implementation.curriculum == student.curriculum }
-    if implementation
+    implementation = course_semester.course.discipline.implementations.select { |implementation| implementation.curriculum == student.curriculum }
+    unless implementation.empty?
       implementation.first.school_semester
     else
       nil
