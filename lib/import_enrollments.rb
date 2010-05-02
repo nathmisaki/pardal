@@ -8,15 +8,19 @@ class ImportEnrollments < ImportClass
 
   def parse
     @rows = Array.new
+
+    #caching some variables
+    students = Student.all(:include => :curriculum, :conditions => { :registration => @legacy_rows.map { |lr| lr.NumeroDeMatricula }.uniq })
+    disciplines = Discipline.find_all_by_id(@legacy_rows.map { |lr| lr.CodigoDaDisciplina }.uniq)
+
     @legacy_rows.each do |reg|
       hash = Hash.new
-      student = Student.find_all_by_registration reg.NumeroDeMatricula
+      student = students.select { |s| s.registration == reg.NumeroDeMatricula }
       case student.size
       when 0
         logger.error("Nao foi encontrado o aluno => #{reg.NumeroDeMatricula}")
       when 1
-        student = student.first
-        discipline = Discipline.find_by_id(reg.CodigoDaDisciplina)
+        discipline = disciplines.find { |d| d.id == reg.CodigoDaDisciplina.to_i }
         if discipline
           courses = discipline.courses.find_all_by_course_school_id(reg[:CodigoDaTurma]) if reg.CodigoDaTurma
           courses ||= discipline.courses_from_curriculum(student.curriculum)
