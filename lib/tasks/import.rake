@@ -57,7 +57,7 @@ namespace :import do
   end
 
   desc "Import History to Enrollment"
-  task :enrollments => [:students, :courses] do
+  task :enrollments => [:create_history, :students, :courses] do
     ImportEnrollments.new.execute!
   end
 
