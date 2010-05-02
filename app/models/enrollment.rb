@@ -17,7 +17,7 @@ class Enrollment < ActiveRecord::Base
   def self.proposal_for_student(student)
     student.curriculum.disciplines.map do |discipline|
       discipline.courses.map do |course|
-        course.course_semesters do |course_semester|
+        course.course_semesters.map do |course_semester|
           Enrollment.new(:course_semester_id => course_semester.id)
         end
       end
