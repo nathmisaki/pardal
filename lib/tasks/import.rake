@@ -90,7 +90,7 @@ namespace :import do
     Academnew.connection.execute(<<-SQL)
       create view curriculum as
       select * from compl_estruturas_curriculares
-        natural join estruturas_curriculares;
+        right join estruturas_curriculares using(CodigoDaEstrutura);
     SQL
     Academnew.connection.execute("drop table if exists todos_alunos")
     Academnew.connection.execute(<<-SQL)
