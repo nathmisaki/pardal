@@ -21,7 +21,6 @@ class ImportImplementations < ImportClass
                                               reg[:CodigoDoTurno].to_i,
                                               reg[:CodigoDaEstrutura].to_i])
       hash[:curriculum_id] = hash[:curriculum_id].id unless hash[:curriculum_id].nil?
-      logger.debug(hash.inspect)
       @rows << hash
     end
     @legacy_rows = nil
