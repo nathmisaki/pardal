@@ -10,7 +10,7 @@ class ImportEnrollments < ImportClass
     @rows = Array.new
 
     #caching some variables
-    students = Student.all(:include => :curriculum, :conditions => { :registration => @legacy_rows.map { |lr| lr.NumeroDeMatricula }.uniq })
+    students = Student.all(:conditions => { :registration => @legacy_rows.map { |lr| lr.NumeroDeMatricula }.uniq })
     disciplines = Discipline.find_all_by_id(@legacy_rows.map { |lr| lr.CodigoDaDisciplina }.uniq)
 
     @legacy_rows.each do |reg|
@@ -26,11 +26,12 @@ class ImportEnrollments < ImportClass
           courses = discipline.courses.find_all_by_course_school_id(reg[:CodigoDaTurma]) if reg.CodigoDaTurma
           courses ||= discipline.courses_from_curriculum(student.curriculum)
           if courses.empty?
-            logger.error("Nao foram encontradas turmas da disciplina #{reg.CodigoDaDisciplina} para o aluno #{reg.inspect}, criando...")
+            logger.error("Nao foram encontradas turmas da disciplina #{reg.CodigoDaDisciplina} para o curriculum #{student.curriculum.inspect}, pegando qualquer uma.")
             courses = discipline.courses
             if courses.empty?
               course_school = student.curriculum.course_schools.first
               courses << discipline.courses.create(:course_school_id => course_school.id)
+              logger.error("Criada turma #{courses.inspect} para a disciplina #{reg.CodigoDaDisciplina}.")
             end
           end
           course_semester = courses.first.course_semesters.find_or_create_by_semester(reg.SemestreEAno)
