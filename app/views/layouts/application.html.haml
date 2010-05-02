@@ -26,10 +26,8 @@
       #head
         #back_top
 
-          = link_to "Teste", test_named_url
-
           #help_link
-            -#= link_to content_tag(:span, "Help"), help_path(request.path.to_s.sub(/\//,'').gsub(/\//, '-')), :rel => '#overlay'
+            = link_to content_tag(:span, "Help"), help_path(request.path.to_s.sub(/\//,'').gsub(/\//, '-')), :rel => '#overlay'
         #back_logo
         #content_top
           #text_top
@@ -45,6 +43,8 @@
             %h1=h yield(:title)
 
           = yield
+
+          #security_div{ :style => "height:2px;" }
 
       #footer
         #back_footer
