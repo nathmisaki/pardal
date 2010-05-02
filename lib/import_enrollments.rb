@@ -28,14 +28,14 @@ class ImportEnrollments < ImportClass
           end
         end
         course_semester = courses.first.course_semesters.find_or_create_by_semester(reg.SemestreEAno)
+        hash[:student_id] = student.id
+        hash[:course_semester_id] = course_semester.id
+        hash[:grade] = reg[:Conceito]
+        hash[:situation_id] = reg[:SituacaoDaMatricula]
+        @rows << hash
       else
         logger.error("Foi encotrado mais de um aluno #{student.inspect}")
       end
-      hash[:student_id] = student.id
-      hash[:course_semester_id] = course_semester.id
-      hash[:grade] = reg[:Conceito]
-      hash[:situation_id] = reg[:SituacaoDaMatricula]
-      @rows << hash
     end
     @legacy_rows = nil
   end
