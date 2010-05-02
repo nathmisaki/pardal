@@ -20,6 +20,7 @@ class ImportEnrollments < ImportClass
       when 0
         logger.error("Nao foi encontrado o aluno => #{reg.NumeroDeMatricula}")
       when 1
+        student = student.first
         discipline = disciplines.find { |d| d.id == reg.CodigoDaDisciplina.to_i }
         if discipline
           courses = discipline.courses.find_all_by_course_school_id(reg[:CodigoDaTurma]) if reg.CodigoDaTurma

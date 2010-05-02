@@ -7,12 +7,21 @@ class ImportClass
     @offset = 0
   end
 
+  def how_long(task)
+    i = Time.now.to_f
+    yield
+    e = Time.now.to_f
+    seconds = (e-i)
+    puts "  -- #{task} (#{'%.4f' % seconds}) ".ljust(40, "-")
+  end
+
   def parse
     raise "shouldn't called into this class (ImportClass) but in child object"
   end
 
   def fetch
     @legacy_rows = @old_table_class.all(:limit => @step, :offset => @offset)
+    puts "-- fetched #{@legacy_rows.size} rows starting in #{@offset} from #{@old_table_class.table_name}"
     @offset += @legacy_rows.size if @legacy_rows
   end
 
@@ -32,9 +41,9 @@ class ImportClass
   def execute!
     rows_count = @old_table_class.count
     while rows_count > @offset
-      fetch
-      parse
-      put
+      how_long(:fetch) { fetch }
+      how_long(:parse) { parse }
+      how_long(:put) { put }
     end
   end
 
