@@ -36,7 +36,7 @@ class ImportClass
       #@new_table_class.import @rows.first.keys, @rows.map(&:values), :validate => false
       puts "   -> using bulk insert #{@new_table_class} "
       sql_stm = "INSERT INTO #{@new_table_class.table_name} (#{@rows.first.keys.map {|k| k.to_s }.join(",")}) VALUES "
-      sql_stm << @rows.map(&:values).map { |value| "(#{value.join(',')})" }.join(',')
+      sql_stm << @rows.map(&:values).map { |value| "(#{value.map{ |v| "'#{v}'" }.join(',')})" }.join(',')
       @new_table_class.connection.execute(sql_stm)
     else
       @rows.each do |row|
