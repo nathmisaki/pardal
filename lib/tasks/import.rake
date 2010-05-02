@@ -92,7 +92,7 @@ namespace :import do
       select * from compl_estruturas_curriculares
         natural join estruturas_curriculares;
     SQL
-    Academnew.connection.execute("drop view if exists todos_alunos")
+    Academnew.connection.execute("drop table if exists todos_alunos")
     Academnew.connection.execute(<<-SQL)
       create table todos_alunos as
       select *, 1 as Ativo
