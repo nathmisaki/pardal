@@ -94,9 +94,14 @@ namespace :import do
     SQL
     Academnew.connection.execute("drop view if exists todos_alunos")
     Academnew.connection.execute(<<-SQL)
-      create view todos_alunos as
+      create table todos_alunos as
       select *, 1 as Ativo
         from alunos
+    SQL
+    Academnew.connection.execute(<<-SQL)
+      insert into todos_alunos
+      select *, 0 as Ativo
+        from ex_alunos
     SQL
   end
 
