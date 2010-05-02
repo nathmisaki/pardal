@@ -16,23 +16,27 @@ class ImportEnrollments < ImportClass
         logger.error("Nao foi encontrado o aluno => #{reg.NumeroDeMatricula}")
       when 1
         student = student.first
-        discipline = Discipline.find(reg.CodigoDaDisciplina)
-        courses = discipline.courses.find_all_by_course_school_id(reg[:CodigoDaTurma]) if reg.CodigoDaTurma
-        courses ||= discipline.courses_from_curriculum(student.curriculum)
-        if courses.empty?
-          logger.error("Nao foram encontradas turmas para o aluno #{reg.inspect}")
-          courses = discipline.courses
+        discipline = Discipline.find_by_id(reg.CodigoDaDisciplina)
+        if discipline
+          courses = discipline.courses.find_all_by_course_school_id(reg[:CodigoDaTurma]) if reg.CodigoDaTurma
+          courses ||= discipline.courses_from_curriculum(student.curriculum)
           if courses.empty?
-            course_school = student.curriculum.course_schools.first
-            courses << discipline.courses.create(:course_school_id => course_school.id)
+            logger.error("Nao foram encontradas turmas da disciplina #{reg.CodigoDaDisciplina} para o aluno #{reg.inspect}, criando...")
+            courses = discipline.courses
+            if courses.empty?
+              course_school = student.curriculum.course_schools.first
+              courses << discipline.courses.create(:course_school_id => course_school.id)
+            end
           end
+          course_semester = courses.first.course_semesters.find_or_create_by_semester(reg.SemestreEAno)
+          hash[:student_id] = student.id
+          hash[:course_semester_id] = course_semester.id
+          hash[:grade] = reg[:Conceito]
+          hash[:situation_id] = reg[:SituacaoDaMatricula]
+          @rows << hash
+        else
+          logger.error("Não foi encontrado a disciplina => #{reg.CodigoDaDisciplina}")
         end
-        course_semester = courses.first.course_semesters.find_or_create_by_semester(reg.SemestreEAno)
-        hash[:student_id] = student.id
-        hash[:course_semester_id] = course_semester.id
-        hash[:grade] = reg[:Conceito]
-        hash[:situation_id] = reg[:SituacaoDaMatricula]
-        @rows << hash
       else
         logger.error("Foi encotrado mais de um aluno #{student.inspect}")
       end
