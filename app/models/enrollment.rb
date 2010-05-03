@@ -15,12 +15,6 @@ class Enrollment < ActiveRecord::Base
   end
 
   def self.proposal_for_student(student)
-    student.curriculum.disciplines.map do |discipline|
-      discipline.courses.map do |course|
-        course.course_semesters.map do |course_semester|
-          Enrollment.new(:course_semester_id => course_semester.id)
-        end
-      end
-    end.flatten
+    Proposal.factory(student).calculateEnrollments
   end
 end

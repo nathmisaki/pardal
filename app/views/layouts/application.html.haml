@@ -35,7 +35,8 @@
 
       #middle
         #content
-
+          #navigation_menu
+            #back_link= link_to "Voltar", :back
           - flash.each do |name, msg|
             = content_tag(:div, msg, :id => "flash_#{name}", :class => "flash_#{name}") if [:error,:alert,:notice,:success].include?(name)
 

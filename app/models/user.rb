@@ -8,11 +8,14 @@ class User < ActiveRecord::Base
 
   after_save :new_link_student
 
-  def objects_with_role(role_name, type=nil, models=false)
+  def objects_with_role(*args)
+    role_name = args.shift
+    options = args.extract_options!
+    puts options[:type]
     conditions = { :name => role_name.to_s }
-    conditions.merge(:authorizable_type => type.to_s.classify) if type
+    conditions.merge(:authorizable_type => options[:type].to_s.classify) unless options[:type].nil?
     ret = role_objects.all(:conditions => conditions)
-    ret.map! { |ro| ro.authorizable } if models
+    ret.map! { |ro| ro.authorizable } unless options[:role]
     ret
   end
 
