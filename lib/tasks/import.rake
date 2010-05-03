@@ -70,6 +70,12 @@ namespace :import do
     verbose(:enrollments) { ImportEnrollments.new.execute! }
   end
 
+  desc "Import PreRequirement from Legacy PreRequirement"
+  requirements = ENV['RAILS_IMPORT_REQUIREMENTS'] ? [:implementations, :environment] : [:environment]
+  task :pre_requirements => requirements do
+    verbose(:pre_requirements) { ImportPreRequirement.new.execute! }
+  end
+
   desc "Import all tables from Legacy"
   task :all => [:implementations, :enrollments]
 
