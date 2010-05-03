@@ -52,4 +52,19 @@ class Student < ActiveRecord::Base
       (names.split(/[\s]+/).map { |n| n[0,1] unless n=~ prepos_reg }.compact.join)
     ].sort
   end
+
+  def discipline_concluded?(discipline_id)
+    ['A', 'B', 'D', 'E'].map { |grade|
+      discipline_grades(discipline_id).include?(grade)
+    }.include?(true)
+  end
+
+  def discipline_grades(discipline_id)
+    enrollments_from_discipline(discipline_id).map(&:grade)
+  end
+
+  def enrollments_from_discipline(discipline_id)
+    enrollments.find(:all, :joins => [:course_semester => :course], :conditions => ["discipline_id = ?", discipline_id])
+  end
+
 end
