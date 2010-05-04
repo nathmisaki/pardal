@@ -67,4 +67,17 @@ class Student < ActiveRecord::Base
     enrollments.select { |e| e.course_semester.course.discipline_id == discipline_id }
   end
 
+  def disciplines_with_pre_requirements_concluded(disciplines)
+    disciplines.map do |discipline|
+      pre_req_ary = curriculum.implementations.find_by_discipline_id(discipline.id).pre_requirements.map do |pre|
+        discipline_concluded?(pre)
+      end
+      pre_reqs_ok = pre_req_ary.inject(true){|bool,pre| bool &&= pre}
+      unless pre_reqs_ok
+        disciplines.delete discipline
+      end
+    end
+    disciplines
+  end
+
 end
