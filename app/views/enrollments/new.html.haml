@@ -37,7 +37,12 @@
         = f.error_messages
         = f.hidden_field :course_semester_id
         %p
-          = enrollment.course_semester.course.discipline.acronym
-          = enrollment.course_semester.course.course_school_id
+          %div{ :style => "float:left;width:200px" }
+            = enrollment.course_semester.course.discipline.acronym
+            = enrollment.course_semester.course.course_school_id
           = f.submit "Confirmar Matrícula"
+          - enrollment.course_semester.course_schedules.each do |cs|
+            = cs.short
+            
+
 

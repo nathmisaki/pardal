@@ -7,7 +7,11 @@ module EnrollmentsHelper
         if enrollment.situation.active
           "valid"
         else
-          "waiting"
+          if enrollment.situation.desc =~ /Aguardando/i
+            "waiting"
+          else
+            "invalid"
+          end
         end
       end
     else
