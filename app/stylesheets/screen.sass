@@ -1,4 +1,5 @@
 @import partials/base.sass
+@import compass/utilities/lists.sass
 //Blueprint Typograph
 +blueprint-typography
 +blueprint-debug
@@ -123,6 +124,9 @@ body
   :float right
 
 #new_enrollments
+  .enrollment
+    :padding 5px 20px
+    :margin 2px 0
   .valid
     :background #61dd44
   .waiting
@@ -131,3 +135,10 @@ body
     :background #dee1d7
   .invalid
     :background #e80107
+  ul
+    +horizontal-list(10px)
+    .desc
+      :width 200px
+      :font
+        :weight bold
+

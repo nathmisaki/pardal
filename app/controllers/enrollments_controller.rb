@@ -1,6 +1,6 @@
 class EnrollmentsController < InheritedResources::Base
   belongs_to :student
-  actions :index, :new, :create, :update
+  actions :index, :new, :create, :update, :destroy
 
   before_filter :load_student
   before_filter :load_proposal, :only => [:new, :create, :update]
@@ -20,6 +20,12 @@ class EnrollmentsController < InheritedResources::Base
     end
   end
 
+  def destroy
+    destroy! do |success,failure|
+      success.html { redirect_to :action => :new }
+      failure.html { render :action => :new }
+    end
+  end
 
   private
 

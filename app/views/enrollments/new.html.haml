@@ -36,13 +36,17 @@
       - form_for [@student, enrollment] do |f|
         = f.error_messages
         = f.hidden_field :course_semester_id
-        %p
-          %div{ :style => "float:left;width:200px" }
+        %ul
+          %li.desc
             = enrollment.course_semester.course.discipline.acronym
             = enrollment.course_semester.course.course_school_id
-          = f.submit "Confirmar Matrícula"
-          - enrollment.course_semester.course_schedules.each do |cs|
-            = cs.short
-            
+          %li.button
+            - if enrollment.new_record?
+              = f.submit "Confirmar Matrícula"
+            - else
+              = button_to("Desfazer Matrícula", [@student,enrollment], :method => :delete)
+          %li.schedules
+            - enrollment.course_semester.course_schedules.each do |cs|
+              = cs.short
 
 
