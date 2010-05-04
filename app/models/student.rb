@@ -22,7 +22,7 @@ class Student < ActiveRecord::Base
     registration_or_number
   end
 
-  # Receive registration number without the letter and returns 
+  # Receive registration number without the letter and returns
   # the verification digit
   def self.registration_verification_digit(registration_number)
     mult = (1..7).to_a.reverse
@@ -54,7 +54,7 @@ class Student < ActiveRecord::Base
   end
 
   def discipline_concluded?(discipline_id)
-    discipline_grades(discipline_id).map { |grade| 
+    discipline_grades(discipline_id).map { |grade|
       ['A', 'B', 'D', 'E'].include?(grade)
     }.include?(true)
   end
