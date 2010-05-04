@@ -80,4 +80,11 @@ class Student < ActiveRecord::Base
     disciplines
   end
 
+  def n_minus_3(disciplines)
+    disciplines = disciplines.reject{|dis| curriculum.implementations.find_by_discipline_id(dis.id).discipline_type_id == 3 }
+    min_semester = disciplines.map{|dis| curriculum.implementations.find_by_discipline_id(dis.id).school_semester }.min
+    disciplines = disciplines.select{|dis| (min_semester..(min_semester+2)).include? curriculum.implementations.find_by_discipline_id(dis.id).school_semester }
+    disciplines
+  end
+
 end
