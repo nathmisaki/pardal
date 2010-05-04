@@ -49,6 +49,7 @@ class ImportClass
         end
       end
     end
+    puts "-- inserted #{@rows.size} rows to #{@new_table_class.table_name}"
     @rows = nil
   end
 
