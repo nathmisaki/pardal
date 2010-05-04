@@ -35,9 +35,10 @@
 
       #middle
         #content
-          %ul#navigation_menu
-            %li#menu_link= link_to "Menu", current_user_path
-            %li#back_link= link_to "Voltar", :back
+          #navigation_menu
+            %ul
+              %li#menu_link= link_to "Menu", current_user_path
+              %li#back_link= link_to "Voltar", :back
           - flash.each do |name, msg|
             = content_tag(:div, msg, :id => "flash_#{name}", :class => "flash_#{name}") if [:error,:alert,:notice,:success].include?(name)
 
