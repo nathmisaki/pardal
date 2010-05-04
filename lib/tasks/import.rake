@@ -39,7 +39,7 @@ namespace :import do
     verbose(:schools) { ImportSchools.new.execute! }
   end
 
-  desc "Import EnrollmentSituations from Legacy EnrollmentSituations"
+  desc "Import EnrollmentSituations from Legacy SituacoesDeMatricula"
   task :enrollment_situations => :environment do
     verbose(:enrollment_situations) { ImportEnrollmentSituations.new.execute! }
   end
@@ -49,8 +49,13 @@ namespace :import do
     verbose(:course_schools) { ImportCourseSchools.new.execute! }
   end
 
+  desc "Import CourseSchedule from Legacy DiasDeAulas"
+  requirements = ENV['RAILS_IMPORT_REQUIREMENTS'] ? [:course_semesters, :environment] : [:environment]
+  task :course_schedules => requirements do
+    verbose(:course_schedules) { ImportCourseSchedules.new.execute! }
+  end
 
-  desc "Import Curriculums from Legacy Curriculum"
+  desc "Import Curriculums from Legacy EstruturasCurriculares"
   task :curriculums => [:create_views, :schools, :periods] do
     verbose(:curriculums) { ImportCurriculums.new.execute! }
   end
