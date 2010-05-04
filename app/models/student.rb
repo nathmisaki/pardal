@@ -1,7 +1,7 @@
 class Student < ActiveRecord::Base
   acts_as_authorization_object
   has_many :attachment, :as => :attachable
-  has_many :enrollments
+  has_many :enrollments, :include => [:course_semester => :course]
   belongs_to :curriculum
 
   validates_uniqueness_of :registration
@@ -52,4 +52,19 @@ class Student < ActiveRecord::Base
       (names.split(/[\s]+/).map { |n| n[0,1] unless n=~ prepos_reg }.compact.join)
     ].sort
   end
+
+  def discipline_concluded?(discipline_id)
+    discipline_grades(discipline_id).map { |grade| 
+      ['A', 'B', 'D', 'E'].include?(grade)
+    }.include?(true)
+  end
+
+  def discipline_grades(discipline_id)
+    enrollments_from_discipline(discipline_id).map(&:grade)
+  end
+
+  def enrollments_from_discipline(discipline_id)
+    enrollments.select { |e| e.course_semester.course.discipline_id == discipline_id }
+  end
+
 end

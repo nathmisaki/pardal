@@ -8,6 +8,10 @@ class ImportStudents < ImportClass
 
   def parse
     @rows = Array.new
+    #curr_groups = @legacy_rows.map { |lr| [lr[:CodigoDoCurso], lr[:CodigoDoTurno], lr[:CodigoDaEstruturaCurricular]] }.uniq
+    #conditions = [(["(school_id = ? and period_id = ?  and structure_code = ?)"]*curr_groups.size).join(' OR '), 
+      #curr_groups.flatten].flatten
+    @curriculums ||= Curriculum.all
     @legacy_rows.each do |reg|
       hash = Hash.new
       hash[:registration] = reg[:NumeroDeMatricula]
@@ -47,13 +51,16 @@ class ImportStudents < ImportClass
       hash[:ingress_exam_classification] = reg[:ClassificacaoNoVestibular]
       hash[:ingress_exam_points] = reg[:TotalDePontosNoVestibular].tr(",",".").to_f
       hash[:active] = reg[:Ativo]
+      hash[:curriculum_id] = @curriculums.find { |c| c.school_id == reg[:CodigoDoCurso].to_i and
+        c.period_id == reg[:CodigoDoTurno].to_i and
+        c.structure_code == reg[:CodigoDaEstruturaCurricular].to_i }
       hash[:curriculum_id] = Curriculum.all( :conditions =>
                                             [ "school_id = ?
                                               and period_id = ?
                                               and structure_code = ?",
                                               reg[:CodigoDoCurso].to_i,
                                               reg[:CodigoDoTurno].to_i,
-                                              reg[:CodigoDaEstruturaCurricular].to_i]).first
+                                              reg[:CodigoDaEstruturaCurricular].to_i]).first if hash[:curriculum_id].nil?
       hash[:curriculum_id] = hash[:curriculum_id].id unless hash[:curriculum_id].nil?
       @rows << hash
     end

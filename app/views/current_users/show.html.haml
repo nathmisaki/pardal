@@ -9,5 +9,5 @@
         %li= link_to(attach.file_name, [current_user,attach])
 - if current_user.has_role?(:student)
   = students_owned(@user)
-  = render :partial => "current_users/student_menu", :collection => current_user.objects_with_role(:student, Student, true)
+  = render :partial => "current_users/student_menu", :collection => current_user.objects_with_role(:student, :type => "Student")
 

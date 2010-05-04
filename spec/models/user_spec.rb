@@ -15,8 +15,8 @@ describe User do
 
     it { should be_has_role(:owner) }
 
-    it { @user.objects_with_role(:student, Student, true).should == [ @student ] }
-    it { @user.objects_with_role(:owner, Student, true).should == [ @student ] }
+    it { @user.objects_with_role(:student, :type => "Student").should == [ @student ] }
+    it { @user.objects_with_role(:owner, :type => "Student").should == [ @student ] }
   end
 
   context "objects_with_role" do
