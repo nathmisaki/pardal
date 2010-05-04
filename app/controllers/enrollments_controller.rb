@@ -2,6 +2,7 @@ class EnrollmentsController < InheritedResources::Base
   belongs_to :student
   actions :index, :new, :create, :update, :destroy
 
+  before_filter :authenticate_user!
   before_filter :load_student
   before_filter :load_proposal, :only => [:new, :create, :update]
 
