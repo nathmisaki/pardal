@@ -5,6 +5,7 @@ class EnrollmentsController < InheritedResources::Base
   before_filter :load_student
   before_filter :load_proposal, :only => [:new, :create, :update]
 
+  before_filter :allowance
 
   def create
     create! do |success,failure|
@@ -37,6 +38,13 @@ class EnrollmentsController < InheritedResources::Base
     @stud ||= load_student
     @enrollments = Enrollment.proposal_for_student(@student)
     @enrollment = @enrollments.find { |e| e.course_semester_id == params[:enrollment][:course_semester_id].to_i } if params[:enrollment]
+  end
+
+  def allowance
+    unless current_user.has_role?(:student, @student)
+      flash[:error] = "Você não tem acesso a essa parte do sistema"
+      redirect_to current_user_path
+    end
   end
 
 end
