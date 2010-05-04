@@ -31,13 +31,19 @@ class ImportClass
     rescue LoadError
     end
     if ENV['RAILS_IMPORT_BULK_INSERT']
-    #if @new_table_class.respond_to?(:import)
-      #puts "   -> using #{@new_table_class}.import "
-      #@new_table_class.import @rows.first.keys, @rows.map(&:values), :validate => false
-      puts "   -> using bulk insert #{@new_table_class} "
-      sql_stm = "INSERT INTO #{@new_table_class.table_name} (#{@rows.first.keys.map {|k| k.to_s }.join(",")}) VALUES "
-      sql_stm << @rows.map(&:values).map { |value| "(#{value.map{ |v| "'#{v.to_s.tr("\\", '').split("'").join("\\'")}'" }.join(',')})" }.join(',')
-      @new_table_class.connection.execute(sql_stm)
+      unless @rows.blank?
+        if @new_table_class.respond_to?(:import)
+          puts "   -> using #{@new_table_class}.import "
+          @new_table_class.import @rows.first.keys, @rows.map(&:values), :validate => false
+        else
+          puts "   -> using bulk insert #{@new_table_class} "
+          sql_stm = "INSERT INTO #{@new_table_class.table_name} (#{@rows.first.keys.map {|k| k.to_s }.join(",")}) VALUES "
+          sql_stm << @rows.map(&:values).map { |value| "(#{value.map{ |v| "'#{v.to_s.tr("\\", '').split("'").join("\\'")}'" }.join(',')})" }.join(',')
+          @new_table_class.connection.execute(sql_stm)
+        end
+      else
+        puts "    -> @row is empty!"
+      end
     else
       @rows.each do |row|
         sa = @new_table_class.new(row)

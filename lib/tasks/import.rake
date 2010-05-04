@@ -24,12 +24,12 @@ namespace :import do
     verbose(:school_areas) { ImportSchoolAreas.new.execute! }
   end
 
-  desc "Import Disciplines from Legacy Disciplines"
+  desc "Import Disciplines from Legacy Disciplinas"
   task :disciplines => :departments do
     verbose(:disciplines) { ImportDisciplines.new.execute! }
   end
 
-  desc "Import Implementation from Legacy Implementations"
+  desc "Import Implementation from Legacy ComposicoesEstrutCurriculares"
   task :implementations => [:curriculums, :periods, :disciplines] do
     verbose(:implementations) { ImportImplementations.new.execute! }
   end
