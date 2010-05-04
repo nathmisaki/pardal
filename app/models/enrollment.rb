@@ -5,9 +5,7 @@ class Enrollment < ActiveRecord::Base
 
   validates_presence_of :course_semester_id, :student_id
 
-  after_validation_on_create do
-    set_enrollment_situation
-  end
+  before_create :set_defaults_columns
 
   def self.proposal_for_student(student)
     Proposal.factory(student).calculateEnrollments
@@ -42,6 +40,6 @@ class Enrollment < ActiveRecord::Base
   end
 
   def set_defaults_columns
-    enrollment_situation_id = 99
+    self.situation_id = 99
   end
 end

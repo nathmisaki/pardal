@@ -33,11 +33,11 @@ class Proposal
                                              group_by { |cs| cs.course_id }
       enrollments = courses.map { |course|
         course_semesters[course.id].to_a.map { |course_semester|
-          enrolls = student.enrollments.select { |e| e.course_semester == course_semester and !e.confirmed? }
+          enrolls = student.enrollments.select { |e| e.course_semester == course_semester }
           if enrolls.blank?
             student.enrollments.build(:course_semester => course_semester)
           else
-            enrolls.select { |e| e.confirmed? }
+            enrolls.select { |e| !e.confirmed? }
           end
         }
       }.flatten
