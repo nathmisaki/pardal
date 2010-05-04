@@ -31,7 +31,7 @@ class Proposal
       course_semesters = CourseSemester.all(:include => [:course => :discipline], :conditions => ["course_id IN (?) and semester = ?",
                                              courses.map{ |c| c.id }, (Time.now.year*10+(Time.now.month-1)/6+1)]).
                                              group_by { |cs| cs.course_id }
-      courses.map { |course|
+      enrollments = courses.map { |course|
         course_semesters[course.id].to_a.map { |course_semester|
           student.enrollments.build(:course_semester => course_semester)
         }

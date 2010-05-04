@@ -30,12 +30,13 @@
   = @student.curriculum.period.name
   \.
 %p#resolucaocruesp &quot;&Eacute; proibida a matr&iacute;cula simult&acirc;nea em mais de uma institui&ccedil;&atilde;o p&uacute;blica de ensino superior&quot; (Resolu&ccedil;&atilde;o CRUESP 139/86)
-
 - @enrollments.each do |enrollment|
-  - form_for [@student, enrollment] do |f|
-    = f.error_messages
-    %p
-      = enrollment.course_semester.course.discipline.acronym
-      = enrollment.course_semester.course.course_school_id
-      = f.submit "Confirmar Matrícula"
+  - div_for enrollment do
+    - form_for [@student, enrollment] do |f|
+      = f.error_messages
+      = f.hidden_field :course_semester_id
+      %p
+        = enrollment.course_semester.course.discipline.acronym
+        = enrollment.course_semester.course.course_school_id
+        = f.submit "Confirmar Matrícula"
 
