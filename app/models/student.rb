@@ -87,4 +87,13 @@ class Student < ActiveRecord::Base
     disciplines
   end
 
+  def semesters_into_fatec
+    today = Time.now
+    year = registration[1..2]
+    semester = registration[3..3].to_i
+    year = year.to_i > 65 ? "19#{year}".to_i : "20#{year}".to_i
+    current_semester = today.month > 6 ? 2 : 1
+    ((today.year - year)*2) + (current_semester-semester) + 1
+  end
+
 end
