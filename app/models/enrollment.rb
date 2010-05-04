@@ -5,6 +5,14 @@ class Enrollment < ActiveRecord::Base
 
   validates_presence_of :course_semester_id, :student_id
 
+  after_validation_on_create do
+    set_enrollment_situation
+  end
+
+  def self.proposal_for_student(student)
+    Proposal.factory(student).calculateEnrollments
+  end
+
   def school_semester
     implementation = course_semester.course.discipline.implementations.select { |implementation| implementation.curriculum == student.curriculum }
     unless implementation.empty?
@@ -14,17 +22,26 @@ class Enrollment < ActiveRecord::Base
     end
   end
 
-  def self.proposal_for_student(student)
-    Proposal.factory(student).calculateEnrollments
+  def confirmed?
+    !confirmed_at.nil?
+  end
+
+  def confirm!
+    confirmed_at = Time.now
+    save
   end
 
   private
 
   def validate
-    # Enrollment isn't in proposal, so don't come from form.
+    # Enrollment isn't in proposal, so don't come from form, it's a form-hijack.
     errors.add_to_base("Não faz parte da proposta") unless
     Enrollment.proposal_for_student(student).map { |e|
         e.course_semester_id
       }.include?(course_semester_id)
+  end
+
+  def set_defaults_columns
+    enrollment_situation_id = 99
   end
 end
