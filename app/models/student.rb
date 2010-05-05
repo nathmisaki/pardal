@@ -53,6 +53,10 @@ class Student < ActiveRecord::Base
     ].sort
   end
 
+  def reg
+    registration[1..-1]
+  end
+
   def discipline_concluded?(discipline_id)
     discipline_grades(discipline_id).map { |grade|
       ['A', 'B', 'D', 'E'].include?(grade)

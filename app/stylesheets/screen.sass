@@ -1,67 +1,11 @@
 @import partials/base.sass
 @import compass/utilities/lists.sass
+@import partials/flash_messages.sass
+@import partials/error_box.sass
 //Blueprint Typograph
 +blueprint-typography
 +blueprint-debug
 
-/* @group Flash Messages */
-.flash_alert, .flash_warning, .flash_notice, .flash_error, .flash_success
-  :padding .8em
-  :margin
-    :bottom 1em
-  :border 2px solid #ddd
-
-.flash_error, .flash_alert
-  :background #FBE3E4
-  :color #8a1f11
-  :border
-    :color #FBC2C4
-  a
-    :color #8a1f11
-.flash_warning
-  :background #FFF6BF
-  :color #514721
-  :border
-    :color #FFD324
-  a
-    :color #514721
-.flash_success, .flash_notice
-  :background #E6EFC2
-  :color #264409
-  :border
-    :color #C6D880
-  a
-    :color #264409
-/* @end */
-
-/* @group Rails Errors */
-
-#errorExplanation
-  :width 400px
-  :border 2px solid #CF0000
-  :padding 0
-  :padding-bottom 12px
-  :margin-bottom 20px
-  :background-color #f0f0f0
-  h2
-    :text-align left
-    :padding 5px 5px 5px 15px
-    :margin 0
-    :font
-      :weight bold
-      :size 12px
-    :background-color #c00
-    :color #fff
-  p
-    :color #333
-    :margin-bottom 0
-    :padding 8px
-  ul
-    :margin 2px 24px
-    li
-      :font-size 12px
-      :list-style disc
-/* @end */
 
 body
   #container
@@ -85,40 +29,6 @@ body
       :background url('../../images/help.png')
       span
         :display none
-
-// the overlayed element
-.apple_overlay
-  // must be initially hidden
-  :display none
-  // place overlay on top of other elements
-  :z-index 10000
-  // styling
-  :background-image url(../../images/overlay/transparent.png)
-  :background-color #fff
-  :width 675px
-  :min-height 200px
-  :padding 10px
-  /* CSS3 styling for latest browsers */
-  :-moz-box-shadow 0 0 90px 5px #000
-  :-webkit-box-shadow 0 0 90px #000
-  :box-shadow 0 0 90px #000
-  :-moz-border-radius 12px /* FF1+ */
-  :-webkit-border-radius 12px; /* Saf3+, Chrome */
-  :border-radius 12px /* Opera 10.5, IE 9 */
-
-  .over_content
-    :background url(../../images/question_mark_icon.jpg) no-repeat top right
-    :min-height 200px
-
-  /* close button positioned on upper right corner */
-  .close
-    :background-image url(../../images/overlay/close.png)
-    :position absolute
-    :right -15px
-    :top -15px
-    :cursor pointer
-    :height 35px
-    :width  35px
 
 #navigation_menu
   :text-align right

@@ -1,0 +1,43 @@
+/* root element for accordion. decorated with rounded borders and gradient background image */
+#students
+  :position absolute
+  :background #333 url(../../images/tabs/gradient/h300.png) 0 0
+  :width  300px
+  :border 1px solid #333
+  :-background #666
+
+/* accordion header */
+#students h4
+  :background #ccc url(../../images/tabs/gradient/h30.png)
+  :margin 0
+  :padding 5px 15px
+  :font-size 14px
+  :font-weight normal
+  :border 1px solid #fff
+  :border-bottom 1px solid #ddd
+  :cursor pointer
+
+/* currently active header */
+#students h4.current
+  :cursor default
+  :background-color #fff
+
+/* accordion pane */
+#students
+  .pane
+    :border 1px solid #fff
+    :border-width 0 2px
+    :display none
+    :height 180px
+    :padding 15px
+    :font-size 12px
+  a
+    :color #fff
+
+/* a title inside pane */
+#students .pane h3
+  :font-weight bold
+  :margin 0 0 5px 0
+  :font-size 14px
+  :color #FFF
+

@@ -11,7 +11,6 @@ class User < ActiveRecord::Base
   def objects_with_role(*args)
     role_name = args.shift
     options = args.extract_options!
-    puts options[:type]
     conditions = { :name => role_name.to_s }
     conditions.merge(:authorizable_type => options[:type].to_s.classify) unless options[:type].nil?
     ret = role_objects.all(:conditions => conditions)
