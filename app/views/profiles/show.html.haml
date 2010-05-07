@@ -1,2 +1,4 @@
 #anexos
-  = render "attachments/list", :attachments => parent.attachments
+  = render "attachments/list", :attachments => @user.attachments
+#whoami
+  = textilize @profile.description if @profile
