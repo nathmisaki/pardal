@@ -1,7 +1,5 @@
 %p
   Olá #{ current_user.email }
-  =link_to("Perfil", user_profile_path(current_user))
-  \-
   =link_to "Sair", destroy_user_session_path
 #tabs
   %a{ :class => "prev browse left" }
