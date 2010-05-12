@@ -3,18 +3,37 @@
   =link_to("Perfil", user_profile_path(current_user))
   \-
   =link_to "Sair", destroy_user_session_path
-%ul#current_user_menu
-  %li
-    = link_to "Anexar arquivos", new_user_attachment_path(current_user)
-  %li
-    = link_to "Atribuir Aluno a minha Conta", link_student_current_user_path
-    %ul
-      - current_user.attachments.each do |attach|
-        %li= link_to(attach.file_name, [current_user,attach])
-- if current_user.has_role?(:student)
-  #students
-    = render :partial => "current_users/student_menu", :collection => current_user.objects_with_role(:student, :type => "Student")
+#tabs
+  %a{ :class => "prev browse left" }
+  .scrollable
+    %ul.tabs
+      %li=link_to "Perfil", "#"
+      %li=link_to "Configurações", "#"
+      - current_user.objects_with_role(:student, :type => "Student").each do |student|
+        %li=link_to "Aluno #{student.reg}", "#"
+  %a{ :class => "next browse right" }
+
+.panes
+  #profile
+    Perfil do usuário
+  #config
+    %ul#current_user_menu
+      %li
+        = link_to "Anexar arquivos", new_user_attachment_path(current_user)
+      %li
+        = link_to "Atribuir Aluno a minha Conta", link_student_current_user_path
+      %ul
+        - current_user.attachments.each do |attach|
+          %li= link_to(attach.file_name, [current_user,attach])
+  - current_user.objects_with_role(:student, :type => "Student").each do |student|
+    #student
+      = render :partial => "current_users/student_menu", :object => student
 
 :javascript
-  $("#students").tabs("#students div.pane", {tabs: 'h4', effect: 'slide', initialIndex: null});
+  //$("#students").tabs("#students div.pane", {tabs: 'h4', effect: 'slide', initialIndex: null});
+  $(function() {
+    // setup ul.tabs to work as tabs for each div directly under div.panes
+    $("ul.tabs").tabs("div.panes > div");
+  });
+  $(".scrollable").scrollable();
 

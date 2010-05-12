@@ -1,3 +1,16 @@
+#tabs
+  :position relative
+  :height 31px
+
+.scrollable
+  /* required settings */
+  :float left
+  :position relative
+  :overflow hidden
+  :width 776px
+  :height 31px
+
+
 /* root element for tabs  */
 .tabs
   :list-style none
@@ -5,6 +18,9 @@
   :padding 0
   :height 30px
   :border-bottom 1px solid #666
+  /* position and width for scroolable */
+  :position absolute
+  :width 20000em
 
   /* single tab */
   li
@@ -88,5 +104,12 @@
 
 
 /* initially all panes are hidden */
-.panes .pane
-  :display none
+.panes
+  div
+    :border-bottom 1px solid #666
+    :border-left 1px solid #666
+    :border-right 1px solid #666
+    :padding 20px 10px
+
+  .pane
+    :display none
