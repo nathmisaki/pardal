@@ -12,24 +12,25 @@ a
     font-size: 1px
 
   &.right
-    background-position: -22px 0px
+    background-position: -22px -1px
     clear: right
     margin-right: 0px
 
     &:hover
-      background-position: -22px -30px
+      background-position: -22px -31px
 
     &:active
-      background-position: -22px -60px
+      background-position: -22px -61px
 
   &.left
+    background-position: 0 -1px
     margin-left: 0px
 
     &:hover
-      background-position: 0 -30px
+      background-position: 0 -31px
 
     &:active
-      background-position: 0 -60px
+      background-position: 0 -61px
 
   &.up, &.down
     background: url(../../images/scrollable/vert_large.png) no-repeat
@@ -53,4 +54,8 @@ a
       background-position: -60px -30px
 
   &.disabled
-    visibility: hidden !important
+    //visibility: hidden !important
+    background-position: 0px 29px !important
+
+
+

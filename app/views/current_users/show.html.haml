@@ -6,7 +6,7 @@
 #tabs
   %a{ :class => "prev browse left" }
   .scrollable
-    %ul.tabs
+    %ul{ :class => "tabs items" }
       %li=link_to "Perfil", "#"
       %li=link_to "Configurações", "#"
       - current_user.objects_with_role(:student, :type => "Student").each do |student|
