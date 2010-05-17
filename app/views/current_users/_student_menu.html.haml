@@ -1,8 +1,12 @@
 %h4
   Número de Matrícula:
-  = student_menu.reg
-%h3= student_menu.name
-- content_tag_for :ul, student_menu do
+  = student.reg
+%h3= student.name
+%h4
+  = student.curriculum.school.name
+  \-
+  = student.curriculum.period.name
+- content_tag_for :ul, student do
   %li= link_to "Historico Escolar", student_enrollments_path(student_menu)
   %li= link_to "Rematrícula", new_student_enrollment_path(student_menu)
 

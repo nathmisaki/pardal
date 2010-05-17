@@ -13,7 +13,9 @@
 
 .panes
   #profile
-    Perfil do usuário
+    %h1 Perfil do usuário
+    %p Sobre mim
+    = textilize current_user.profile.desc if current_user.profile
   #config
     %ul#current_user_menu
       %li
@@ -25,7 +27,7 @@
           %li= link_to(attach.file_name, [current_user,attach])
   - current_user.objects_with_role(:student, :type => "Student").each do |student|
     #student
-      = render :partial => "current_users/student_menu", :object => student
+      = render "current_users/student_menu", :student => student
 
 :javascript
   //$("#students").tabs("#students div.pane", {tabs: 'h4', effect: 'slide', initialIndex: null});

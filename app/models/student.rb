@@ -3,6 +3,7 @@ class Student < ActiveRecord::Base
   has_many :attachment, :as => :attachable
   has_many :enrollments, :include => [:course_semester => :course]
   belongs_to :curriculum
+  belongs_to :user
 
   validates_uniqueness_of :registration
 
