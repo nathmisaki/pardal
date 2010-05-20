@@ -9,7 +9,7 @@ doc/**/*
 db/schema.rb
 rerun.txt
 tags
-spec/fixtures
+spec/fixtures/
 public/stylesheets/compiled/*
 .fuzzyignore
 .rvmrc
