@@ -7,36 +7,37 @@ def verbose(task)
   puts "== import:#{task} -- imported (#{'%.4f' % seconds}) ".ljust(60, "=")
   puts ""
 end
+
 namespace :import do
 
   desc "Import Departments from Legacy Departments"
-  task :departments => :rename_tables do
+  task :departments => :environment do
     verbose(:departments) { ImportDepartments.new.execute! }
   end
 
   desc "Import Periods from Legacy Turnos"
-  task :periods => :rename_tables do
+  task :periods => :environment do
     verbose(:periods) { ImportPeriods.new.execute! }
   end
 
   desc "Import School Areas from Legacy Areas"
-  task :school_areas => :rename_tables do
+  task :school_areas => :environments do
     verbose(:school_areas) { ImportSchoolAreas.new.execute! }
   end
 
   desc "Import Disciplines from Legacy Disciplinas"
-  task :disciplines => :departments do
+  task :disciplines => :environment do
     verbose(:disciplines) { ImportDisciplines.new.execute! }
   end
 
-  desc "Import Implementation from Legacy ComposicoesEstrutCurriculares"
-  task :implementations => [:curriculums, :periods, :disciplines] do
-    verbose(:implementations) { ImportImplementations.new.execute! }
+  desc "Import School from Legacy Cursos"
+  task :schools => :environment do
+    verbose(:schools) { ImportSchools.new.execute! }
   end
 
-  desc "Import School from Legacy Cursos"
-  task :schools => :school_areas do
-    verbose(:schools) { ImportSchools.new.execute! }
+  desc "Import Implementation from Legacy ComposicoesEstrutCurriculares"
+  task :implementations => :environment do
+    verbose(:implementations) { ImportImplementations.new.execute! }
   end
 
   desc "Import EnrollmentSituations from Legacy SituacoesDeMatricula"
@@ -45,44 +46,68 @@ namespace :import do
   end
 
   desc "Import CourseSchool from Legacy Turmas"
-  task :course_schools => [:schools, :periods] do
+  task :course_schools => :environment do
     verbose(:course_schools) { ImportCourseSchools.new.execute! }
   end
 
   desc "Import CourseSchedule from Legacy DiasDeAulas"
-  requirements = ENV['RAILS_IMPORT_REQUIREMENTS'] ? [:course_semesters, :environment] : [:environment]
-  task :course_schedules => requirements do
+  task :course_schedules => :environment do
     verbose(:course_schedules) { ImportCourseSchedules.new.execute! }
   end
 
   desc "Import Curriculums from Legacy EstruturasCurriculares"
-  task :curriculums => [:create_views, :schools, :periods] do
+  task :curriculums => :environment do
     verbose(:curriculums) { ImportCurriculums.new.execute! }
   end
 
   desc "Import Student from Legacy Student"
-  task :students => :curriculums do
+  task :students => :environment do
     verbose(:students) { ImportStudents.new.execute! }
   end
 
   desc "Import Courses from Legacy Courses"
-  task :courses => [:course_schools, :disciplines] do
+  task :courses => :environment do
     verbose(:courses) { ImportCourses.new.execute! }
   end
 
   desc "Import History to Enrollment"
-  task :enrollments => [:create_history, :students, :courses] do
+  task :enrollments => :environment do
     verbose(:enrollments) { ImportEnrollments.new.execute! }
   end
 
   desc "Import PreRequirement from Legacy PreRequirement"
-  requirements = ENV['RAILS_IMPORT_REQUIREMENTS'] ? [:implementations, :environment] : [:environment]
-  task :pre_requirements => requirements do
+  task :pre_requirements => :environment do
     verbose(:pre_requirements) { ImportPreRequirement.new.execute! }
   end
 
   desc "Import all tables from Legacy"
-  task :all => [:implementations, :enrollments]
+  task :all => :environment do
+    invoke :clean_database
+
+    invoke :rename_tables
+    invoke :create_views
+    invoke :create_history
+
+    invoke :departments
+    invoke :periods
+    invoke :school_areas
+    invoke :enrollment_situations
+
+    invoke :disciplines
+    invoke :schools
+
+    invoke :curriculums
+    invoke :course_schools
+
+    invoke :students
+    invoke :courses
+
+    invoke :implementations
+    invoke :enrollments
+    invoke :course_schedules
+
+    invoke :pre_requirements
+  end
 
   desc "Rename tables before execute import tasks"
   task :rename_tables => :environment do
@@ -107,7 +132,7 @@ namespace :import do
   end
 
   desc "Create views to support import tasks"
-  task :create_views => :rename_tables do
+  task :create_views => :environment do
     verbose(:create_views) do
       Academnew.connection.execute("drop view if exists curriculum")
       Academnew.connection.execute(<<-SQL)
