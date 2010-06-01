@@ -2,13 +2,18 @@ require 'machinist/active_record'
 require 'sham'
 require 'faker'
 
-Sham.name  { Faker::Name.name }
-Sham.sentence { Faker::Lorem.sentence }
-Sham.object_name { Faker::Lorem.sentence.gsub(/[\.-]/, '') }
-Sham.text { Faker::Lorem.paragraphs.join("\n") }
-Sham.email { Faker::Internet.email }
-Sham.rg { rand(999999999).to_s.ljust(9, rand(9).to_s) }
-Sham.date { Date.new((1980..2010).to_a.shuffle.shift, (1..12).to_a.shuffle.shift, (1..28).to_a.shuffle.shift) }
+Sham.name                   { Faker::Name.name }
+Sham.sentence               { Faker::Lorem.sentence }
+Sham.object_name            { Faker::Lorem.sentence.gsub(/[\.-]/, '') }
+Sham.text                   { Faker::Lorem.paragraphs.join("\n") }
+Sham.email                  { Faker::Internet.email }
+Sham.rg                     { rand(999999999).to_s.ljust(9, rand(9).to_s) }
+Sham.date(:unique => false) { Date.new((1980..2010).to_a.shuffle.first, rand(11)+1, rand(27)+1) }
+Sham.registration { |index|
+    number = "#{(1980..2010).to_a.shuffle.first.to_s[2,2]}#{[1,2].shuffle.first}".rjust(3, '0') + index.to_s.rjust(4, '0')
+    number << Student.registration_verification_digit(number).to_s
+    Student.registration_with_initial_letter(number)
+  }
 
 User.blueprint do
   email
@@ -17,11 +22,7 @@ User.blueprint do
 end
 
 Student.blueprint do
-  registration {
-    number = "#{(1980..2010).to_a.shuffle.first.to_s[2,2]}#{[1,2].shuffle.first}".rjust(3, '0') + rand(999).to_s.rjust(4, '0')
-    number << Student.registration_verification_digit(number).to_s
-    Student.registration_with_initial_letter(number)
-  }
+  registration Sham.registration
   name
   identity Sham.rg
   identity_emission_date Sham.date
@@ -59,23 +60,19 @@ SchoolArea.blueprint do
 end
 
 Period.blueprint do
-  name { ['MANHÃ', 'TARDE', 'NOITE', 'INTEGRAL'].shuffle.shift }
+  name { ['MANHÃ', 'TARDE', 'NOITE', 'INTEGRAL'].shuffle.first }
 end
 
 Implementation.blueprint do
   curriculum { Curriculum.make }
   discipline { Disciplina.make }
-  discipline_type { DisciplineType.make }
-  school_semester { (1..6).to_a.shuffle.shift }
-end
-
-DisciplineType.blueprint do
-  name { ['OBRIGATÓRIA', 'OPTATIVA', 'COMPLEMENTAR', 'SUPLEMENTAR', 'ELETIVA'].shuffle.shift }
+  discipline_type_id { (1..5).to_a.shuffle.first }
+  school_semester { (1..6).to_a.shuffle.first }
 end
 
 CourseSchool.blueprint do
   period { Period.make }
-  code { (1..300).to_a.shuffle.shift }
+  code { rand(300) }
   symbol { (65..90).to_a.map(&:chr).shuffle.shift }
 end
 
@@ -89,7 +86,7 @@ end
 
 Enrollment.blueprint do
   student { Student.make }
-  course { Course.make }
+  course_semester { CourseSemester.make }
   situation { EnrollmentSituation.make }
 end
 
@@ -100,7 +97,14 @@ end
 
 CourseSemester.blueprint do
   course { Course.make }
-  semester { (1980..2010).to_a.shuffle.shift*10+([1,2].to_a.shuffle.shift) }
+  semester { "#{ Time.now.year }#{ ((Time.now.month-1)/6) +1 }" }
+end
+
+CourseSchedule.blueprint do
+  course_semester { CourseSemester.make }
+  weekday { (2..7).to_a.shuffle.first }
+  start_hour { ['7:30', '13:00', '19:00'].shuffle.first }
+  end_hour { ['10:15', '15:45', '22:40'].shuffle.first }
 end
 
 Profile.blueprint do

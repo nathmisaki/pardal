@@ -3,7 +3,9 @@ require 'spec_helper'
 describe Enrollment do
   context "calling proposal_for_student" do
     it 'should return an empty array for a student without disciplines' do
-      @student = Student.make
+      @student = Student.make_unsaved
+      @student.curriculum.stub(:school_id).and_return(31)
+      @student.curriculum.should_receive(:disciplines).and_return([])
       Enrollment.proposal_for_student(@student).should == []
     end
 

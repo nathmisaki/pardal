@@ -8,7 +8,7 @@ describe User do
       @student = Student.make
       @user.attach_student!(@student)
     end
-    
+
     subject { @user }
 
     it { should be_has_role(:student) }
@@ -23,8 +23,8 @@ describe User do
     before(:each) do
       @user = User.make
       @user.attach_student!(Student.make)
-    end    
-  
+    end
+
   end
   context "linking student" do
     before(:each) do
@@ -77,6 +77,13 @@ describe User do
       @user.save.should be_true
       @user.has_role?(:owner, @student).should be_true
       @user.has_role?(:student, @student).should be_true
+    end
+
+    it 'should have many students' do
+      @user.link_student = @link_student
+
+      @user.save.should be_true
+      @user.students.should include @student
     end
 
     it 'should have invalid error on :link_student_registration when no registration is provided' do
