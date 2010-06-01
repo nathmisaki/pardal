@@ -6,35 +6,8 @@ rescue LoadError
   require 'active_record'
 end
 
-desc 'Ajusta o sistema para realizar o teste (o mais automático possivel)'
-task :configure_database_yml_for_test do
-  database_yml_file = File.join(Rails.root, 'config', 'database.yml')
-  p80('*')
-  unless File.exist?(database_yml_file)
-    yml = { 'test' => {
-      'adapter' => 'sqlite3',
-      'database' => 'db/test.sqlite3',
-      'pool' => 5,
-      'timeout' => 5000,
-      }
-    }
-    yml['cucumber'] = yml['test']
-
-    database_yml = File.open(database_yml_file, 'w')
-    database_yml.puts yml.to_yaml
-    invoke_rake_task 'db:create:all'
-    invoke_rake_task 'db:migrate'
-    puts "Escrevendo no database.yml"
-    puts yml.to_yaml
-  else
-    puts "Skipping criação do database.yml. Já existe"
-  end
-end
-
 
 TAREFAS_DE_INTEGRACAO = %w(
-  configure_database_yml_for_test
-  db:reset
   spec
   spec:rcov
   verify_rcov
