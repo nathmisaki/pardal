@@ -10,8 +10,8 @@ end
 TAREFAS_DE_INTEGRACAO = %w(
   spec
   spec:rcov
-  cucumber
   verify_rcov
+  cucumber
 )
 
 desc 'Realiza a Integraçao Contínua'
