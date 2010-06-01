@@ -95,8 +95,27 @@ class Enrollment < ActiveRecord::Base
   def course
     course_semester.course
   end
-
-  ########################################################################
+  
+  def status
+    if errors.empty?
+      if situation.nil?
+        "incomplete"
+      else
+        if situation.active
+          "valid"
+        else
+          if situation.desc =~ /Aguardando/i
+            "waiting"
+          else
+            "invalid"
+          end
+        end
+      end
+    else
+      "invalid"
+    end
+  end
+    ########################################################################
   ### P R I V A T E   M E T H O D S
   ########################################################################
 
