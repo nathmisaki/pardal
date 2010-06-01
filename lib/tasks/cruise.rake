@@ -48,9 +48,9 @@ def invoke_integration_task(tarefa, indice)
 end
 
 def invoke_rake_task(task)
-  begin
-    CruiseControl::invoke_rake_task task
-  rescue
+  #begin
+    #CruiseControl::invoke_rake_task task
+  #rescue
     Rake::Task[task].invoke
-  end
+  #end
 end
