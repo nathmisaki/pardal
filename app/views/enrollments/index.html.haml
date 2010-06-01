@@ -8,8 +8,8 @@
   - sem = 0
   - tr_class = cycle("even", "odd")
   - @enrollments.each do |enrollment|
-    - if sem != enrollment.course_semester.semester
-      - sem = enrollment.course_semester.semester
+    - if sem != enrollment.semester
+      - sem = enrollment.semester
       - tr_class = cycle("even", "odd")
     %tr{ :class => tr_class }
       %td= enrollment.discipline_code
