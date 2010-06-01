@@ -21,7 +21,7 @@ namespace :import do
   end
 
   desc "Import School Areas from Legacy Areas"
-  task :school_areas => :environments do
+  task :school_areas => :environment do
     verbose(:school_areas) { ImportSchoolAreas.new.execute! }
   end
 
@@ -82,31 +82,31 @@ namespace :import do
 
   desc "Import all tables from Legacy"
   task :all => :environment do
-    invoke :clean_database
+    Rake::Task['import:clean_database'].invoke
 
-    invoke :rename_tables
-    invoke :create_views
-    invoke :create_history
+    Rake::Task['import:rename_tables'].invoke
+    Rake::Task['import:create_views'].invoke
+    Rake::Task['import:create_history'].invoke
 
-    invoke :departments
-    invoke :periods
-    invoke :school_areas
-    invoke :enrollment_situations
+    Rake::Task['import:departments'].invoke
+    Rake::Task['import:periods'].invoke
+    Rake::Task['import:school_areas'].invoke
+    Rake::Task['import:enrollment_situations'].invoke
 
-    invoke :disciplines
-    invoke :schools
+    Rake::Task['import:disciplines'].invoke
+    Rake::Task['import:schools'].invoke
 
-    invoke :curriculums
-    invoke :course_schools
+    Rake::Task['import:curriculums'].invoke
+    Rake::Task['import:course_schools'].invoke
 
-    invoke :students
-    invoke :courses
+    Rake::Task['import:students'].invoke
+    Rake::Task['import:courses'].invoke
 
-    invoke :implementations
-    invoke :enrollments
-    invoke :course_schedules
+    Rake::Task['import:implementations'].invoke
+    Rake::Task['import:enrollments'].invoke
+    Rake::Task['import:course_schedules'].invoke
 
-    invoke :pre_requirements
+    Rake::Task['import:pre_requirements'].invoke
   end
 
   desc "Rename tables before execute import tasks"
