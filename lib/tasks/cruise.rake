@@ -22,7 +22,7 @@ task :configure_database_yml_for_test do
 
     database_yml = File.open(database_yml_file, 'w')
     database_yml.puts yml.to_yaml
-    CruiseControl::invoke_rake_task 'db:create:all'
+    invoke_rake_task 'db:create:all'
     puts "Escrevendo no database.yml"
     puts yml.to_yaml
   else
@@ -47,7 +47,7 @@ task :cruise do
   TAREFAS_DE_INTEGRACAO.each_with_index do |tarefa_de_integracao, indice|
     p80('-')
     puts("Tarefa de integracao nº #{indice + 1}: #{tarefa_de_integracao}")
-    CruiseControl::invoke_rake_task tarefa_de_integracao
+    invoke_rake_task tarefa_de_integracao
     p80('-')
   end
   p80('*')
@@ -73,4 +73,12 @@ RCov::VerifyTask.new(:verify_rcov) { |t| t.threshold = 50.0 }
 
 def p80(string)
   puts(string * 80)
+end
+
+def invoke_rake(task)
+  begin 
+    CruiseControl::invoke_rake task
+  rescue
+    Rake::Task[task].invoke
+  end
 end
