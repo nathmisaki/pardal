@@ -65,7 +65,7 @@ namespace :cucumber do
   desc 'Executa todas as features do Cucumber'
   task :features do
     sh('cucumber features')
-  end  
+  end
 end
 
 require 'spec/rake/verify_rcov'
@@ -75,8 +75,8 @@ def p80(string)
   puts(string * 80)
 end
 
-def invoke_rake(task)
-  begin 
+def invoke_rake_task(task)
+  begin
     CruiseControl::invoke_rake task
   rescue
     Rake::Task[task].invoke
