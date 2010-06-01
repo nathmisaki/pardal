@@ -24,12 +24,30 @@ class Enrollment < ActiveRecord::Base
   end
 
   def school_semester
-    implementation = course_semester.course.discipline.implementations.select { |implementation| implementation.curriculum == student.curriculum }
-    unless implementation.empty?
-      implementation.first.school_semester
-    else
-      nil
+    school_sem = read_attribute(:school_semester)
+    unless school_sem
+      implementation = course_semester.course.discipline.implementations.all :conditions => { :curriculum_id => student.curriculum.id }
+      school_sem = implementation.first.school_semester unless implementation.empty?
     end
+    school_sem.to_i
+  end
+
+  def discipline_code
+    disc_code = read_attribute(:discipline_code)
+    disc_code ||= course_semester.course.discipline.code
+    disc_code.to_i
+  end
+
+  def discipline_name
+    disc_name = read_attribute(:discipline_name)
+    disc_name ||= course_semester.course.discipline.name
+    disc_name.to_s
+  end
+
+  def semester
+    sem = read_attribute(:semester)
+    sem ||= course_semester.semester
+    sem.to_i
   end
 
   def confirmed?
