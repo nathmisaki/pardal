@@ -44,9 +44,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def has_students
-
-  end
 
   def objects_with_role(*args)
     role_name = args.shift
@@ -58,6 +55,17 @@ class User < ActiveRecord::Base
     ret.map! { |ro| ro.authorizable } unless options[:role]
     ret
   end
+
+  def attach_student!(student)
+    student.user_id = self.id
+    student.save
+    self.has_role!(:owner, student)
+    self.has_role!(:student, student)
+  end
+
+  ########################################################################
+  ### L I N K _ S T U D E N T   M E T H O D S
+  ########################################################################
 
   def link_student
     @link_student ||= {}
@@ -95,12 +103,9 @@ class User < ActiveRecord::Base
     link_student[:mothers_name_initials] = value
   end
 
-  def attach_student!(student)
-    student.user_id = self.id
-    student.save
-    self.has_role!(:owner, student)
-    self.has_role!(:student, student)
-  end
+  ########################################################################
+  ### P R I V A T E   M E T H O D S
+  ########################################################################
 
   private
 
