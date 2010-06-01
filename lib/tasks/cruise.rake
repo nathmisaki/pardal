@@ -6,7 +6,25 @@ rescue LoadError
   require 'active_record'
 end
 
-require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
+desc 'Ajusta o sistema para realizar o teste (o mais automático possivel)'
+task :configure_database_yml_for_test do
+  yml = { 'test' => {
+    'adapter' => 'sqlite3',
+    'database' => 'db/test.sqlite3',
+    'pool' => 5,
+    'timeout' => 5000,
+    }
+  }
+  yml['cucumber'] = yml['test']
+
+  database_yml_file = File.join(Rails.root, 'config', 'database.yml')
+
+  unless File.exist?(database_yml_file)
+    database_yml = File.open(database_yml_file, 'w')
+    database_yml.puts yml.to_yaml
+  end
+end
+
 
 TAREFAS_DE_INTEGRACAO = %w(
   spec
