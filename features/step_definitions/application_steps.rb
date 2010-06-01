@@ -60,18 +60,39 @@ Dado /^que o usuário "([^\"]*)" seja o aluno "([^\"]*)"$/ do |user, student_reg
   user.attach_student!(Student.find_by_registration(student_registration))
 end
 
-Dado /^que o aluno "([^\"]*)" tenha as disciplinas, com turmas de seu curso:$/ do |student_registration, disciplines|
+Dado /^que o aluno "([^\"]*)" tenha as disciplinas, com turmas de seu curso:$/ do |student_registration, disc_table|
   student = Student.find_by_registration student_registration
-  disciplines.hashes.each do |discipline|
-    student.curriculum.implementations.make(:discipline => Discipline.make(discipline))
+  disc_table.hashes.each do |disc|
+    student.curriculum.implementations.make(:discipline => Discipline.make(disc))
   end
   student.curriculum.disciplines.each do |discipline|
     discipline.courses.make(
       :course_school => CourseSchool.make(
         :school => student.curriculum.school,
-        :period => student.curriculum.period
-      )
+        :period => student.curriculum.period)
     )
+  end
+end
+
+Dado /^que a disciplina "([^\"]*)" tenha uma turma do curriculo do aluno "([^\"]*)" aberta neste semestre com as aulas:$/ do |disc_id, registration, schedules|
+  student = Student.find_by_registration(registration)
+  Discipline.find_by_code(disc_id).courses_from_curriculum(student.curriculum).each do |course|
+    course_sem = course.course_semesters.make(:semester => Time.now.year_semester)
+    schedules.hashes.each do |schedule|
+      course_sem.course_schedules.make(schedule)
+    end
+  end
+end
+
+Dado /^que o aluno "([^\"]*)" tenha concluído as disciplinas "([^\"]*)"$/ do |registration, discipline_ids|
+  discipline_ids = discipline_ids.split(',').map(&:to_i)
+  student = Student.find_by_registration(registration)
+  student.curriculum.disciplines.find_all_by_code(discipline_ids).each do |discipline|
+    discipline.courses_from_curriculum(student.curriculum).each do |course|
+      student.enrollments.make(:grade => 'B',
+        :course_semester => course.current_course_semester,
+        :situation => EnrollmentSituation.make(:active => true))
+    end
   end
 end
 
