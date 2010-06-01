@@ -23,4 +23,4 @@ Funcionalidade: Ligar aluno a conta de usuário
     E aperto "Atribuir Aluno a minha Conta"
     Então eu deveria ver "Aluno atribuído com sucesso"
     E deveria estar na "/me"
-    E deveria ver "H10100019"
+    E deveria ver "10100019"
