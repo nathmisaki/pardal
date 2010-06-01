@@ -19,9 +19,14 @@ task :configure_database_yml_for_test do
 
   database_yml_file = File.join(Rails.root, 'config', 'database.yml')
 
+  p80('*')
   unless File.exist?(database_yml_file)
     database_yml = File.open(database_yml_file, 'w')
     database_yml.puts yml.to_yaml
+    puts "Escrevendo no database.yml"
+    puts yml.to_yaml
+  else
+    puts "Skipping criação do database.yml. Já existe"
   end
 end
 
