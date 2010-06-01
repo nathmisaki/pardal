@@ -8,19 +8,18 @@ end
 
 desc 'Ajusta o sistema para realizar o teste (o mais automático possivel)'
 task :configure_database_yml_for_test do
-  yml = { 'test' => {
-    'adapter' => 'sqlite3',
-    'database' => 'db/test.sqlite3',
-    'pool' => 5,
-    'timeout' => 5000,
-    }
-  }
-  yml['cucumber'] = yml['test']
-
   database_yml_file = File.join(Rails.root, 'config', 'database.yml')
-
   p80('*')
   unless File.exist?(database_yml_file)
+    yml = { 'test' => {
+      'adapter' => 'sqlite3',
+      'database' => 'db/test.sqlite3',
+      'pool' => 5,
+      'timeout' => 5000,
+      }
+    }
+    yml['cucumber'] = yml['test']
+
     database_yml = File.open(database_yml_file, 'w')
     database_yml.puts yml.to_yaml
     puts "Escrevendo no database.yml"
@@ -33,6 +32,7 @@ end
 
 TAREFAS_DE_INTEGRACAO = %w(
   configure_database_yml_for_test
+  db:reset
   spec
   spec:rcov
   verify_rcov
@@ -41,12 +41,12 @@ TAREFAS_DE_INTEGRACAO = %w(
 
 desc 'Realiza a Integraçao Contínua'
 task :cruise do
-  ENV['RAILS_ENV']='test'
+  RAILS_ENV = ENV['RAILS_ENV'] = 'test' # Without this, it will drop your production database.
   p80('*')
   TAREFAS_DE_INTEGRACAO.each_with_index do |tarefa_de_integracao, indice|
     p80('-')
     puts("Tarefa de integracao nº #{indice + 1}: #{tarefa_de_integracao}")
-    Rake::Task[tarefa_de_integracao].invoke
+    CruiseControl::invoke_rake_task tarefa_de_integracao
     p80('-')
   end
   p80('*')
