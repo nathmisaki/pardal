@@ -11,6 +11,18 @@ class Enrollment < ActiveRecord::Base
     Proposal.factory(student).calculateEnrollments
   end
 
+  ########################################################################
+  ### P U B L I C   I N S T A N C E   M E T H O D S
+  ########################################################################
+
+  def <=>(other)
+    return nil unless other.is_a?(Enrollment)
+    (other.semester <=> self.semester).nonzero? ||
+    (self.school_semester <=> other.school_semester).nonzero? ||
+    (self.discipline_code <=> other.discipline_code).nonzero? ||
+    0
+  end
+
   def school_semester
     implementation = course_semester.course.discipline.implementations.select { |implementation| implementation.curriculum == student.curriculum }
     unless implementation.empty?

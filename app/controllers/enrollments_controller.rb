@@ -8,6 +8,11 @@ class EnrollmentsController < InheritedResources::Base
 
   before_filter :allowance
 
+  def index
+    @enrollments = Enrollment.student_eql(@student.id).all :from => 'enrollments_for_history'
+    @enrollments.sort!
+  end
+
   def create
     create! do |success,failure|
       success.html { redirect_to :action => :new }
@@ -36,7 +41,7 @@ class EnrollmentsController < InheritedResources::Base
   end
 
   def load_proposal
-    @stud ||= load_student
+    @student ||= load_student
     @enrollments = Enrollment.proposal_for_student(@student)
     @enrollment = @enrollments.find { |e| e.course_semester_id == params[:enrollment][:course_semester_id].to_i } if params[:enrollment]
   end
