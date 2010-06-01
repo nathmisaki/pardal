@@ -1,7 +1,7 @@
 class Student < ActiveRecord::Base
   acts_as_authorization_object
   has_many :attachment, :as => :attachable
-  has_many :enrollments, :include => [:course_semester => :course]
+  has_many :enrollments
   belongs_to :curriculum
   belongs_to :user
 
