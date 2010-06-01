@@ -78,7 +78,7 @@ end
 
 def invoke_rake_task(task)
   begin
-    CruiseControl::invoke_rake task
+    CruiseControl::invoke_rake_task task
   rescue
     Rake::Task[task].invoke
   end
