@@ -10,8 +10,8 @@ end
 TAREFAS_DE_INTEGRACAO = %w(
   spec
   spec:rcov
+  cucumber
   verify_rcov
-  cucumber:features
 )
 
 desc 'Realiza a Integraçao Contínua'
@@ -33,17 +33,8 @@ task :cruise do
   puts 'integração continua no servidor também.'
 end
 
-# I don't wanna use Cucumber::Rake ...
-#
-namespace :cucumber do
-  desc 'Executa todas as features do Cucumber'
-  task :features do
-    sh('cucumber features')
-  end
-end
-
 require 'spec/rake/verify_rcov'
-RCov::VerifyTask.new(:verify_rcov) { |t| t.threshold = 50.0 }
+RCov::VerifyTask.new(:verify_rcov) { |t| t.threshold = 100.0 }
 
 def p80(string)
   puts(string * 80)
