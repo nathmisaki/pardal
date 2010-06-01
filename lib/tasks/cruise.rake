@@ -32,6 +32,7 @@ end
 
 
 TAREFAS_DE_INTEGRACAO = %w(
+  configure_database_yml_for_test
   spec
   spec:rcov
   verify_rcov
