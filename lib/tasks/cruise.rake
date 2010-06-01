@@ -22,6 +22,7 @@ task :configure_database_yml_for_test do
 
     database_yml = File.open(database_yml_file, 'w')
     database_yml.puts yml.to_yaml
+    CruiseControl::invoke_rake_task 'db:create:all'
     puts "Escrevendo no database.yml"
     puts yml.to_yaml
   else
