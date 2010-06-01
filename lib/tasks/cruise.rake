@@ -7,24 +7,24 @@ rescue LoadError
 end
 
 
-TAREFAS_DE_INTEGRACAO = %w(
-  spec
-  spec:rcov
-  verify_rcov
-  cucumber
-)
-
 desc 'Realiza a Integraçao Contínua'
 task :cruise do
   RAILS_ENV = ENV['RAILS_ENV'] = 'test' # Without this, it will drop your production database.
-  p80('*')
-  TAREFAS_DE_INTEGRACAO.each_with_index do |tarefa_de_integracao, indice|
-    p80('-')
-    puts("Tarefa de integracao nº #{indice + 1}: #{tarefa_de_integracao}")
-    invoke_rake_task tarefa_de_integracao
-    p80('-')
-  end
-  p80('*')
+
+  out = ENV['CC_BUILD_ARTIFACTS']
+  mkdir_p out unless File.directory? out if out
+
+  p80('#')
+
+  invoke_integration_task('spec', 1)
+  invoke_integration_task('spec:rcov', 2)
+  invoke_integration_task('verify_rcov', 3)
+
+  mv 'coverage/', "#{out}/Rcov" if out
+
+  invoke_integration_task('cucumber', 4)
+
+  p80('#')
   puts
   puts 'Integração Contínua realizada com sucesso!'
   p80('*')
@@ -38,6 +38,13 @@ RCov::VerifyTask.new(:verify_rcov) { |t| t.threshold = 100.0 }
 
 def p80(string)
   puts(string * 80)
+end
+
+def invoke_integration_task(tarefa, indice)
+  p80('-')
+  puts("Tarefa de integracao nº #{indice}: #{tarefa}")
+  invoke_rake_task tarefa
+  p80('-')
 end
 
 def invoke_rake_task(task)
