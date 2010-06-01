@@ -18,9 +18,9 @@ task :cruise do
 
   invoke_integration_task('spec', 1)
   invoke_integration_task('spec:rcov', 2)
+  mv 'coverage/', "#{out}/rcov" if out
   invoke_integration_task('verify_rcov', 3)
 
-  mv 'coverage/', "#{out}/Rcov" if out
 
   invoke_integration_task('cucumber', 4)
 
@@ -34,7 +34,12 @@ task :cruise do
 end
 
 require 'spec/rake/verify_rcov'
-RCov::VerifyTask.new(:verify_rcov) { |t| t.threshold = 100.0 }
+RCov::VerifyTask.new(:verify_rcov) { |t| 
+  t.threshold = 100.0
+  if ENV["CC_BUILD_ARTIFACTS"]
+    t.index_html = File.join(ENV["CC_BUILD_ARTIFACTS"], "rcov", "index.html")
+  end
+}
 
 def p80(string)
   puts(string * 80)
