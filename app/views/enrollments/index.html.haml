@@ -7,13 +7,13 @@
     %th Periodo
   - sem = 0
   - tr_class = cycle("even", "odd")
-  - @enrollments.sort{ |fst,snd| snd.course_semester.semester <=> fst.course_semester.semester }.each do |enrollment|
+  - @enrollments.each do |enrollment|
     - if sem != enrollment.course_semester.semester
       - sem = enrollment.course_semester.semester
       - tr_class = cycle("even", "odd")
     %tr{ :class => tr_class }
-      %td= enrollment.course_semester.course.discipline.code
-      %td= enrollment.course_semester.course.discipline.name
-      %td= enrollment.course_semester.semester
+      %td= enrollment.discipline_code
+      %td= enrollment.discipline_name
+      %td= enrollment.semester
       %td= enrollment.grade
       %td= enrollment.school_semester
