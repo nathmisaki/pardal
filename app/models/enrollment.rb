@@ -3,9 +3,38 @@ class Enrollment < ActiveRecord::Base
   belongs_to :course_semester
   belongs_to :situation, :class_name => "EnrollmentSituation"
 
+  attr_accessor :validate_proposal
+
   validates_presence_of :course_semester_id, :student_id
 
   before_create :set_defaults_columns
+
+  ########################################################################
+  ### N A M E D   S C O P E S
+  ########################################################################
+
+  named_scope :in_course_semesters, lambda { |*course_semesters|
+    course_semesters.flatten!
+    course_semesters.map!(&:id) if course_semesters.first.is_a?(CourseSemester)
+    { :conditions => { :course_semester_id => course_semesters } }
+  }
+
+  named_scope :semester_eql, lambda { |semester|
+    {
+      :joins => :course_semester,
+      :conditions => ['course_semesters.semester = ?', semester ]
+    }
+  }
+
+  named_scope :student_eql, lambda { |student_id|
+    { :conditions => ['student_id = ?', student_id] }
+  }
+
+  named_scope :including_schedules, :include => [:course_semester => :course_schedules]
+
+  ########################################################################
+  ### P U B L I C   C L A S S   M E T H O D S
+  ########################################################################
 
   def self.proposal_for_student(student)
     Proposal.factory(student).calculateEnrollments
@@ -67,17 +96,25 @@ class Enrollment < ActiveRecord::Base
     course_semester.course
   end
 
+  ########################################################################
+  ### P R I V A T E   M E T H O D S
+  ########################################################################
+
   private
 
   def validate
-    # Enrollment isn't in proposal, so don't come from form, it's a form-hijack.
-    errors.add_to_base("Não faz parte da proposta") unless
-    Enrollment.proposal_for_student(student).map { |e|
+    if validate_proposal
+      # Enrollment isn't in proposal, so don't come from form, it's a form-hijack.
+      course_semester_ids = Enrollment.proposal_for_student(student).map do |e|
         e.course_semester_id
-      }.include?(course_semester_id)
+      end
+
+      errors.add_to_base("Não faz parte da proposta") unless
+      course_semester_ids.include?(course_semester_id)
+    end
 
     # Time conflict, there is another enrollment in the same time
-    enrolls = student.enrollments.all(:include => [:course_semester => :course_schedules], :joins => [:course_semester], :conditions => ["course_semesters.semester = ?", course_semester.semester])
+    enrolls = student.enrollments.semester_eql(course_semester.semester).including_schedules
     enrolls.each do |enroll|
       enroll.course_semester.course_schedules.each { |schedule|
         course_semester.course_schedules.each { |schedule2|
