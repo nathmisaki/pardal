@@ -41,6 +41,7 @@ TAREFAS_DE_INTEGRACAO = %w(
 
 desc 'Realiza a Integraçao Contínua'
 task :cruise do
+  ENV['RAILS_ENV']='test'
   p80('*')
   TAREFAS_DE_INTEGRACAO.each_with_index do |tarefa_de_integracao, indice|
     p80('-')
