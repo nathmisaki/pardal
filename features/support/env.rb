@@ -20,7 +20,7 @@ Spork.each_run do
   if defined?(ActiveRecord::Base)
     begin
       require 'database_cleaner'
-      DatabaseCleaner.strategy = :truncation
+      DatabaseCleaner.strategy = :truncation, {:except => %w[enrollments_for_history]} 
       DatabaseCleaner.clean
     rescue LoadError => ignore_if_database_cleaner_not_present
     end

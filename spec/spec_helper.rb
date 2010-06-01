@@ -19,13 +19,13 @@ Spork.prefork do
     config.use_transactional_fixtures = true
     config.use_instantiated_fixtures  = false
     config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
-    config.before(:all)     { Sham.reset(:before_all)   }
-    config.before(:each)    { Sham.reset(:before_each)  }
+    #config.before(:all)     { Sham.reset(:before_all)   }
+    #config.before(:each)    { Sham.reset(:before_each)  }
     config.before(:suite)   do
       if defined?(ActiveRecord::Base)
         begin
           require 'database_cleaner'
-          DatabaseCleaner.strategy = :truncation
+          DatabaseCleaner.strategy = :truncation, {:except => %w[enrollments_for_history]}
           DatabaseCleaner.clean
         rescue LoadError => ignore_if_database_cleaner_not_present
         end
