@@ -10,38 +10,47 @@ class Proposal
     begin
       eval("Proposals::School#{student_model.curriculum.school_id}").new(student_model)
     rescue NameError
-      Proposal.new(student)
+      Proposal.new(student_model)
     end
   end
 
   def calculateEnrollments
-    raise "calculateEnrollments should not be called in Proposal, propably you should include the proposals/school#{student.curriculum.school_id}.rb"
+    raise "calculateEnrollments should not be called in Proposal, "\
+    +"propably you should include the proposals/school"
+    +"#{student.curriculum.school_id}.rb"
   end
+
+  ########################################################################
+  ### P R O T E C T E D   M E T H O D S
+  ########################################################################
 
   protected
     def courses_from_curriculum(disciplines)
-      courses = Course.all(:joins => [:course_school],
-                            :conditions => ["discipline_id IN (?) and (course_schools.school_id = ? and course_schools.period_id = ?)",
-                              disciplines.map{ |d| d.id }, student.curriculum.school_id, student.curriculum.period_id])
+      courses = disciplines.map{ |discipline| discipline.courses_from_curriculum(student.curriculum) }
+      courses.flatten!
       courses = courses.group_by { |c| c.discipline_id }
       disciplines.map { |d| courses[d.id] }.flatten.compact
     end
 
+    def disciplines_with_prerrequisites_concluded(disciplines)
+      disciplines
+    end
+
     def enrollments_from_courses(courses)
-      course_semesters = CourseSemester.all(:include => [:course => :discipline], :conditions => ["course_id IN (?) and semester = ?",
-                                             courses.map{ |c| c.id }, (Time.now.year*10+(Time.now.month-1)/6+1)]).
-                                             group_by { |cs| cs.course_id }
-      enrollments = courses.map { |course|
-        course_semesters[course.id].to_a.map { |course_semester|
-          enrolls = student.enrollments.select { |e| e.course_semester == course_semester }
+      course_semesters = CourseSemester.courses_in(courses).only_current_semester.including_course_and_discipline
+      course_semesters = course_semesters.group_by { |cs| cs.course_id }
+
+      enrollments = courses.map do |course|
+        course_semesters[course.id].to_a.map do |course_semester|
+          enrolls = student.enrollments.in_course_semesters(course_semester)
           if enrolls.blank?
-            student.enrollments.build(:course_semester => course_semester)
+            Enrollment.new(:course_semester => course_semester, :student => student)
           else
             enrolls.select { |e| !e.confirmed? }
           end
-        }
-      }.flatten
-      enrollments
+        end
+      end
+      enrollments.flatten
     end
 
     def logger
