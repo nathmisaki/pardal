@@ -89,8 +89,41 @@ describe Student do
     end
 
     it 'should return [MDSSSA, MDSSS, MSSS, MSSSA]' do
-      @student.mothers_name_initials.should == ['MDSSS', 'MDSSSA', 'MSSS', 'MSSSA']
+      @student.mothers_name_initials.should include('MDSSS', 'MDSSSA', 'MSSS', 'MSSSA')
     end
+  end
+
+  it "#reg should return registration without first letter" do
+    Student.new(:registration => 'F0626805').reg.should == '0626805'
+  end
+
+  context "#discipline_concluded? chain" do
+    before( :all ) do
+      @student = Student.make
+      @discipline_id = Discipline.make.id
+      @enrolls = (1..2).to_a.map do
+        @student.enrollments.make(
+          :course_semester => CourseSemester.make(:course => Course.make(:discipline_id => @discipline_id)),
+          :grade => 'C'
+        )
+      end
+      3.times do
+        @student.enrollments.make
+      end
+    end
+
+    it "#enrollments_from_discipline should == only enrollments from param discipline" do
+      @student.enrollments_from_discipline(@discipline_id).should == @enrolls
+    end
+
+    it "#discipline_grades should return an Array of grades(String) from discipline" do
+      @student.discipline_grades(@discipline_id).should == ['C', 'C']
+    end
+
+    it "#discipline_concluded? should return true if enrollment grade include [A,B,D,E] and false otherwise" do
+      @student.discipline_concluded?(@discipline_id).should be_false
+    end
+
   end
 
 end

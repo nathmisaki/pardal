@@ -69,7 +69,7 @@ class Student < ActiveRecord::Base
   end
 
   def enrollments_from_discipline(discipline_id)
-    enrollments.select { |e| e.course_semester.course.discipline_id == discipline_id }
+    enrollments.all(:include => [:course_semester => :course]).select { |e| e.course_semester.course.discipline_id == discipline_id }
   end
 
   def disciplines_with_pre_requirements_concluded(disciplines)
