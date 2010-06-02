@@ -2,12 +2,13 @@ require 'spec_helper'
 
 describe Enrollment do
 
-  context "#course_semester_in Named Scope" do
+  describe "#course_semester_in Named Scope" do
     before(:all) do
       @course_sems = [CourseSemester.make, CourseSemester.make]
       @enrolls_course_sem1 = (1..5).to_a.map { Enrollment.make :course_semester => @course_sems[0] }
       @enrolls_course_sem2 = (1..2).to_a.map { Enrollment.make :course_semester => @course_sems[1] }
     end
+    after(:all) { DatabaseCleaner.clean }
 
     it 'should accept a CourseSemester as param' do
       Enrollment.course_semesters_in(@course_sems[0]).should == @enrolls_course_sem1
@@ -23,6 +24,17 @@ describe Enrollment do
     end
   end
 
+  it '#semester_eql Named Scope should accept a semester as param' do
+    course_sem = CourseSemester.make(:semester => 20101)
+    enrolls_sem1 = (1..5).to_a.map { Enrollment.make :course_semester => course_sem }
+    Enrollment.semester_eql(20101).should == enrolls_sem1
+  end
+
+  it '#student_eql Named Scope should accept a student_id as param' do
+    student = Student.make
+    enrolls_stud1 = (1..5).to_a.map { Enrollment.make :student => student }
+    Enrollment.student_eql(student.id).should == enrolls_stud1
+  end
 
   context "calling proposal_for_student" do
     it 'should return an empty array for a student without disciplines' do

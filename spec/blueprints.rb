@@ -97,7 +97,7 @@ end
 
 CourseSemester.blueprint do
   course { Course.make }
-  semester { "#{ Time.now.year }#{ ((Time.now.month-1)/6) +1 }" }
+  semester { Time.now.year_semester }
 end
 
 CourseSchedule.blueprint do
