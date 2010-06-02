@@ -4,12 +4,8 @@ class Discipline < ActiveRecord::Base
   has_many :courses
 
   def courses_from_curriculum(curriculum)
-     if curriculum
-       courses.find(:all, :joins => :course_school,
-                 :conditions => ["course_schools.school_id  = ? AND course_schools.period_id = ?",
-                   curriculum.school_id, curriculum.period_id])
-     else
-       []
-     end
+    courses.all :joins => :course_school,
+      :conditions => ["course_schools.school_id  = ? AND course_schools.period_id = ?",
+        curriculum.school_id, curriculum.period_id]
   end
 end
