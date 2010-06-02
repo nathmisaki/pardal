@@ -5,8 +5,6 @@ class Implementation < ActiveRecord::Base
   include EnumerateIt
   has_enumeration_for :discipline_type_id, :with => DisciplineType
 
-  def discipline_type
-    discipline_type_id_humanize
-  end
+  alias :discipline_type :discipline_type_id_humanize
 end
 
