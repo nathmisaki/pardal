@@ -46,12 +46,13 @@ class Student < ActiveRecord::Base
   def mothers_name_initials
     prepos_reg = /^e|d(o|a|e)s?$/i
     names = mothers_name.upcase
-    [
+    possible_initials = [
       (names.split(/[\s']+/).map { |n| n[0,1] }.join ),
       (names.split(/[\s']+/).map { |n| n[0,1] unless n =~ prepos_reg }.compact.join),
       (names.split(/[\s]+/).map { |n| n[0,1] }.join),
       (names.split(/[\s]+/).map { |n| n[0,1] unless n=~ prepos_reg }.compact.join)
-    ].sort
+    ]
+    possible_initials.sort!
   end
 
   def reg
@@ -59,9 +60,10 @@ class Student < ActiveRecord::Base
   end
 
   def discipline_concluded?(discipline_id)
-    discipline_grades(discipline_id).map { |grade|
+    grades = discipline_grades(discipline_id).map { |grade|
       ['A', 'B', 'D', 'E'].include?(grade)
-    }.include?(true)
+    }
+    grades.include?(true)
   end
 
   def discipline_grades(discipline_id)

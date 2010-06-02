@@ -123,6 +123,28 @@ describe Student do
     it "#discipline_concluded? should return true if enrollment grade include [A,B,D,E] and false otherwise" do
       @student.discipline_concluded?(@discipline_id).should be_false
     end
+  end
+
+  context "#semesters_into_fatec" do
+
+    def student_in_semester(semester)
+      reg = semester.to_s[2,3]+"999"
+      reg = Student.registration_with_initial_letter("#{reg}#{Student.registration_verification_digit(reg)}")
+      stu = Student.new(:registration => reg)
+    end
+
+    it "should be 1 for someone who entered now" do
+      student_in_semester(Time.now.year_semester).semesters_into_fatec.should == 1
+    end
+
+    it "should be 3 for someone who entered a year ago" do
+      student_in_semester(1.year.ago.year_semester).semesters_into_fatec.should == 3
+    end
+
+    it "should be 4 for someone who entered a year and half ago" do
+      entered_in = 1.year.ago - 6.months
+      student_in_semester(entered_in.year_semester).semesters_into_fatec.should == 4
+    end
 
   end
 
