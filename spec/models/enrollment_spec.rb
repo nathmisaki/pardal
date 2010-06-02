@@ -2,7 +2,21 @@ require 'spec_helper'
 
 describe Enrollment do
 
-  
+  context "#course_semester_in Named Scope" do
+    before(:all) do
+      @course_sems = [CourseSemester.make, CourseSemester.make]
+      @enrolls_course_sem1 = (1..5).to_a.map { Enrollment.make :course_semester => @course_sems[0] }
+      @enrolls_course_sem2 = (1..2).to_a.map { Enrollment.make :course_semester => @course_sems[1] }
+    end
+
+    it { Enrollment.course_semesters_in(@course_sems[0]).should == @enrolls_course_sem1 }
+
+    it { Enrollment.course_semesters_in(@course_sems[1]).should == @enrolls_course_sem2 }
+
+    it { Enrollment.course_semesters_in(@course_sems).should == @enrolls_course_sem1.concat(@enrolls_course_sem2) }
+
+  end
+
 
   context "calling proposal_for_student" do
     it 'should return an empty array for a student without disciplines' do
