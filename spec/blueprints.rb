@@ -110,3 +110,6 @@ end
 Profile.blueprint do
   description Sham.text
 end
+
+Help.blueprint do
+end
