@@ -9,12 +9,18 @@ describe Enrollment do
       @enrolls_course_sem2 = (1..2).to_a.map { Enrollment.make :course_semester => @course_sems[1] }
     end
 
-    it { Enrollment.course_semesters_in(@course_sems[0]).should == @enrolls_course_sem1 }
+    it 'should accept a CourseSemester as param' do
+      Enrollment.course_semesters_in(@course_sems[0]).should == @enrolls_course_sem1
+    end
 
-    it { Enrollment.course_semesters_in(@course_sems[1]).should == @enrolls_course_sem2 }
+    it 'should accept an Array of CourseSemesters' do
+      Enrollment.course_semesters_in(@course_sems).should == Enrollment.all(:conditions => { :course_semester_id => @course_sems })
+    end
 
-    it { Enrollment.course_semesters_in(@course_sems).should == @enrolls_course_sem1.concat(@enrolls_course_sem2) }
-
+    it 'should accept an Array of Integers(IDs)' do
+      array = @course_sems.map(&:id)
+      Enrollment.course_semesters_in(array).should == Enrollment.all(:conditions => { :course_semester_id => array })
+    end
   end
 
 
