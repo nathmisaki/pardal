@@ -13,7 +13,7 @@ class Enrollment < ActiveRecord::Base
   ### N A M E D   S C O P E S
   ########################################################################
 
-  named_scope :in_course_semesters, lambda { |*course_semesters|
+  named_scope :course_semesters_in, lambda { |*course_semesters|
     course_semesters.flatten!
     course_semesters.map!(&:id) if course_semesters.first.is_a?(CourseSemester)
     { :conditions => { :course_semester_id => course_semesters } }
@@ -95,7 +95,7 @@ class Enrollment < ActiveRecord::Base
   def course
     course_semester.course
   end
-  
+
   def status
     if errors.empty?
       if situation.nil?
@@ -115,7 +115,8 @@ class Enrollment < ActiveRecord::Base
       "invalid"
     end
   end
-    ########################################################################
+
+  ########################################################################
   ### P R I V A T E   M E T H O D S
   ########################################################################
 

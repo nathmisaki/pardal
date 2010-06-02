@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe Enrollment do
+
+  
+
   context "calling proposal_for_student" do
     it 'should return an empty array for a student without disciplines' do
       @student = Student.make_unsaved

@@ -42,7 +42,7 @@ class Proposal
 
       enrollments = courses.map do |course|
         course_semesters[course.id].to_a.map do |course_semester|
-          enrolls = student.enrollments.in_course_semesters(course_semester)
+          enrolls = student.enrollments.course_semesters_in(course_semester)
           if enrolls.blank?
             Enrollment.new(:course_semester => course_semester, :student => student)
           else
