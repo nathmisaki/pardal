@@ -3,9 +3,7 @@ require "spec_helper"
 describe LayoutHelper do
   context "calling #title" do
     before(:each) { helper.title('TESTE do #title', true) }
-
     it { assigns[:content_for_title].should == 'TESTE do #title' }
-
     it { helper.show_title?.should == true }
   end
 

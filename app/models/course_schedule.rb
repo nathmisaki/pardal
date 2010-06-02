@@ -1,5 +1,5 @@
 class CourseSchedule < ActiveRecord::Base
-  WEEKDAY = { 
+  WEEKDAY = {
     1 => "Domingo",
     2 => "Segunda",
     3 => "Terça",
@@ -16,8 +16,10 @@ class CourseSchedule < ActiveRecord::Base
 
   def conflict_hours?(course_schedule)
     (weekday == course_schedule.weekday) and (
-      (course_schedule.start_hour >= self.start_hour and course_schedule.start_hour < self.end_hour) or # inicia durante a aula || S >= SO > E || SO <= S && SO > E
-      (course_schedule.end_hour > self.start_hour and course_schedule.end_hour <= self.end_hour) #termina durante a aula || S <= EO < E || EO >= S && EO < E
+      #inicia durante a aula || S >= SO > E || SO <= S && SO > E
+      (course_schedule.start_hour >= self.start_hour and course_schedule.start_hour < self.end_hour) or
+      #termina durante a aula || S <= EO < E || EO >= S && EO < E
+      (course_schedule.end_hour > self.start_hour and course_schedule.end_hour <= self.end_hour)
     )
   end
 end
