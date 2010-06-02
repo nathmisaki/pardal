@@ -35,10 +35,11 @@ end
 
 require 'spec/rake/verify_rcov'
 RCov::VerifyTask.new(:verify_rcov) { |t| 
-  t.threshold = 60.0
+  t.threshold = 100.0
   if ENV["CC_BUILD_ARTIFACTS"]
     t.index_html = File.join(ENV["CC_BUILD_ARTIFACTS"], "rcov", "index.html")
   end
+  t.require_exact_threshold = false
 }
 
 def p80(string)
