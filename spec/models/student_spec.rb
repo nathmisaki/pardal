@@ -126,7 +126,6 @@ describe Student do
   end
 
   context "#semesters_into_fatec" do
-
     def student_in_semester(semester)
       reg = semester.to_s[2,3]+"999"
       reg = Student.registration_with_initial_letter("#{reg}#{Student.registration_verification_digit(reg)}")
@@ -145,7 +144,14 @@ describe Student do
       entered_in = 1.year.ago - 6.months
       student_in_semester(entered_in.year_semester).semesters_into_fatec.should == 4
     end
+  end
 
+  it "#n_minus_3 should filter disciplines with school_semester out of n_minus_3" do
+    stud = Student.make
+    6.times { |t| stud.curriculum.implementations.make :school_semester => t }
+    discs = stud.curriculum.disciplines
+
+    stud.n_minus_3(discs).should_not include stud.curriculum.disciplines.all(:conditions => ['implementations.school_semester in (?)', [4,5,6] ])
   end
 
 end
