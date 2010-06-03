@@ -146,12 +146,39 @@ describe Student do
     end
   end
 
-  it "#n_minus_3 should filter disciplines with school_semester out of n_minus_3" do
-    stud = Student.make
-    6.times { |t| stud.curriculum.implementations.make :school_semester => t }
-    discs = stud.curriculum.disciplines
+  context "#n_minus_3 should filter disciplines with school_semester out of n_minus_3" do
+    before(:all) do
+      @stud = Student.make
+      1.upto(6) { |t| @stud.curriculum.implementations.make :school_semester => t }
+      @disc_inclusions = @stud.curriculum.disciplines.all(:conditions => ['implementations.school_semester in (?)', [1,2,3]])
+    end
 
-    stud.n_minus_3(discs).should_not include stud.curriculum.disciplines.all(:conditions => ['implementations.school_semester in (?)', [4,5,6] ])
+    subject { @stud.n_minus_3(@stud.curriculum.disciplines) }
+
+    it "should not include disciplines with school_semester > 3" do
+      disc_exclusions = @stud.curriculum.disciplines.all(:conditions => ['implementations.school_semester in (?)', [4,5,6]])
+      disc_exclusions.each do |disc|
+        should_not include(disc)
+      end
+    end
+
+    it "should be exactly 3 disciplines from 1, 2 e 3 school_semester" do
+      should == @disc_inclusions
+    end
+  end
+
+  it "#disciplines_with_pre_requirements_concluded should filter disciplines with pre_requirements not concluded" do
+    @student = Student.make
+    @imp3 = @student.curriculum.implementations.make(:school_semester => 3)
+    @imp2 = @student.curriculum.implementations.make(:school_semester => 2)
+    @imp1 = @student.curriculum.implementations.make(:school_semester => 1)
+    @imps_clear = (1..3).to_a.map { @student.curriculum.implementations.make(:school_semester => [1,2].shuffle.first) }
+
+    @imp3.pre_requirements.make(:pre_requirement => @imp2)
+    @imp3.pre_requirements.make(:pre_requirement => @imp1)
+    @imp2.pre_requirements.make(:pre_requirement => @imp1)
+
+    @student.disciplines_with_pre_requirements_concluded(@student.curriculum.disciplines).should_not include [@imp3, @imp2]
   end
 
 end

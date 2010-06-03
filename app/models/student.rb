@@ -75,23 +75,24 @@ class Student < ActiveRecord::Base
   end
 
   def disciplines_with_pre_requirements_concluded(disciplines)
-    disciplines.map do |discipline|
+    disciplines.delete_if do |discipline|
       pre_req_ary = curriculum.implementations.find_by_discipline_id(discipline.id).pre_requirements.map do |pre|
-        discipline_concluded?(pre)
+        discipline_concluded?(pre.pre_requirement.discipline.id)
       end
-      pre_reqs_ok = pre_req_ary.inject(true){|bool,pre| bool &&= pre}
-      unless pre_reqs_ok
-        disciplines.delete discipline
-      end
+      pre_req_ary.include?(false)
     end
     disciplines
   end
 
   def n_minus_3(disciplines)
-    disciplines = disciplines.reject{|dis| curriculum.implementations.find_by_discipline_id(dis.id).discipline_type_id == 3 }
-    min_semester = disciplines.map{|dis| curriculum.implementations.find_by_discipline_id(dis.id).school_semester }.min
-    disciplines = disciplines.select{|dis| (min_semester..(min_semester+2)).include? curriculum.implementations.find_by_discipline_id(dis.id).school_semester }
-    disciplines
+    min_semester = disciplines.map do |dis|
+      sem = curriculum.implementations.find_by_discipline_id(dis.id).school_semester
+    end
+    #puts min_semester.inspect
+    #puts min_semester.min.inspect
+    min_semester = min_semester.min
+
+    disciplines.delete_if { |dis| curriculum.implementations.find_by_discipline_id(dis.id).school_semester > (min_semester+2) }
   end
 
   def semesters_into_fatec

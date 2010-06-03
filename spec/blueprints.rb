@@ -111,5 +111,10 @@ Profile.blueprint do
   description Sham.text
 end
 
+PreRequirement.blueprint do
+  implementation { Implmentation.make }
+  pre_requirement { Implementation.make }
+end
+
 Help.blueprint do
 end
