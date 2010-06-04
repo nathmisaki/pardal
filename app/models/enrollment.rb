@@ -87,8 +87,8 @@ class Enrollment < ActiveRecord::Base
   end
 
   def confirm!
-    confirmed_at = Time.now
-    save
+    self.confirmed_at = Time.now
+    self.save
   end
 
   def discipline
@@ -107,7 +107,7 @@ class Enrollment < ActiveRecord::Base
         if situation.active
           "valid"
         else
-          if situation.desc =~ /Aguardando/i
+          if situation.description =~ /Aguardando/i
             "waiting"
           else
             "invalid"

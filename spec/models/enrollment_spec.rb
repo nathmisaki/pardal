@@ -70,6 +70,64 @@ describe Enrollment do
       @enroll.semester.should == @enroll.course_semester.semester
     end
 
+    it "#confirmed? should return !confirmed_at.nil?" do
+      @enroll.confirmed?.should == !@enroll.confirmed_at.nil?
+    end
+
+    it "#discipline should return course_semester.course.discipline" do
+      @enroll.discipline.should == @enroll.course_semester.course.discipline
+    end
+
+    it "#course should return course_semester.course" do
+     @enroll.course.should == @enroll.course_semester.course
+    end
+
+    it "confirm! should set confirmed_at to Time.now" do
+      now = Time.zone.now
+      Time.should_receive(:now).at_least(:once).and_return(now)
+      @enroll.confirm!
+      @enroll.reload
+      @enroll.confirmed_at.to_i == now.to_i
+    end
+
+  end
+
+  context "#status" do
+    before( :all ) do
+      @enroll = Enrollment.make
+    end
+
+    it "should be invalid when errors is not empty" do
+      @enroll.errors.should_receive(:empty?).and_return(false)
+      @enroll.status.should == "invalid"
+    end
+
+    context "when errors is empty" do
+      before(:all) do
+        @enroll.errors.should_receive(:empty?).and_return(true)
+      end
+      it "should be incomplete whem situation is nil" do
+        @enroll.should_receive(:situation).and_return(nil)
+        @enroll.status.should == 'incomplete'
+      end
+
+      context "when situation not nil" do
+        it "should be valid when situation.active" do
+          @enroll.situation = EnrollmentSituation.make(:active => true)
+          @enroll.status.should == 'valid'
+        end
+
+        it "should be waiting when situation.active => false and description =~ /Aguardando/i" do
+          @enroll.situation = EnrollmentSituation.make(:active => false, :description => 'Aguardando Confirmação')
+          @enroll.status.should == 'waiting'
+        end
+
+        it "should be invalid when situation.active => false and description !~ /Aguardando/i" do
+          @enroll.situation = EnrollmentSituation.make(:active => false, :description => 'Disciplina já concluída')
+          @enroll.status.should == 'invalid'
+        end
+      end
+    end
   end
 
   context "calling proposal_for_student" do
