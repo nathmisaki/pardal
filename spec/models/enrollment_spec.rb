@@ -36,6 +36,42 @@ describe Enrollment do
     Enrollment.student_eql(student.id).should == enrolls_stud1
   end
 
+  def create_enrollment_for_sort(student, hash)
+    disc = Discipline.make(:code => hash[:discipline_code])
+    disc.implementations.make(:school_semester => hash[:school_semester], :curriculum_id => student.curriculum.id)
+    enrol = Enrollment.make(:student => student, :course_semester => CourseSemester.make(:semester => hash[:semester], :course => Course.make(:discipline => disc)))
+    enrol
+  end
+
+  it "should sort by <=> -- | :semester => DESC | :school_semester => ASC | :discipline_code => ASC |" do
+    student = Student.make
+    @enrol1 = create_enrollment_for_sort(student, :semester => 20101, :school_semester => 1, :discipline_code => 12)
+    @enrol2 = create_enrollment_for_sort(student, :semester => 20101, :school_semester => 1, :discipline_code => 13)
+    @enrol3 = create_enrollment_for_sort(student, :semester => 20092, :school_semester => 1, :discipline_code => 10)
+    @enrol4 = create_enrollment_for_sort(student, :semester => 20092, :school_semester => 2, :discipline_code => 3 )
+    @enrol5 = create_enrollment_for_sort(student, :semester => 20092, :school_semester => 3, :discipline_code => 2 )
+    [@enrol5,@enrol1,@enrol2,@enrol4,@enrol3].sort.should == [@enrol1, @enrol2, @enrol3, @enrol4, @enrol5]
+  end
+
+  context "proxy methods" do
+    before( :all ) do
+      @enroll = Enrollment.make
+    end
+
+    it "#discipline_name should return course_semester.course.discipline.name" do
+      @enroll.discipline_name.should == @enroll.course_semester.course.discipline.name
+    end
+
+    it "#discipline_code should return course_semester.curse.discipline.code" do
+      @enroll.discipline_code.should == @enroll.course_semester.course.discipline.code
+    end
+
+    it "#semester should return course_semester.semester" do
+      @enroll.semester.should == @enroll.course_semester.semester
+    end
+
+  end
+
   context "calling proposal_for_student" do
     it 'should return an empty array for a student without disciplines' do
       @student = Student.make_unsaved

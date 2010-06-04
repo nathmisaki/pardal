@@ -1,4 +1,5 @@
 class Enrollment < ActiveRecord::Base
+  include Comparable
   belongs_to :student
   belongs_to :course_semester
   belongs_to :situation, :class_name => "EnrollmentSituation"
@@ -12,6 +13,8 @@ class Enrollment < ActiveRecord::Base
   ########################################################################
   ### N A M E D   S C O P E S
   ########################################################################
+
+  named_scope :for_history, :from => 'enrollments_for_history'
 
   named_scope :course_semesters_in, lambda { |*course_semesters|
     course_semesters.flatten!
@@ -55,8 +58,8 @@ class Enrollment < ActiveRecord::Base
   def school_semester
     school_sem = read_attribute(:school_semester)
     unless school_sem
-      implementation = course_semester.course.discipline.implementations.all :conditions => { :curriculum_id => student.curriculum.id }
-      school_sem = implementation.first.school_semester unless implementation.empty?
+      implementation = course_semester.course.discipline.implementations.first :conditions => { :curriculum_id => student.curriculum.id }
+      school_sem = implementation.school_semester unless implementation.blank?
     end
     school_sem.to_i
   end
