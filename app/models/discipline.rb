@@ -1,6 +1,7 @@
 class Discipline < ActiveRecord::Base
   belongs_to :department
   has_many :implementations
+  has_many :curriculums, :through => :implementations
   has_many :courses
 
   def courses_from_curriculum(curriculum)

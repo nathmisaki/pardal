@@ -10,9 +10,6 @@ Sham.email                  { Faker::Internet.email }
 Sham.rg                     { rand(999999999).to_s.ljust(9, rand(9).to_s) }
 Sham.date(:unique => false) { Date.new((1980..2010).to_a.shuffle.first, rand(11)+1, rand(27)+1) }
 Sham.registration { |index|
-    number = "#{(1980..2010).to_a.shuffle.first.to_s[2,2]}#{[1,2].shuffle.first}".rjust(3, '0') + index.to_s.rjust(4, '0')
-    number << Student.registration_verification_digit(number).to_s
-    Student.registration_with_initial_letter(number)
   }
 
 User.blueprint do
@@ -22,7 +19,11 @@ User.blueprint do
 end
 
 Student.blueprint do
-  registration Sham.registration
+  registration {
+    number = "#{(1980..2010).to_a.shuffle.first.to_s[2,2]}#{[1,2].shuffle.first}".rjust(3, '0') + rand(999).to_s.rjust(4, '0')
+    number << Student.registration_verification_digit(number).to_s
+    Student.registration_with_initial_letter(number)
+  }
   name
   identity Sham.rg
   identity_emission_date Sham.date

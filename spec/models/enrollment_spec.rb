@@ -147,5 +147,17 @@ describe Enrollment do
     #end
   end
 
+  context "with custom validations" do
+    it "should not let save when course_semester_id is not in proposal_for_student" do
+      stud = Student.make
+      course_sem = course_semester_for_curriculum(stud.curriculum, :semester => Time.now.year_semester)
 
+      Enrollment.should_receive(:proposal_for_student).with(stud).and_return([])
+      enroll2 = Enrollment.new(:validate_proposal => true, :student => stud, :course_semester => course_sem)
+
+      enroll2.valid?
+
+      enroll2.errors.should_not be_empty
+    end
+  end
 end
