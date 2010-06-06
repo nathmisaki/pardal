@@ -28,8 +28,19 @@ def course_semester_for_curriculum(curriculum, options=nil)
     disc_attr[:id] = options[:discipline_code]
   end
 
+  if options[:course_schedules]
+    course_schedules_attrs = options[:course_schedules]
+  end
+
   disc = curriculum.disciplines.make(disc_attr)
   course = disc.courses.make(:course_school => CourseSchool.make(course_school_attr))
 
-  course.course_semesters.make(coursem_attr)
+  course_sem = course.course_semesters.make(coursem_attr)
+
+  if course_schedules_attrs
+    course_schedules_attrs.each do |course_sched|
+      course_sem.course_schedules.make(course_sched)
+    end
+  end
+  course_sem
 end

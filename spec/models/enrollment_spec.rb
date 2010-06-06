@@ -148,16 +148,34 @@ describe Enrollment do
   end
 
   context "with custom validations" do
-    it "should not let save when course_semester_id is not in proposal_for_student" do
+    it "should have errors when course_semester_id is not in proposal_for_student" do
       stud = Student.make
       course_sem = course_semester_for_curriculum(stud.curriculum, :semester => Time.now.year_semester)
+      course_sem2 = course_semester_for_curriculum(stud.curriculum, :semester => Time.now.year_semester)
+      
+      # Forcing proposal to return just course_sem (as if student already have concluded the course_sem2 disc)
+      Enrollment.should_receive(:proposal_for_student).with(stud).and_return([Enrollment.new(:student => stud, :course_semester => course_sem)])
+      enroll = Enrollment.new(:validate_proposal => true, :student => stud, :course_semester_id => course_sem2.id)
 
-      Enrollment.should_receive(:proposal_for_student).with(stud).and_return([])
-      enroll2 = Enrollment.new(:validate_proposal => true, :student => stud, :course_semester => course_sem)
+      enroll.valid?
 
-      enroll2.valid?
+      enroll.errors.should_not be_empty
+    end
 
-      enroll2.errors.should_not be_empty
+    it "should have errors on hour conflict" do
+      stud = Student.make
+      course_sem = course_semester_for_curriculum(stud.curriculum, :semester => Time.now.year_semester, :course_schedules => [{:weekday => 2, :start_hour => '19:00', :end_hour => '22:40'}])
+      course_sem2 = course_semester_for_curriculum(stud.curriculum, :semester => Time.now.year_semester, :course_schedules => [{:weekday => 2, :start_hour => '19:00', :end_hour => '22:40'}])
+
+      proposal = [Enrollment.new(:student => stud, :course_semester => course_sem), Enrollment.new(:student => stud, :course_semester => course_sem2)]
+      Enrollment.should_receive(:proposal_for_student).at_least(:once).with(stud).and_return(proposal)
+      Enrollment.new(:validate_proposal => true, :student => stud, :course_semester_id => course_sem.id).save.should be_true
+
+      enroll = Enrollment.new(:validate_proposal => true, :student => stud, :course_semester_id => course_sem2.id)
+
+      enroll.valid?
+
+      enroll.errors.should_not be_empty
     end
   end
 end
