@@ -118,4 +118,5 @@ PreRequirement.blueprint do
 end
 
 Help.blueprint do
+  text Faker::Lorem.paragraphs.join("\n")
 end
