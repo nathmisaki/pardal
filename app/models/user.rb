@@ -13,35 +13,15 @@ class User < ActiveRecord::Base
   after_save :new_link_student
 
   def self.find_for_authentication(condition)
-    condition[:email].strip!
-    is_email = %r{
-      ^               # Start of string
-      [[:alnum:]]     # First character
-      [[:alnum:].+_]+ # Middle characters
-      [[:alnum:]]     # Last character
-      @               # Separating @ character
-      [[:alnum:]]     # Domain name begin
-      [[:alnum:].-]+  # Domain name middle
-      [[:alnum:]]     # Domain name end
-      $               # End of string
-    }xi
-
-    is_student_registration = %r/
-      ^
-      [AFH]? # First optional letter
-      [\d-]{7,10}
-      $
-    /xi
-    case condition[:email]
-    when is_email
-      self.find_by_email(condition[:email])
-    when is_student_registration
-      student = Student.find_by_registration(
-        Student.registration_with_initial_letter(condition[:email]))
-      student.user
-    else
-      self.find_by_email(condition[:email])
+    params = condition[:email].strip
+    is_a_student_registration = /^[AFH]?[\d-]{7,10}$/xi
+    if params =~ is_a_student_registration
+      reg = Student.registration_with_initial_letter(params)
+      student = Student.find_by_registration(reg)
+      user = student.user
     end
+    user ||= self.find_by_email(params)
+    user
   end
 
 

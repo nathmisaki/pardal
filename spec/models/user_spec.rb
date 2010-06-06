@@ -2,6 +2,21 @@ require 'spec_helper'
 
 describe User do
 
+  context "#find_for_authentication" do
+    before(:all) do
+      @user = User.make(:email => "teste_subject@test.com")
+      @user.attach_student!(Student.make(:registration => 'F0626805'))
+    end
+
+    it "should_receive email" do
+      User.find_for_authentication(:email => 'teste_subject@test.com').should == @user
+    end
+
+    it "should receive student registration" do
+      User.find_for_authentication(:email => 'F0626805').should == @user
+    end
+  end
+
   context "with attach_student!" do
     before(:each) do
       @user = User.make

@@ -1,3 +1,13 @@
+# Enrollment significa Matrícula em inglês.
+# Este modelo é a representação da matrícula do aluno nos cursos da faculdade.
+#
+# == Atributos
+#
+# - :student[_id] (integer)         => Associação ao modelo Student
+# - :course_semester[_id] (integer) => Associação ao modelo CourseSemester
+# - :grade ([A,B,C,D,E,F,G,T])      => Conceito do aluno ao concluir o Enrollment
+# - :situation[_id] (integer)       => Associação ao modelo EnrollmentSituation
+# - :confirmed_at (datetime)        => Data e hora da confirmação da matrícula
 class Enrollment < ActiveRecord::Base
   include Comparable
   belongs_to :student
@@ -53,6 +63,10 @@ class Enrollment < ActiveRecord::Base
     (self.school_semester <=> other.school_semester).nonzero? ||
     (self.discipline_code <=> other.discipline_code).nonzero? ||
     0
+  end
+
+  def ==(other)
+    self.attributes == other.attributes
   end
 
   def school_semester
@@ -125,7 +139,7 @@ class Enrollment < ActiveRecord::Base
 
   private
 
-  def validate
+  def validate #:doc:
     if validate_proposal
       # Enrollment isn't in proposal, so don't come from form, it's a form-hijack.
       course_semester_ids = Enrollment.proposal_for_student(student).map do |e|
@@ -148,7 +162,7 @@ class Enrollment < ActiveRecord::Base
 
   end
 
-  def set_defaults_columns
+  def set_defaults_columns #:doc:
     self.situation_id = 99
   end
 end

@@ -1,23 +1,13 @@
 class Proposal
   attr_accessor :student
 
-  def initialize(student)
+ def initialize(student=nil)
     @student = student
   end
 
   def self.factory(student_model)
     idx = [student_model.curriculum.school_id, student_model.curriculum.period_id, student_model.curriculum.structure_code]
-    begin
-      eval("Proposals::School#{student_model.curriculum.school_id}").new(student_model)
-    rescue NameError
-      Proposal.new(student_model)
-    end
-  end
-
-  def calculateEnrollments
-    raise "calculateEnrollments should not be called in Proposal, "\
-    +"propably you should include the proposals/school"
-    +"#{student.curriculum.school_id}.rb"
+    eval("Proposals::School#{student_model.curriculum.school_id}").new(student_model)
   end
 
   ########################################################################
@@ -32,6 +22,7 @@ class Proposal
       disciplines.map { |d| courses[d.id] }.flatten.compact
     end
 
+    # TODO: Filter disciplines that has pre_requisites and that these aren't concluded
     def disciplines_with_prerrequisites_concluded(disciplines)
       disciplines
     end
