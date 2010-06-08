@@ -19,9 +19,9 @@ Spork.prefork do
     config.use_transactional_fixtures = true
     config.use_instantiated_fixtures  = false
     config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
-    #config.before(:all)     { Sham.reset(:before_all)   }
+    config.before(:all)     { Sham.reset(:before_all)   }
     #config.before(:each)    { Sham.reset(:before_each)  }
-    config.before(:suite)   do
+    config.before(:all)   do
       if defined?(ActiveRecord::Base)
         begin
           require 'database_cleaner'
