@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: course_schedules
+#
+#  id                 :integer(4)      not null, primary key
+#  course_semester_id :integer(4)
+#  weekday            :integer(4)
+#  start_hour         :time
+#  end_hour           :time
+#  created_at         :datetime
+#  updated_at         :datetime
+#
+
 class CourseSchedule < ActiveRecord::Base
   WEEKDAY = {
     1 => "Domingo",

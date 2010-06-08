@@ -1,3 +1,52 @@
+# == Schema Information
+#
+# Table name: students
+#
+#  id                          :integer(4)      not null, primary key
+#  registration                :string(10)
+#  name                        :string(100)
+#  identity                    :string(20)
+#  identity_state              :string(2)
+#  identity_emission_organ     :string(255)
+#  identity_emission_date      :date
+#  elector_title               :string(15)
+#  electoral_zone              :string(5)
+#  birth_date                  :date
+#  gender                      :string(1)
+#  birth_city                  :string(50)
+#  birth_state                 :string(2)
+#  birth_country               :string(3)
+#  fathers_name                :string(100)
+#  mothers_name                :string(100)
+#  address_path                :string(20)
+#  address_streetname          :string(70)
+#  address_number              :string(15)
+#  address_complement          :string(255)
+#  address_neighbourhood       :string(30)
+#  address_municipality        :string(50)
+#  address_state               :string(2)
+#  address_postal_code         :string(8)
+#  phone                       :string(15)
+#  high_school_name            :string(50)
+#  high_school_municipality    :string(50)
+#  high_school_state           :string(2)
+#  high_school_conclusion_year :string(4)
+#  ingress_form                :string(1)
+#  high_school_type            :string(1)
+#  education                   :string(1)
+#  university                  :string(1)
+#  ingress_exam_date           :date
+#  ingress_exam_classification :integer(4)
+#  ingress_exam_points         :float
+#  course_implementation_id    :integer(4)
+#  created_at                  :datetime
+#  updated_at                  :datetime
+#  curriculum_id               :integer(4)
+#  active                      :boolean(1)
+#  military_identification     :string(30)
+#  user_id                     :integer(4)
+#
+
 class Student < ActiveRecord::Base
   acts_as_authorization_object
   has_many :attachment, :as => :attachable

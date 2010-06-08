@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: course_semesters
+#
+#  id         :integer(4)      not null, primary key
+#  course_id  :integer(4)
+#  semester   :integer(4)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class CourseSemester < ActiveRecord::Base
   belongs_to :course
   has_many :course_schedules

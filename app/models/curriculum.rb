@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: curriculums
+#
+#  id                      :integer(4)      not null, primary key
+#  school_id               :integer(4)
+#  period_id               :integer(4)
+#  curriculum_type         :integer(4)
+#  implementation_semester :integer(4)
+#  created_at              :datetime
+#  updated_at              :datetime
+#  credit_hours            :integer(4)
+#  avg_school_time         :integer(4)
+#  max_school_time         :integer(4)
+#  structure_code          :integer(4)
+#
+
 class Curriculum < ActiveRecord::Base
   belongs_to :school
   belongs_to :period

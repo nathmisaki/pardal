@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: disciplines
+#
+#  id            :integer(4)      not null, primary key
+#  code          :integer(4)
+#  name          :string(120)
+#  department_id :integer(4)
+#  acronym       :string(30)
+#  credit_hours  :integer(1)
+#  created_at    :datetime
+#  updated_at    :datetime
+#
+
 class Discipline < ActiveRecord::Base
   belongs_to :department
   has_many :implementations

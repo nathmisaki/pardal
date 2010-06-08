@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: attachments
+#
+#  id              :integer(4)      not null, primary key
+#  attachable_type :string(30)
+#  attachable_id   :integer(4)
+#  file_name       :string(100)
+#  content_type    :string(50)
+#  file_size       :integer(4)
+#  data            :binary
+#  created_at      :datetime
+#  updated_at      :datetime
+#
+
 class Attachment < ActiveRecord::Base
   belongs_to :attachable, :polymorphic => true
 

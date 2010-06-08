@@ -1,13 +1,19 @@
 # Enrollment significa Matrícula em inglês.
 # Este modelo é a representação da matrícula do aluno nos cursos da faculdade.
 #
-# == Atributos
+# == Schema Information
 #
-# - :student[_id] (integer)         => Associação ao modelo Student
-# - :course_semester[_id] (integer) => Associação ao modelo CourseSemester
-# - :grade ([A,B,C,D,E,F,G,T])      => Conceito do aluno ao concluir o Enrollment
-# - :situation[_id] (integer)       => Associação ao modelo EnrollmentSituation
-# - :confirmed_at (datetime)        => Data e hora da confirmação da matrícula
+# Table name: enrollments
+#
+#  id                 :integer(4)      not null, primary key
+#  student_id         :integer(4)
+#  course_semester_id :integer(4)
+#  situation_id       :integer(4)
+#  grade              :string(1)
+#  created_at         :datetime
+#  updated_at         :datetime
+#  confirmed_at       :datetime
+#
 class Enrollment < ActiveRecord::Base
   include Comparable
   belongs_to :student
