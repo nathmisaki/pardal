@@ -7,6 +7,10 @@ RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
+  config.gem 'compass', :version => '>= 0.10.0'
+  config.gem 'haml', :version => '>=3.0.0'
+  config.gem 'compass', :version => '>= 0.10.0'
+  config.gem 'haml', :version => '>=3.0.0'
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.
@@ -25,7 +29,7 @@ Rails::Initializer.run do |config|
   config.gem "inherited_resources", :version => '1.0.3'
   config.gem "acl9", :lib => "acl9"
   config.gem "haml"
-  config.gem "compass"
+  config.gem "compass", :version => ">= 0.10.2"
   config.gem "enumerate_it"
 
   # Only load the plugins named here, in the order given (default is alphabetical).
