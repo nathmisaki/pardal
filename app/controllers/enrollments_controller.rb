@@ -11,6 +11,7 @@ class EnrollmentsController < InheritedResources::Base
   def index
     @enrollments = Enrollment.student_eql(@student.id).all :from => 'enrollments_for_history'
     @enrollments.sort!
+    render :index, :layout => false if request.xhr?
   end
 
   def create

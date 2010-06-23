@@ -7,7 +7,8 @@
   \-
   = student.curriculum.period.name
 - content_tag_for :ul, student do
-  %li= link_to "Historico Escolar", student_enrollments_path(student)
+  %li= link_to "Historico Escolar", student_enrollments_path(student), :class => 'ajax_link', :rel => "history_for_ajax"
   %li= link_to "Rematrícula", new_student_enrollment_path(student)
+#history_for_ajax
 
 
