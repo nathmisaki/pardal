@@ -96,10 +96,9 @@ Dado /^que o aluno "([^\"]*)" tenha concluído as disciplinas "([^\"]*)"$/ do |r
   end
 end
 
-Então /^eu deveria ter um arquivo "([^\"]*)" no modelo Attachment e ele deveria pertencer ao usuário logado$/ do |file_name|
-  attach = Attachment.find_all_by_file_name(file_name).last
-  attach.should_not be_blank
-  attach.attachable.should == User.last
+Dado /^que eu tenha o currículo disciplina "([^"]*)" com a turma "([^"]*)", no semestre atual, no horário:$/ do |arg1, arg2, table|
+  # table is a Cucumber::Ast::Table
+  pending # express the regexp above with the code you wish you had
 end
 
 Dado /^que eu tenha anexado o arquivo "([^\"]*)"$/ do |file_name|
@@ -108,3 +107,10 @@ Dado /^que eu tenha anexado o arquivo "([^\"]*)"$/ do |file_name|
   E %{enviar o arquivo "#{file_name}" em "attachment_uploaded_file"}
   E %{apertar em "Enviar Anexo"}
 end
+
+Então /^eu deveria ter um arquivo "([^\"]*)" no modelo Attachment e ele deveria pertencer ao usuário logado$/ do |file_name|
+  attach = Attachment.find_all_by_file_name(file_name).last
+  attach.should_not be_blank
+  attach.attachable.should == User.last
+end
+
