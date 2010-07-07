@@ -12,5 +12,14 @@ Funcionalidade: Usuário deve poder se increver no site
     Quando eu preencher "Usuário" com "0626805"
     E preencher "Senha" com "123bananinha"
     Então eu devo ver um formulário de novo usuário
+    Quando eu preencher "Email" com "nelsonmhjr@gmail.com"
+    E pressionar "Registrar-se"
+    Então "nelsonmhjr@gmail.com" deve receber 1 email
+    Quando "nelsonmhjr@gmail.com" abre o email com o texto "Ative sua Conta"
+    E eu clico em "Ativar minha conta" no Email
+    Então eu devo estar no menu principal
+    E devo ver "Sua conta foi confirmada com sucesso. E já logamos com ela para você."
+    E eu devo estar logado com o usuário "nelsonmhjr@gmail.com"
+    E o usuário "nelsonmhjr@gmail.com" deve estar associado ao aluno "0626805"
 
 
