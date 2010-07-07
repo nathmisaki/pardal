@@ -32,5 +32,6 @@ config.gem 'database_cleaner', :lib => false, :version => '>=0.5.0' unless File.
 config.gem 'webrat',           :lib => false, :version => '>=0.7.0' unless File.directory?(File.join(Rails.root, 'vendor/plugins/webrat'))
 config.gem 'machinist', :lib => false unless File.directory?(File.join(Rails.root, 'vendor/plugins/machinist'))
 config.gem 'faker', :lib => false unless File.directory?(File.join(Rails.root, 'vendor/plugins/faker'))
+config.gem 'email_spec', :lib => 'email_spec'
 
 config.action_mailer.default_url_options = { :host => 'localhost:3000' }
