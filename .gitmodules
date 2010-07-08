@@ -1,0 +1,3 @@
+[submodule "public/san"]
+	path = public/san
+	url = ssh://201.55.32.230/git/san.git
